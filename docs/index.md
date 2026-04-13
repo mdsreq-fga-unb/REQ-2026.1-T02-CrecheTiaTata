@@ -6,7 +6,7 @@
 **Processo**: OpenUP
 
 ### 3.2 Quadro Comparativo
-O Quadro X, a seguir compara as características dois possíveis processos, o OpenUP e o eXtreme Programming(XP), com o intuito de esclarecer a escolha do processo para o nosso projeto.
+O Quadro a seguir compara as características dois possíveis processos, o OpenUP e o eXtreme Programming(XP), com o intuito de esclarecer a escolha do processo para o nosso projeto.
 
 | Características | OpenUP | eXtreme Programming(XP) |
 | :--- | :--- | :--- |
@@ -18,3 +18,7 @@ O Quadro X, a seguir compara as características dois possíveis processos, o Op
 | Práticas Técnicas | Flexível; aceita várias práticas. | Rígido com práticas como TDD, Pair Programming e Refatoração constante. |
 
 ### 3.3 Justificativa
+Com base nas características do projeto e dos processos comparados a cima, o **OpenUP** é o processo mais adequado pelos seguintes motivos:
+1. **Visão Arquitetural**: O OpenUP enfatixa a criação de uma base arquitetural mais sólida na fase de elaboração, isso reduz a chance do projeto ser reestruturado no futuro;
+2. **Transparência para Stakeholders**: Enquanto o XP é muito "dentro da sala de desenvolvimento", o OpenUP fornece artefatos (como a Lista de Itens de Trabalho e o Documento de Arquitetura) que são mais fáceis de apresentar para clientes ou professores que precisam acompanhar o progresso formal do trabalho;
+3. **Papéis Definidos**: Para um trabalho em grupo, ter papéis definidos (quem faz o quê) ajuda na organização e na atribuição de responsabilidades, evitando que todos tentem fazer tudo ao mesmo tempo, o que pode acontecer no XP se a equipe não for muito madura.
