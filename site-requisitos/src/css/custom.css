@@ -1,0 +1,148 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #2e6485;
+  --ifm-color-primary-dark: #295c78;
+  --ifm-color-primary-darker: #275671;
+  --ifm-color-primary-darkest: #203f5d;
+  --ifm-color-primary-light: #337192;
+  --ifm-color-primary-lighter: #357d99;
+  --ifm-color-primary-lightest: #3c8fad;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25a0c2;
+  --ifm-color-primary-dark: #219caf;
+  --ifm-color-primary-darker: #1f86a5;
+  --ifm-color-primary-darkest: #1a7488;
+  --ifm-color-primary-light: #299ed5;
+  --ifm-color-primary-lighter: #32bcd8;
+  --ifm-color-primary-lightest: #4fbcdd;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Card base */
+.team-card {
+  text-align: center;
+  background: var(--ifm-card-background-color);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 4px 4px 7px 7px rgba(0,0,0,0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+  border: 2px solid transparent;
+}
+
+/* Avatar (circular) */
+.team-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid var(--ifm-color-primary);
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+/* Texto */
+.team-card h3 {
+  color: var(--ifm-heading-color);
+  margin-top: 15px;
+  font-size: 1.1rem;
+}
+
+/* Hover: efeito de destaque */
+.team-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+  border: 2px solid var(--ifm-color-primary);
+}
+
+/* Avatar também cresce no hover */
+.team-card:hover .team-avatar {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px var(--ifm-color-primary);
+}
+
+.footer {
+  background: transparent !important;
+  border-top: none;
+  margin-top: 2.8%;
+}
+
+[data-theme='light'] .footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.11); /* quase invisível */
+}
+
+[data-theme='dark'] .footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08); /* branco com opacidade */
+}
+
+
+[data-theme='light'] .footer {
+  color: black;
+}
+
+[data-theme='dark'] .footer {
+  color: white;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* === Base table styling === */
+.requirements-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.requirements-table th,
+.requirements-table td {
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  text-align: left;
+}
+
+/* === Header row === */
+.requirements-table thead {
+  background-color: #dcedc8;
+}
+
+/* === Functional rows (RF) === */
+.requirements-table tr.functional {
+  background-color: #e8f5e9; /* light green */
+}
+.requirements-table tr.functional.alt {
+  background-color: #f9fbe7; /* light yellow-green for repeated desc */
+}
+
+/* === Non-Functional rows (RFN) === */
+.requirements-table tr.nonfunctional {
+  background-color: #e3f2fd; /* light blue */
+}
+.requirements-table tr.nonfunctional.alt {
+  background-color: #e8eaf6; /* lavender blue for variation */
+}
+
+/* === Optional: better MVP emoji alignment === */
+.requirements-table td:last-child {
+  text-align: center;
+}
