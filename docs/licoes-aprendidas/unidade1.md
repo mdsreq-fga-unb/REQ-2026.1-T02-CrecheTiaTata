@@ -32,3 +32,7 @@ Limitação no acesso contínuo ao cliente para validação de requisitos e toma
 
 *Como foi superado:*  
 Priorização das informações já coletadas e tomada de decisões com base no entendimento do contexto do projeto. As validações passaram a ser feitas de forma incremental, aproveitando os momentos de contato disponíveis para confirmar hipóteses e ajustar a solução.
+
+|Data|Versão|Descrição|Autor(es)|Revisor(es)|
+| :--- | :--- | :--- | :--- | :--- |
+| 13/04/2026 | 1.0 | Criação da página | Enzo Lopes Ferreira |  |
