@@ -69,8 +69,6 @@ Por fim, a proposta permite a construção de um MVP funcional, contemplando as 
 
 Dessa forma, conclui-se que o projeto é viável, com baixo risco de execução, desde que seja mantido o foco nas funcionalidades essenciais e adotada uma abordagem incremental ao longo do desenvolvimento.
 
-## 2.6 Impactos Esperados
-
 ## 2.7 Impactos Esperados
 
 ### Para o Cliente:
