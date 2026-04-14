@@ -62,7 +62,7 @@ Os stakeholders do projeto foram identificados com base em seu nível de interes
 
 <a id="figura-3"></a>
 *Figura 3: Mapa de Stakeholders.*
-![Mapa de Stakeholders.](/img/Mapa-Stakeholders.jpeg)
+![Mapa de Stakeholders.](/img/Mapa-StakeHolders.jpeg)
 *Fonte: De autoria própria.*
 
 * **Coordenadora (Alta influência / Alto interesse):** Principal tomadora de decisão e responsável pela validação.
