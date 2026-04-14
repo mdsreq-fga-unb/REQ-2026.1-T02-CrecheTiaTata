@@ -125,7 +125,7 @@ http://localhost:3000
         <strong>Bruno Henryque</strong>
       </a>
       <br />
-      <sub>@Bgranheiro</sub>
+      <sub>@Bgrangeiro</sub>
     </td>
   </tr>
   <tr>
