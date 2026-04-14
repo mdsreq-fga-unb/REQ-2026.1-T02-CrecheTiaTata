@@ -60,6 +60,11 @@ Os principais desafios identificados são:
 ## 1.6 Mapa de Stakeholders
 Os stakeholders do projeto foram identificados com base em seu nível de interesse e influência no desenvolvimento e uso da solução.
 
+<a id="figura-2"></a>
+*Figura 3: Mapa de Stakeholders.*
+![Mapa de Stakeholders.](/img/Mapa-Stakeholders.jpeg)
+*Fonte: De autoria própria.*
+
 * **Coordenadora (Alta influência / Alto interesse):** Principal tomadora de decisão e responsável pela validação.
 * **Voluntários (Média influência / Alto interesse):** Usuários responsáveis pela execução das ações sociais.
 * **Doadores (Baixa influência / Alto interesse):** Interessados na transparência, credibilidade e impacto.
