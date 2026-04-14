@@ -9,7 +9,7 @@ sidebar_position: 1
 
 <div className="video-container">
   <iframe 
-    src="https://youtu.be/D47e8Xs3kAs" 
+    src="https://www.youtube.com/embed/D47e8Xs3kAs" 
     frameBorder="0" 
     scrolling="no" 
     allowFullScreen
