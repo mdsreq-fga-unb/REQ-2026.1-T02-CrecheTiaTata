@@ -32,6 +32,7 @@ A solução proposta deverá contemplar as seguintes características:
 | OE4 | C12 | - | Exibição de vídeos | Divulgação de ações e impacto | Engajamento do público |
 | OE4 | C13 | - | Localização | Exibição de endereço ou mapa | Facilita acesso e contato |
 | OE4 | C14 | OE1 | Canal de contato/doação | Permite contato e direcionamento para doações | Captação de recursos |
+| OE5 | C15 | OE2 | Canal de solicitações | Permite que a creche publique necessidades e pedidos urgentes para doações e apoio voluntário | Facilita a contribuição e aumenta o engajamento da comunidade |
 
 ### 2.4 Tecnologias a Serem Utilizadas
 
