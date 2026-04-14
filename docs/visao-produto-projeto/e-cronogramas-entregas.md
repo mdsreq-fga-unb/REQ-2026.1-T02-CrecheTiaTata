@@ -38,3 +38,6 @@ sidebar_position: 5
 - Validação: Validação do produto com o cliente
 
 ---
+|Data|Versão|Descrição|Autor(es)|Revisor(es)|
+| :--- | :--- | :--- | :--- | :--- |
+| 13/04/2026 | 1.0 | Criação da página | Matheus Pinheiro |  |
