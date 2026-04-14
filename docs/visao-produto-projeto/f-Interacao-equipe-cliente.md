@@ -30,5 +30,9 @@ sidebar_position: 6
 - <b>WhatsApp</b>: Comunicação informal ao longo da sprint
 
 ### 6.3 Processo de Validação
+- Antes do início de desenvolvimento em uma sprint será utilizado o <b><i>Definition of Ready (DoR)</i></b> durante a <i>Sprint Planning</i> para garantir que todos os integrantes da equipe saibam o que devem fazer e como, verificando os requisitos e seus critérios de aceitação
+- No desenvolvimento das tarefas será usado o <b><i>Definition of Done (DoD)</i></b> para que elas só sejam definidas como concluídas se estiverem documentadas, com testes unitários, sem erros, revisados pela equipe e validados pelo cliente.  
 
-
+|Data|Versão|Descrição|Autor(es)|Revisor(es)|
+| :--- | :--- | :--- | :--- | :--- |
+| 13/04/2026 | 1.0 | Criação da página | Matheus Pinheiro |  |
