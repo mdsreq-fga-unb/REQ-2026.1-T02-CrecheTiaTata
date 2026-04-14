@@ -70,6 +70,18 @@ Por fim, a proposta permite a construção de um MVP funcional, contemplando as 
 Dessa forma, conclui-se que o projeto é viável, com baixo risco de execução, desde que seja mantido o foco nas funcionalidades essenciais e adotada uma abordagem incremental ao longo do desenvolvimento.
 
 ## 2.6 Impactos Esperados
-* **Para a creche:** [Descrever]
-* **Para os voluntários/doadores:** [Descrever]
 
+## 2.7 Impactos Esperados
+
+### Para o Cliente:
+* Reduz a dependência do "boca a boca" ao criar uma presença digital permanente e pesquisável no Google
+* Resolve o problema do acúmulo de itens desnecessários e o desperdício de espaço, direcionando a comunidade para o que realmente falta no inventário atual da instituição.
+* Garante que o histórico de famílias e doadores seja preservado digitalmente, impedindo que informações vitais se percam com a rotatividade de voluntários ou falhas em registros físicos.
+* Filtra e automatiza o fluxo de dúvidas repetitivas sobre logística e funcionamento, devolvendo à coordenação o tempo necessário para focar exclusivamente no desenvolvimento das crianças.
+* Aumenta a credibilidade perante novos doadores e parceiros institucionais que buscam transparência antes de contribuir.
+
+### Para os voluntários/doadores:
+* Remove a barreira da indecisão ao fornecer uma lista em tempo real do que é prioridade, garantindo que o doador sinta que seu investimento financeiro ou material terá utilidade imediata.
+* Cria um ciclo de transparência onde o colaborador percebe a organização profissional do projeto, o que aumenta a confiança para transformar uma doação única em um apoio recorrente.
+* Facilita a alocação de talentos específicos em vez de apenas esforço braçal, permitindo que o voluntário encontre tarefas que se alinhem com suas habilidades e disponibilidade real.
+* Integra a causa social ao cotidiano do usuário através do acesso rápido via dispositivo móvel, possibilitando que a intenção de ajudar se transforme em ação prática de forma rápida e intuitiva.
