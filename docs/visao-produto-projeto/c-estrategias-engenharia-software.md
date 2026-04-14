@@ -2,7 +2,7 @@
 sidebar_label: "Estratégias de Engenharia de Software"
 sidebar_position: 3
 ---
-# ESTRATÉGIAS DE ENGENHARIA DE SOFTWARE
+# Estratégias de Engenharia de Software
 
 ## 3.1 Estratégia Priorizada
 * **Abordagem**: Ágil
