@@ -29,7 +29,7 @@ Foi elaborado um Rich Picture com o objetivo de representar, de forma visual e i
 
 <a id="figura-1"></a>
 *Figura 1: Rich Picture.*
-![Rich Picture do projeto.](../../static/img/Rich-Pic.png)
+![Rich Picture do projeto.](/img/Rich-Pic.jpeg)
 *Fonte: De autoria própria.*
 
 
@@ -44,7 +44,7 @@ A partir da análise das causas, representadas por meio do diagrama de Ishikawa 
 
 <a id="figura-2"></a>
 *Figura 2: Diagrama de Ishikawa.*
-![Diagrama de Ishikawa do projeto.](../../static/img/Fishbone.png)
+![Diagrama de Ishikawa do projeto.](/img/Fishbone.png)
 *Fonte: De autoria própria.*
 
 Dessa forma, identifica-se a oportunidade de desenvolver uma solução digital que não apenas organize e centralize as informações, mas também aumente a visibilidade do projeto e facilite a participação de doadores e voluntários.
