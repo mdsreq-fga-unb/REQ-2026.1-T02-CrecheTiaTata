@@ -60,7 +60,7 @@ Os principais desafios identificados são:
 ## 1.6 Mapa de Stakeholders
 Os stakeholders do projeto foram identificados com base em seu nível de interesse e influência no desenvolvimento e uso da solução.
 
-<a id="figura-2"></a>
+<a id="figura-3"></a>
 *Figura 3: Mapa de Stakeholders.*
 ![Mapa de Stakeholders.](/img/Mapa-Stakeholders.jpeg)
 *Fonte: De autoria própria.*
