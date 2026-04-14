@@ -4,9 +4,6 @@ sidebar_position: 4
 ---
 
 # Engenharia de Requisitos
-# Engenharia de Requisitos
-
-A nossa Engenharia de Requisitos foca em uma documentação de formalidade mínima, porém estruturada o suficiente para garantir a visão arquitetural e a mitigação de riscos técnicos precocemente.
 
 ## 1. Elicitação de Requisitos
 Nesta etapa, focamos na descoberta das necessidades dos stakeholders (Tia Tata e doadores), conforme preconizado pela fase de **Iniciação** do OpenUP.
