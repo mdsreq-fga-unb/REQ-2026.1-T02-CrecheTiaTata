@@ -2,43 +2,58 @@
 sidebar_label: "Cronograma e Entregas"
 sidebar_position: 5
 ---
-# 5 CRONOGRAMA E ENTREGA
+# 5 CRONOGRAMA E ENTREGAS
 
-### Sprint 0
+## Fase de Concepção
+Objetivo: Definir Escopo e Viabilidade do projeto
+### Iteração 1
+- Data: 31/03/2026 - 09/04/2026
+- Objetivo: Definição do escopo do projeto, possíveis *StakeHolders* para o produto e sua viabilidade
+
+## Fase de Elaboração
+Objetivo: Detalhamento dos requisitos e arquitetura
+### Iteração 2
 - Data: 10/04/2026 - 17/04/2026
-- Objetivo: Criação do Protótipo de Baixa Fidelidade
-- Validação: Validação do Protótipo de baixa fidelidade pelo cliente, com foco nos requisitos
-### Sprint 1
-- Data: 17/04/2026 - 24/04/2026
-- Objetivo: Criação do Protótipo de Alta Fidelidade
+- Objetivo: Criação do protótipo de baixa fidelidade
+- Validação: Validação do protótipo de baixa fidelidade pelo cliente, com foco nos requisitos
+### Iteração 3
+- Data: 18/04/2026 - 24/04/2026
+- Objetivo: Criação do protótipo de alta fidelidade e definição inicial da arquitetura
 - Validação: Validação do protótipo de alta fidelidade pelo cliente, com foco no design  
-### Sprint 2
-- Data: 24/04/2026 - 08/05/2026
-- Objetivo: Criação da <i>Landing Page</i> e Página sobre. A <i>landing page</i> deve apresentar vídeos mostrando o trabalho da Creche, localização, contatos e opções de redirecionamento para as páginas: Sobre, Cadastro de doações, etc
+
+## Fase de Construção
+Objetivo: Desenvolvimento das funcionalidades do Sistema
+### Iteração 4
+- Data: 25/04/2026 - 08/05/2026
+- Objetivo: Criação da *Landing Page* e Página Sobre, apresentando vídeos do trabalho da Creche, localização, contatos e opções de redirecionamento para outras páginas
 - Validação: Demonstração das páginas para o cliente e coleta de feedback
-### Sprint 3
-- Data: 08/05/2026 - 22/05/2026
+### Iteração 5
+- Data: 09/05/2026 - 22/05/2026
 - Objetivo: Cadastro de voluntários e Controle de disponibilidade
 - Validação: Validação das funcionalidades de cadastro e gerenciamento de disponibilidade de voluntários, verificando o armazenamento dos dados
-### Sprint 4
-- Data: 22/05/2026 - 05/06/2026
-- Objetivo: Escala de voluntários, Criação de eventos, associação de coluntarios no evento e registro de recursos utilizados no evento
+### Iteração 6
+- Data: 23/05/2026 - 05/06/2026
+- Objetivo: Escala de voluntários, Criação de eventos, associação de voluntários no evento e registro de recursos utilizados no evento
 - Validação: Demonstração das funcionalidades de criação de eventos e alocação de voluntários, validando o funcionamento da escala, associação correta entre voluntários e eventos e registro de recursos utilizados, com feedback do cliente
-### Sprint 5
-- Data: 05/06/2026 - 12/06/2026
+### Iteração 7
+- Data: 06/06/2026 - 12/06/2026
 - Objetivo: Cadastro de doações e registro de doadores
 - Validação: Validação da página de doações, verificando o cadastro de doadores, registro adequado das doações e consistência das informações armazenadas
-### Sprint 6
-- Data: 12/06/2026 - 19/06/2026
-- Objetivo: Cadastro de beneficiario, Canal de solicitações e histórico de entregas
+### Iteração 8
+- Data: 13/06/2026 - 19/06/2026
+- Objetivo: Cadastro de beneficiário, Canal de solicitações e histórico de entregas
 - Validação: Demonstração das funcionalidades de cadastro de beneficiários, validando o registro de solicitações de doações e acompanhamento do histórico de entregas, com base nos critérios de aceitação definidos.
-### Sprint 7
-- Data: 19/06/2026 - 03/07/2026
+
+## Fase de Transição
+Objetivo: Entrega do sistema ao cliente
+### Iteração 9
+- Data: 20/06/2026 - 03/07/2026
 - Objetivo: Entrega do MVP e deploy do site
 - Validação: Validação final do sistema por meio de testes de aceitação com o cliente, verificando o atendimento aos requisitos e aprovação para uso
 
 ---
-Obs: Todas as sprints utilizarão o <b><i>Definition of Done (DoD)</i></b>, <b>Sprint Review</b> e <b>Reunião Retrospectiva</b> para serem validadas, esses métodos e processos serão detalhados na próxima página [Interacao Equipe Cliente](f-Interacao-equipe-cliente.md)
+## Versões
 |Data|Versão|Descrição|Autor(es)|Revisor(es)|
 | :--- | :--- | :--- | :--- | :--- |
 | 13/04/2026 | 1.0 | Criação da página | Matheus Pinheiro |  |
+| 23/04/2026 | 1.1 | Alinhamento do cronograma com o processo escolhido | Matheus Pinheiro |  |

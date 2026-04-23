@@ -44,5 +44,10 @@
   },
   "overrides": {
     "webpack": "5.105.0"
+  },
+  "pnpm": {
+  "overrides": {
+    "webpack": "5.88.2"
   }
+}
 }
