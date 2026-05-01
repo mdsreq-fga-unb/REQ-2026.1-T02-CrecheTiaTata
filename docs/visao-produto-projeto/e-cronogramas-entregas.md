@@ -41,8 +41,8 @@ Objetivo: Desenvolvimento das funcionalidades do Sistema
 - Validação: Validação da página de doações, verificando o cadastro de doadores, registro adequado das doações e consistência das informações armazenadas
 ### Iteração 7
 - Data: 13/06/2026 - 19/06/2026
-- Objetivo: Cadastro de beneficiário, Canal de solicitações e histórico de entregas
-- Validação: Demonstração das funcionalidades de cadastro de beneficiários, validando o registro de solicitações de doações e acompanhamento do histórico de entregas, com base nos critérios de aceitação definidos.
+- Objetivo: Canal de solicitações e histórico de entregas
+- Validação: Demonstração das funcionalidades de acompanhamento do histórico de entregas assim como do canal de solicitações de doações, com base nos critérios de aceitação definidos.
 
 ## Fase de Transição
 Objetivo: Entrega do sistema ao cliente
