@@ -23,17 +23,6 @@ Somos estudantes da **Universidade de Brasília (UnB) | Faculdade de Ciências e
     </div>
   </a>
 
-  <a href="https://github.com/Discicle" style={{ textDecoration: "none", color: "inherit" }}>
-    <div className="team-card">
-      <img 
-        src="https://github.com/Discicle.png"
-        alt="João Victor Sousa"
-        className="team-avatar"
-      />
-      <h3>João Victor Sousa</h3>
-    </div>
-  </a>
-
   <a href="https://github.com/matheus-06" style={{ textDecoration: "none", color: "inherit" }}>
     <div className="team-card">
       <img 
