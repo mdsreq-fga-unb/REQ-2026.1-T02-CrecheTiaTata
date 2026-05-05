@@ -9,7 +9,8 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-          package-manager: 'pnpm'
+      - run: corepack enable
+      - run: corepack prepare pnpm@latest --activate
       - run: pnpm install
       - run: pnpm test
   deploy:
@@ -22,7 +23,8 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-          package-manager: 'pnpm'
+      - run: corepack enable
+      - run: corepack prepare pnpm@latest --activate
       - run: pnpm install
       - run: pnpm build
       - uses: peaceiris/actions-gh-pages@v3
