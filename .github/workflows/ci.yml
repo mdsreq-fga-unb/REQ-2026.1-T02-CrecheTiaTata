@@ -8,10 +8,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
-          cache: 'pnpm'
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
+      - run: npm install -g pnpm@latest
+      - run: pnpm --version
       - run: pnpm install
       - run: pnpm test
   deploy:
@@ -20,19 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
-          cache: 'pnpm'
-
+      - run: npm install -g pnpm@latest
+      - run: pnpm --version
       - run: pnpm install
       - run: pnpm build
-
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
