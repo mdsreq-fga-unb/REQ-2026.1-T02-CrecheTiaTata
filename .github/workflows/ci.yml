@@ -11,6 +11,7 @@ jobs:
           cache: 'pnpm'
       - run: corepack enable
       - run: corepack prepare pnpm@latest --activate
+      - run: npm install -g pnpm@latest
       - run: pnpm install
       - run: pnpm test
   deploy:
@@ -25,6 +26,7 @@ jobs:
           cache: 'pnpm'
       - run: corepack enable
       - run: corepack prepare pnpm@latest --activate
+      - run: npm install -g pnpm@latest
       - run: pnpm install
       - run: pnpm build
       - uses: peaceiris/actions-gh-pages@v3
