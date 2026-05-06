@@ -29,7 +29,7 @@ Foi elaborado um Rich Picture com o objetivo de representar, de forma visual e i
 
 <a id="figura-1"></a>
 *Figura 1: Rich Picture.*
-![Rich Picture do projeto.](/img/Rich-Pic.jpeg)
+![Rich Picture do projeto.](/img/Rich-Pic.png)
 *Fonte: De autoria própria.*
 
 
