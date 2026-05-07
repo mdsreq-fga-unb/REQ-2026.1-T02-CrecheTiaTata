@@ -12,10 +12,7 @@ Objetivo: Definir Escopo e Viabilidade do projeto
 
 ## Fase de Elaboração
 Objetivo: Detalhamento dos requisitos e arquitetura
-<!-- ### Iteração 2
-- Data: 10/04/2026 - 17/04/2026
-- Objetivo: Criação do protótipo de baixa fidelidade
-- Validação: Validação do protótipo de baixa fidelidade pelo cliente, com foco nos requisitos -->
+
 ### Iteração 2
 - Data: 10/04/2026 - 27/04/2026
 - Objetivo: Criação do protótipo de alta fidelidade e definição inicial da arquitetura
