@@ -31,8 +31,8 @@ sidebar_position: 6
 
 ### 6.3 Processo de Validação
 - Antes do início de desenvolvimento em uma iteração será utilizado o <b><i>Definition of Ready (DoR)</i></b> durante a **Reunião de planejamento** para garantir que todos os integrantes da equipe saibam o que devem fazer e como, verificando os requisitos e seus critérios de aceitação
-- No desenvolvimento das tarefas será usado o <b><i>Definition of Done (DoD)</i></b> para que elas só sejam definidas como concluídas se estiverem documentadas, com testes, sem erros, revisados pela equipe e prontas para apresentar ao cliente.  
-- Os testes escolhidos para o projeto incluem testes de aceitação, usabilidade, unitários e de caixa preta. Os testes de aceitação e usabilidade serão realizados tanto pelos desenvolvedores quanto pelo cliente durante as reuniões de validação. Já os testes unitários e de caixa preta serão executados de forma automatizada por meio da pipeline de CI (Continuous Integration).
+- No desenvolvimento das tarefas será usado o <b><i>Definition of Done (DoD)</i></b> para que elas só sejam definidas como concluídas se estiverem documentadas, com testes, sem erros, revisados pela equipe e prontas para apresentar ao cliente
+- Os testes escolhidos para o projeto incluem testes de aceitação, usabilidade, unitários e de caixa preta. Os testes de aceitação e usabilidade serão realizados tanto pelos desenvolvedores quanto pelo cliente durante as reuniões de validação. Já os testes unitários e de caixa preta serão executados de forma automatizada por meio da pipeline de ***Continuous Integration*** (CI)
 
 
   
