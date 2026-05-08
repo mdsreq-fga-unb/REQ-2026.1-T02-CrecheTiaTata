@@ -2,8 +2,6 @@ name: CI/CD + Deploy
 
 on:
   push:
-    branches:
-      - main
   pull_request:
 
 jobs:
@@ -31,7 +29,7 @@ jobs:
       - name: Rodando testes
         run: pnpm test
 
-  deployDocs:
+  deploy:
     needs: test
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
