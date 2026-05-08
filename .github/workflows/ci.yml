@@ -1,23 +1,64 @@
-name: CI/CD
+name: CI/CD + Deploy
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Baixando os arquivos
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
+      - name: Instalando pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: latest
 
-      - uses: actions/setup-node@v4
+      - name: Instalando Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
 
-      - run: pnpm install
+      - name: Instalando dependências
+        run: pnpm install
 
-      - run: pnpm test
+      - name: Rodando testes
+        run: pnpm test
+
+  deployDocs:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixando os arquivos
+        uses: actions/checkout@v4
+
+      - name: Instalando pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Instalando Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Instalando dependências
+        run: pnpm install
+
+      - name: Compilando o site (Build)
+        run: pnpm build
+
+      - name: Jogando na vitrine (Deploy)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build

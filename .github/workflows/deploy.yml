@@ -1,38 +1,38 @@
-name: Deploy Automático do Site
+# name: Deploy Automático do Site
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Baixando os arquivos
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Baixando os arquivos
+#         uses: actions/checkout@v4
 
-      - name: Instalando o Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
+#       - name: Instalando o Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 22
+#           cache: pnpm
 
-      - name: Instalando pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: latest
-          run_install: false
+#       - name: Instalando pnpm
+#         uses: pnpm/action-setup@v4
+#         with:
+#           version: latest
+#           run_install: false
 
-      - name: Instalando dependências
-        run: pnpm install
+#       - name: Instalando dependências
+#         run: pnpm install
 
-      - name: Compilando o site (Build)
-        run: pnpm build
+#       - name: Compilando o site (Build)
+#         run: pnpm build
 
-      - name: Jogando na vitrine (Deploy)
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+#       - name: Jogando na vitrine (Deploy)
+#         uses: peaceiris/actions-gh-pages@v4
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           publish_dir: ./build
