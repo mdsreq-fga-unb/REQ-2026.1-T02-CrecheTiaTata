@@ -22,7 +22,7 @@ jobs:
           version: latest
 
       - name: Instalar dependências
-        run: pnpm install --unsafe-perm
-
+        run: pnpm install --frozen-lockfile --unsafe-perm
+      
       - name: Rodar testes
         run: pnpm test
