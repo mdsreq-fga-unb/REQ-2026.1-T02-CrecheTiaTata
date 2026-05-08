@@ -18,6 +18,8 @@ jobs:
           node-version: 22
           cache: pnpm
 
+      - run: pnpm config set ignore-build-scripts false
+
       - run: pnpm install
 
       - run: pnpm test
