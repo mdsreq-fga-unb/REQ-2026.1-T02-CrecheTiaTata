@@ -1,0 +1,6 @@
+packages:
+  - '.'
+  - 'frontend'
+
+config:
+  ignore-build-scripts: false
