@@ -4,12 +4,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
           version: latest
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: pnpm install --config.ignore-build-scripts=false
+      - run: pnpm install --no-frozen-lockfile
       - run: pnpm test
