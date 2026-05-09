@@ -21,11 +21,11 @@ jobs:
         with:
           version: latest
 
-      - name: Liberar scripts de build
-        run: pnpm config set ignore-scripts false
+      - name: Permitir scripts pnpm
+        run: pnpm config set enable-pre-post-scripts true
 
       - name: Instalar dependências
-        run: pnpm install --frozen-lockfile --unsafe-perm 
-      
+        run: pnpm install --frozen-lockfile --unsafe-perm
+
       - name: Rodar testes
         run: pnpm test
