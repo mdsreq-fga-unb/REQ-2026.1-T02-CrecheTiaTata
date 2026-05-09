@@ -21,11 +21,11 @@ jobs:
         with:
           version: latest
 
-      - name: Permitir scripts pnpm
+      - name: Forçar modo compatível CI
         run: pnpm config set enable-pre-post-scripts true
 
       - name: Instalar dependências
-        run: pnpm install --frozen-lockfile --unsafe-perm
+        run: pnpm install --no-frozen-lockfile --unsafe-perm
 
       - name: Rodar testes
         run: pnpm test
