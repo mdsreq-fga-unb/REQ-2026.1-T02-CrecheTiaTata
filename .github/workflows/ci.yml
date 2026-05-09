@@ -3,8 +3,6 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      PNPM_IGNORE_BUILD_SCRIPTS: 'false'
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v4
@@ -13,5 +11,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: pnpm install
+      - run: pnpm install --ignore-build-scripts=false
       - run: pnpm test
