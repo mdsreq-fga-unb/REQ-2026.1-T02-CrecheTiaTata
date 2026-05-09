@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import Button from '../components/Button/Button';
 import '../styles/teste.css';
 import { useNavigate } from "react-router-dom";
-
-const Home = () => {
+import Button from '../components/Button/Button';
+const Test = () => {
   const navigate = useNavigate();
 
   return (
@@ -22,4 +21,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Test;
