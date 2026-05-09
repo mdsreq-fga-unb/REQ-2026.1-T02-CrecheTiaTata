@@ -56,5 +56,8 @@
   },
   "overrides": {
     "webpack": "5.105.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["@swc/core", "core-js", "unrs-resolver"]
   }
 }
