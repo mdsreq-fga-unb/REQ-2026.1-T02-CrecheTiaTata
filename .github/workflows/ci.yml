@@ -11,5 +11,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: pnpm install --ignore-build-scripts=false
+      - run: pnpm install --ignore-scripts=false
       - run: pnpm test
