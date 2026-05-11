@@ -1,0 +1,242 @@
+/* --- Ajustes de Tipografia*/
+.sobre-container h2 {
+  font-size: 2.2rem; 
+  color: #2c3e50;
+  margin-top: 0;
+}
+
+.sobre-container p {
+  font-size: 1.15rem; 
+  line-height: 1.7; 
+  color: #555;
+}
+
+.fazemos-item h3 {
+  font-size: 1.4rem;
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.sobre-container {
+  flex: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  padding-top: 60px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sobre-titulo {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-size: 50px;
+}
+
+.sobre-card {
+  background: white;
+  border-radius: 15px;
+  padding: 35px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+
+/* --- Card da História --- */
+.historia-card {
+  position: relative;
+  background: white;
+  border-radius: 15px;
+  padding: 40px 40px 40px 60px; 
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+  border-left: none; 
+  font-size: 25px
+}
+
+.historia-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0%; 
+  bottom: 0%; 
+  width: 8px; 
+  background-color: #4CAF50;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.historia-item {
+  color: #555;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.historia-titulo {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+/* --- Seção MVV (Missão, Visão e Valores) --- */
+.mvv-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.mvv-card {
+  border-radius: 15px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.mvv-card h3 {
+  color: #2c3e50;
+  margin: 15px 0 10px 0;
+  font-size: 1.4rem;
+}
+
+.mvv-card p {
+  color: #555;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.missao {
+  background-color: #dcedc8; 
+}
+
+.visao {
+  background-color: #bbdefb; 
+}
+
+.valores {
+  background-color: #ffecb3; 
+}
+
+/* --- Seção O Que Fazemos --- */
+
+.fazemos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.fazemos-item {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.fazemos-titulo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.icon-grande {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+/* --- Seção de Vídeo --- */
+.sobre-video-section {
+  margin-top: 50px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.video-titulo {
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.video-placeholder {
+  background: linear-gradient(135deg, #eeeeee 0%, #f8f9fa 100%); /* Efeito de degradê suave do print */
+  border-radius: 20px;
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 1.2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.27); 
+}
+
+/*--------- RESPONSIVIDADE ------------*/
+
+@media (max-width: 768px) {
+ 
+  .sobre-container {
+    padding: 20px 15px; 
+  }
+
+  .sobre-card {
+    padding: 20px;
+  }
+
+  .sobre-titulo {
+    font-size: 1.8rem; 
+    flex-direction: column;
+    gap: 5px;
+  }
+  .sobre-titulo .icon-titulo {
+    font-size: 2.2rem;
+  }
+
+  .historia-card {
+    padding-left: 25px; 
+  }
+  .historia-card::before {
+    width: 4px; 
+  }
+
+  
+  .mvv-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .mvv-card {
+    padding: 20px;
+  }
+
+  .fazemos-grid {
+    gap: 20px;
+  }
+
+  .icon-grande {
+    font-size: 2.5rem; 
+  }
+  
+  .fazemos-item h3 {
+    margin-top: 5px;
+  }
+
+  .video-titulo {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+  
+ .video-placeholder {
+    height: 220px;
+    display: flex;
+  }
+}
