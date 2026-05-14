@@ -110,15 +110,6 @@ http://localhost:3000
       <sub>@lopes061</sub>
     </td>
     <td align="center" width="180">
-      <a href="https://github.com/Discicle">
-        <img src="https://github.com/Discicle.png?size=160" width="120" alt="Foto de Joao Victor" style="border-radius: 50%;" />
-        <br />
-        <strong>Joao Victor</strong>
-      </a>
-      <br />
-      <sub>@Discicle</sub>
-    </td>
-    <td align="center" width="180">
       <a href="https://github.com/Bgrangeiro">
         <img src="https://github.com/Bgrangeiro.png?size=160" width="120" alt="Foto de Bruno Henrique" style="border-radius: 50%;" />
         <br />
