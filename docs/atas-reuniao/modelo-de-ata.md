@@ -16,7 +16,6 @@ sidebar_position: 24
 
 **Integrantes do Grupo:**
 - Enzo Lopes  
-- João Victor  
 - Matheus Pinheiro
 - Lorena Ribeiro  
 - Bruno Henrique  
