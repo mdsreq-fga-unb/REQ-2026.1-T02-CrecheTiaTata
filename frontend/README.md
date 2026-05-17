@@ -1,48 +1,16 @@
-# Frontend da Creche Tia Tata
+# React + Vite
 
-## Como rodar o frontend
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-1. Navegue até a pasta do frontend:
+Currently, two official plugins are available:
 
-```bash
-cd frontend
-```
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-2. Instale as dependências:
+## React Compiler
 
-```bash
-pnpm install
-```
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-3. Inicie a aplicação em modo de desenvolvimento:
+## Expanding the ESLint configuration
 
-```bash
-pnpm start
-```
-
-4. Abra o navegador em:
-
-```text
-http://localhost:3000
-```
-
-## Scripts disponíveis
-
-- `pnpm start` — inicia o frontend em modo de desenvolvimento.
-- `pnpm build` — gera a versão de produção em `build/`.
-- `pnpm test` — executa os testes.
-
-## Estrutura de pastas
-
-- `public/`
-  - Arquivos estáticos públicos usados pelo app, como `index.html`.
-
-- `src/`
-  - `App.jsx` — componente raiz da aplicação.
-  - `index.jsx` — ponto de entrada que renderiza o `App`.
-  - `components/` — componentes.
-  - `hooks/` — hooks do React.
-  - `pages/` — páginas do site.
-  - `styles/` — estilos CSS .
-
-- `package.json` — dependências, scripts e configuração do frontend.
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

@@ -1,30 +1,43 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Test from './pages/teste-de-componentes';
-import NavBar from './components/NavBar/NavBar';
-import Footer from './components/Footer/Footer';
-import Home from './pages/Home';
-import Sobre from './pages/Sobre';
-import ComoAjudar from './pages/Como-ajudar';
-import Contato from './pages/Contato';
-import QueroAjudar from './pages/Quero-ajudar';
+import { useEffect, useState } from 'react';
+import Footer from './components/layout/Footer';
+import Header from './components/layout/Header';
+import CtaSection from './components/sections/CtaSection';
+import ComoAjudarPage from './pages/ComoAjudarPage';
+import ContatoPage from './pages/ContatoPage';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import PasswordRecoveryPage from './pages/PasswordRecoveryPage';
+import SobrePage from './pages/SobrePage';
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [path, setPath] = useState(window.location.pathname);
+
+  useEffect(() => {
+    const handleRouteChange = () => setPath(window.location.pathname);
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []);
+
+  const isSobrePage = path === '/sobre';
+  const isComoAjudarPage = path === '/como-ajudar';
+  const isContatoPage = path === '/contato';
+  const isLoginPage = path === '/login';
+  const isPasswordRecoveryPage = path === '/recuperar-senha';
+  const isHomePage = !isSobrePage && !isComoAjudarPage && !isContatoPage && !isLoginPage && !isPasswordRecoveryPage;
+
   return (
-    <Router>
-      <NavBar />
-      <div className="App" style={{ paddingTop: '4rem' }}>
-        <Routes>
-          <Route path="/Test" element={<Test />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/sobre" element={<Sobre />} />
-          <Route path="/como-ajudar" element={<ComoAjudar />} />
-          <Route path="/contato" element={<Contato />} />
-          <Route path="/quero-ajudar" element={<QueroAjudar />} />
-        </Routes>
-      </div>
-      <Footer />
-    </Router>
+    <main className="min-h-screen bg-stone-50 font-sans text-slate-900">
+      {!isLoginPage && !isPasswordRecoveryPage && <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />}
+      {isSobrePage && <SobrePage />}
+      {isComoAjudarPage && <ComoAjudarPage />}
+      {isContatoPage && <ContatoPage />}
+      {isLoginPage && <LoginPage />}
+      {isPasswordRecoveryPage && <PasswordRecoveryPage />}
+      {isHomePage && <HomePage />}
+      {isHomePage && <CtaSection />}
+      {!isSobrePage && !isLoginPage && !isPasswordRecoveryPage && <Footer />}
+    </main>
   );
 }
 
