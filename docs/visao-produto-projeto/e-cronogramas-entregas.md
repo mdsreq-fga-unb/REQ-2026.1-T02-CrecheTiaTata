@@ -26,25 +26,21 @@ Objetivo: Desenvolvimento das funcionalidades do Sistema
 - Validação: Demonstração das páginas para o cliente e coleta de feedback
 ### Iteração 4
 - Data: 12/05/2026 - 25/05/2026
-- Objetivo: Cadastro de voluntários e Controle de disponibilidade
-- Validação: Validação das funcionalidades de cadastro e gerenciamento de disponibilidade de voluntários, verificando o armazenamento dos dados
+- Objetivo: Cadastro de voluntários, Controle de disponibilidade e gerar escala de voluntários
+- Validação: Validação das funcionalidades de cadastro, gerenciamento de disponibilidade de voluntários e geração da escala de voluntários manualmente, verificando o armazenamento dos dados
 ### Iteração 5
 - Data: 26/05/2026 - 08/06/2026
-- Objetivo: Escala de voluntários, Criação de eventos, associação de voluntários no evento e registro de recursos utilizados no evento
-- Validação: Demonstração das funcionalidades de criação de eventos e alocação de voluntários, validando o funcionamento da escala, associação correta entre voluntários e eventos e registro de recursos utilizados, com feedback do cliente
-### Iteração 6
-- Data: 09/06/2026 - 15/06/2026
 - Objetivo: Cadastro de doações e registro de doadores
 - Validação: Validação da página de doações, verificando o cadastro de doadores, registro adequado das doações e consistência das informações armazenadas
-### Iteração 7
-- Data: 16/06/2026 - 22/06/2026
+### Iteração 6
+- Data: 09/06/2026 - 15/06/2026
 - Objetivo: Canal de solicitações e histórico de entregas
 - Validação: Demonstração das funcionalidades de acompanhamento do histórico de entregas assim como do canal de solicitações de doações, com base nos critérios de aceitação definidos.
 
 ## Fase de Transição
 Objetivo: Entrega do sistema ao cliente
-### Iteração 8
-- Data: 23/06/2026 - 03/07/2026
+### Iteração 7
+- Data: 16/06/2026 - 03/07/2026
 - Objetivo: Entrega do MVP e deploy do site
 - Validação: Validação final do sistema por meio de testes de aceitação com o cliente, verificando o atendimento aos requisitos e aprovação para uso
 
@@ -55,3 +51,4 @@ Objetivo: Entrega do sistema ao cliente
 | 13/04/2026 | 1.0 | Criação da página | Matheus Pinheiro |  |
 | 23/04/2026 | 1.1 | Alinhamento do cronograma com o processo escolhido | Matheus Pinheiro |  |
 | 01/05/2026 | 1.2 | Alteração na data final das iterações da fase de contrução para terminarem nas segundas feiras | Matheus Pinheiro |  |
+| 17/05/2026 | 2.0 | Ajustes na ordem das iterações e remoção de funcionalidades fora do MVP| Matheus Pinheiro |  |
