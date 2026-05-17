@@ -14,25 +14,15 @@ Desenvolver um sistema web que centralize a gestão da Creche da Tia Tata e atue
 * **OE4:** Ampliar a captação de doações e voluntários por meio de presença digital estruturada, aumentando a transparência.
 
 ### 2.3 Características de Produto
-A solução proposta deverá contemplar as seguintes características:
+A solução proposta deverá contemplar um conjunto reduzido de características de produto, descritas em nível mais alto. A partir delas, poderão ser derivados poucos requisitos funcionais e não funcionais, evitando que esta seção se torne uma lista detalhada de funcionalidades.
 
-| OE Principal | ID | Contribuição Secundária | Característica | Descrição Resumida | Valor de Negócio Principal |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| OE1 | C1 | OE3 | Cadastro de doações | Permite registrar doações (alimentos, roupas, dinheiro) | Controle e rastreabilidade das doações |
-| OE1 | C2 | - | Registro de doadores | Armazena informações dos doadores | Transparência e relacionamento com doadores |
-| OE1 | C3 | OE3 | Cadastro de beneficiários | Cadastro de famílias atendidas | Organização do público atendido |
-| OE1 | C4 | OE3 | Histórico de entregas | Registro de entregas realizadas | Evita duplicidade e melhora controle |
-| OE2 | C5 | OE3 | Cadastro de voluntários | Registro de voluntários com dados básicos | Organização da equipe |
-| OE2 | C6 | OE3 | Controle de disponibilidade | Permite informar dias e horários disponíveis | Melhor alocação de voluntários |
-| OE2 | C7 | OE3 | Escala de voluntários | Organização da participação em ações | Redução de conflitos e faltas |
-| OE3 | C8 | OE2 | Cadastro de eventos | Criação de ações sociais | Planejamento estruturado |
-| OE3 | C9 | OE2 | Associação de voluntários a eventos | Vincula voluntários às ações | Execução eficiente das atividades |
-| OE3 | C10 | OE1 | Registro de recursos utilizados | Controle de recursos por evento | Melhor gestão de recursos |
-| OE4 | C11 | - | Página Sobre | Apresentação institucional do projeto | Aumento da credibilidade |
-| OE4 | C12 | - | Exibição de vídeos | Divulgação de ações e impacto | Engajamento do público |
-| OE4 | C13 | - | Localização | Exibição de endereço ou mapa | Facilita acesso e contato |
-| OE4 | C14 | OE1 | Canal de contato/doação | Permite contato e direcionamento para doações | Captação de recursos |
-| OE5 | C15 | OE2 | Canal de solicitações | Permite que a creche publique necessidades e pedidos urgentes para doações e apoio voluntário | Facilita a contribuição e aumenta o engajamento da comunidade |
+| OE Principal | ID | Característica | Descrição Resumida | Possíveis RFs derivados | Possíveis RNFs derivados | Valor de Negócio Principal |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| OE1 | C1 | Gestão de doações | Apoia o registro, acompanhamento e consulta das doações recebidas pela creche. | Registrar doação; consultar histórico de doações. | Rastreabilidade das informações; integridade dos registros. | Melhor controle e transparência das doações. |
+| OE2 | C2 | Gestão de voluntariado | Apoia o cadastro de pessoas voluntárias e a organização de sua participação nas ações sociais. | Registrar voluntário; consultar disponibilidade; vincular voluntário a uma ação. | Usabilidade no cadastro; disponibilidade das informações para organização interna. | Melhor planejamento das atividades e redução de conflitos de agenda. |
+| OE3 | C3 | Centralização de informações institucionais | Reúne informações essenciais sobre a creche, sua atuação, contato, localização e necessidades atuais. | Visualizar informações da creche; visualizar necessidades prioritárias. | Acessibilidade; responsividade; clareza das informações. | Facilita o acesso da comunidade às informações do projeto. |
+| OE4 | C4 | Canal de engajamento da comunidade | Facilita que doadores e voluntários manifestem interesse em contribuir com a creche. | Solicitar contato para doação; solicitar participação como voluntário. | Segurança no acesso; facilidade de uso em dispositivos móveis. | Amplia a captação de doações e voluntários. |
+| OE4 | C5 | Transparência e divulgação de impacto | Apresenta ações realizadas, resultados alcançados e informações que aumentem a confiança da comunidade no projeto. | Visualizar ações e impactos divulgados pela creche. | Credibilidade das informações; atualização periódica do conteúdo. | Aumenta a confiança de doadores, voluntários e parceiros. |
 
 ### 2.4 Tecnologias a Serem Utilizadas
 
