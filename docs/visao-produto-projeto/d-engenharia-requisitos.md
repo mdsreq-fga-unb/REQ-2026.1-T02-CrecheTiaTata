@@ -3,31 +3,63 @@ sidebar_label: "Engenharia de Requisitos"
 sidebar_position: 4
 ---
 
-# Engenharia de Requisitos
+# 4. Engenharia de Requisitos
 
-## 1. Elicitação de Requisitos
-Nesta etapa, focamos na descoberta das necessidades dos stakeholders (Tia Tata e doadores), conforme preconizado pela fase de **Iniciação** do OpenUP.
-- **Técnicas:** Brainstorming com a equipe, Entrevistas semiestruturadas com a coordenadora da creche.
-- **Ferramentas:** Mensagens via whatsapp e gravação de reuniões via telefone.
+Nesta seção, estabelecemos as atividades fundamentais da Engenharia de Requisitos (ER), suas práticas e técnicas, em total alinhamento com o framework de processo escolhido para o projeto da Creche Tia Tata: o **OpenUP**. 
 
-## 2. Análise e Priorização
-O objetivo aqui é refinar o que foi elicitado e garantir que o desenvolvimento foque no que gera maior valor.
-- **Técnicas:** Priorização por Valor de Negócio (MoSCoW) e análise de impacto.
-- **Artefatos OpenUP:** Os requisitos analisados alimentarão diretamente a nossa **Lista de Itens de Trabalho (Work Items List)**.
+O objetivo é garantir que o levantamento, especificação e validação das necessidades da organização e de seus voluntários ocorram de forma iterativa e incremental, mitigando riscos desde as fases iniciais. O histórico e as evidências de execução de cada atividade estão registrados nas atas de reunião da equipe.
 
-## 3. Declaração e Representação
-Formalizamos os requisitos de maneira que a arquitetura possa ser validada na fase de **Elaboração**.
-- **Técnicas:** - **Requisitos Funcionais e Não-Funcionais** detalhados.
-    - **Casos de Uso:** Para descrever as interações complexas do sistema.
-    - **Histórias de Usuário:** Para manter o foco no valor entregue ao usuário final.
-- **Representação Visual:** Rich Pictures (Cenário Atual) e Protótipos em figma.
+## 4.1 Atividades e Técnicas de ER
 
-## 4. Verificação e Validação
-Garantir que os requisitos mapeados atendem aos objetivos do projeto.
-- **Técnicas:** Revisões Técnicas entre os membros da equipe (Analistas e Desenvolvedores) e validação constante com a Tia Tata para garantir que a solução proposta resolva as dores do negócio.
+### 4.1.1 Elicitação e Descoberta
+Fase voltada à exploração do domínio do problema e ao levantamento das necessidades reais dos stakeholders.
+* **Entrevistas com Stakeholders:** Reuniões direcionadas com a administração da Creche Tia Tata para entender o fluxo atual de doações e a gestão manual de voluntários, identificando as principais dores do processo.
+* **Brainstorming:** Reuniões colaborativas da equipe de desenvolvimento para propor funcionalidades iniciais capazes de digitalizar a operação da creche de forma simples e acessível.
+* **Questionários:** (Prática opcional caso tenham feito formulários online para potenciais voluntários/doadores).
 
-## 5. Organização e Gerenciamento
-- **Rastreabilidade:** Utilizaremos uma Matriz de Rastreabilidade para ligar cada requisito aos seus respectivos Casos de Uso e itens de trabalho no GitHub.
-- **Ferramentas:** Este portal Docusaurus servirá como o repositório central de todos os artefatos de requisitos, garantindo a transparência exigida pelo processo.
+### 4.1.2 Análise e Consenso
+Atividade focada em refinar, classificar e priorizar os requisitos brutos levantados na elicitação, resolvendo conflitos de escopo.
+* **Matriz de Priorização (Impacto x Dificuldade):** Técnica utilizada para classificar as funcionalidades de acordo com o valor gerado para a creche versus o esforço técnico de implementação, facilitando a visualização dos "Quick Wins" (ex: CRUD de Doadores).
+* **Análise MoSCoW:** Classificação dos requisitos em *Must Have, Should Have, Could Have* e *Won't Have*, fundamental para fechar o escopo exato do Produto Mínimo Viável (MVP).
 
+### 4.1.3 Declaração de Requisitos
+Tradução das necessidades analisadas para um formato documentado, padronizado e compreensível para a equipe de desenvolvimento.
+* **Casos de Uso:** Mapeamento formal das interações entre os Atores (Administrador, Doador, Voluntário) e as funcionalidades do sistema (ex: Fluxo de Autenticação, Registro de Evento).
+* **Histórias de Usuário (User Stories):** Descrição das funcionalidades sob a perspectiva de valor para o usuário, utilizadas para popular o backlog e guiar o desenvolvimento ágil.
+
+### 4.1.4 Verificação e Validação de Requisitos
+Garantia de que os requisitos especificados realmente atendem às expectativas do cliente antes e durante a construção.
+* **Prototipação de Alta Fidelidade:** Criação de telas interativas no Figma (ex: Página Sobre com Missão, Visão e Valores) para validação visual e de usabilidade junto ao cliente antes da implementação (User Design).
+* **Feedback do Cliente / Walkthrough:** Apresentação dos protótipos e dos incrementos de software gerados em cada iteração para colher aprovação e ajustes diretamente com a gestão da creche.
+* **Definition of Done (DoD) e Definition of Ready (DoR):** Critérios de aceitação estabelecidos para garantir que um requisito só comece a ser feito quando estiver claro (DoR) e só seja entregue quando estiver testado e validado (DoD).
+
+### 4.1.5 Organização e Atualização
+Controle contínuo das mudanças de escopo e garantia do alinhamento entre o código e a documentação.
+* **Matriz de Rastreabilidade:** Técnica utilizada para vincular os Requisitos Funcionais aos Objetivos de Negócio (e às Histórias de Usuário correspondentes), garantindo que nada seja desenvolvido sem um propósito justificado.
+* **Controle de Versão do Backlog:** Atualização contínua das prioridades e refinamento das *User Stories* ao longo das iterações do OpenUP, refletindo as mudanças de rota e as decisões arquiteturais.
+
+---
+
+## 4.2 Engenharia de Requisitos e o Processo OpenUP
+
+A tabela abaixo mapeia as atividades da Engenharia de Requisitos dentro das quatro fases do ciclo de vida do OpenUP (Concepção, Elaboração, Construção e Transição).
+
+| Fase do OpenUP | Atividades ER | Prática | Técnica | Resultado Esperado |
+| :--- | :--- | :--- | :--- | :--- |
+| **Concepção (Inception)** | Elicitação e Descoberta | Entendimento do negócio e da dor do cliente (Creche). | Entrevistas com Stakeholders e Brainstorming. | Declaração do Problema, Visão do Produto e levantamento inicial de necessidades. |
+| **Concepção (Inception)** | Análise e Consenso | Definição do que é viável para a primeira entrega. | Matriz de Priorização (Impacto x Dificuldade) e MoSCoW. | Escopo inicial do MVP definido e priorizado. |
+| **Elaboração (Elaboration)** | Declaração de Requisitos | Documentação estruturada das necessidades do sistema. | Casos de Uso e Histórias de Usuário (User Stories). | Backlog inicial populado e Casos de Uso arquiteturalmente significantes detalhados. |
+| **Elaboração (Elaboration)** | Verificação e Validação | Tangibilização das ideias para aprovação visual. | Prototipação de Alta Fidelidade (Figma). | Protótipos validados pelo cliente; redução de riscos de interface. |
+| **Construção (Construction)** | Verificação e Validação | Garantia de qualidade das implementações durante as iterações. | Definition of Ready (DoR), Definition of Done (DoD) e Walkthroughs. | Funcionalidades desenvolvidas alinhadas aos critérios de aceitação e aprovadas. |
+| **Construção (Construction)** | Organização e Atualização | Adaptação às mudanças e detalhamento contínuo do backlog. | Refinamento de Backlog e Matriz de Rastreabilidade. | Backlog atualizado, garantindo que o software construído reflete os requisitos atuais. |
+| **Transição (Transition)** | Verificação e Validação | Homologação final do sistema com o usuário real. | Feedback final do cliente e Testes de Aceitação. | Sistema executável validado, documentado e entregue à Creche Tia Tata. |
+
+---
+
+## Histórico de Versão
+
+| Data | Versão | Descrição | Autor(es) | Revisor(es) |
+| :--- | :--- | :--- | :--- | :--- |
+| 18/05/2026 | 1.0 | Criação inicial do documento de atividades e técnicas da ER. | Lorena Ribeiro | Equipe |
+| 18/05/2026 | 2.0 | Atualização estrutural: remoção de terminologia de artefatos OpenUP e inclusão das teorias clássicas de ER e Tabela de Fases. | Lorena Ribeiro | Equipe |
 
