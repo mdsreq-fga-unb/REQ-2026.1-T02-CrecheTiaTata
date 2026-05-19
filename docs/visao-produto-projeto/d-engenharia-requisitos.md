@@ -14,8 +14,6 @@ O objetivo é garantir que o levantamento, especificação e validação das nec
 ### 4.1.1 Elicitação e Descoberta
 Fase voltada à exploração do domínio do problema e ao levantamento das necessidades reais dos stakeholders.
 * **Entrevistas com Stakeholders:** Reuniões direcionadas com a administração da Creche Tia Tata para entender o fluxo atual de doações e a gestão manual de voluntários, identificando as principais dores do processo.
-* **Brainstorming:** Reuniões colaborativas da equipe de desenvolvimento para propor funcionalidades iniciais capazes de digitalizar a operação da creche de forma simples e acessível.
-* **Questionários:** (Prática opcional caso tenham feito formulários online para potenciais voluntários/doadores).
 
 ### 4.1.2 Análise e Consenso
 Atividade focada em refinar, classificar e priorizar os requisitos brutos levantados na elicitação, resolvendo conflitos de escopo.
@@ -24,16 +22,20 @@ Atividade focada em refinar, classificar e priorizar os requisitos brutos levant
 
 ### 4.1.3 Declaração de Requisitos
 Tradução das necessidades analisadas para um formato documentado, padronizado e compreensível para a equipe de desenvolvimento.
-* **Casos de Uso:** Mapeamento formal das interações entre os Atores (Administrador, Doador, Voluntário) e as funcionalidades do sistema (ex: Fluxo de Autenticação, Registro de Evento).
+* **Casos de Uso:** Mapeamento descritivo e formal das interações entre os Atores (Administrador, Doador, Voluntário) e as funcionalidades do sistema.
 * **Histórias de Usuário (User Stories):** Descrição das funcionalidades sob a perspectiva de valor para o usuário, utilizadas para popular o backlog e guiar o desenvolvimento ágil.
 
-### 4.1.4 Verificação e Validação de Requisitos
-Garantia de que os requisitos especificados realmente atendem às expectativas do cliente antes e durante a construção.
-* **Prototipação de Alta Fidelidade:** Criação de telas interativas no Figma (ex: Página Sobre com Missão, Visão e Valores) para validação visual e de usabilidade junto ao cliente antes da implementação (User Design).
-* **Feedback do Cliente / Walkthrough:** Apresentação dos protótipos e dos incrementos de software gerados em cada iteração para colher aprovação e ajustes diretamente com a gestão da creche.
+### 4.1.4 Representação de Requisitos
+Atividade focada em ilustrar visualmente a estrutura, o comportamento e a interface do sistema, facilitando a comunicação técnica e a validação.
+* **Diagrama de Casos de Uso:** Modelagem em UML utilizada para ilustrar graficamente as fronteiras do sistema e como os diferentes atores interagem com as principais funcionalidades (ex: Fluxo de Autenticação, Registro de Evento).
+* **Prototipação de Alta Fidelidade:** Criação de telas interativas no Figma (ex: Página Sobre com Missão, Visão e Valores) para representar a interface final do usuário e a jornada de uso antes da codificação.
+
+### 4.1.5 Verificação e Validação de Requisitos
+Garantia de que os requisitos e representações criadas realmente atendem às expectativas do cliente antes e durante a construção.
+* **Feedback do Cliente / Walkthrough:** Apresentação dos diagramas e protótipos de software gerados em cada iteração para colher aprovação e ajustes diretamente com a gestão da creche.
 * **Definition of Done (DoD) e Definition of Ready (DoR):** Critérios de aceitação estabelecidos para garantir que um requisito só comece a ser feito quando estiver claro (DoR) e só seja entregue quando estiver testado e validado (DoD).
 
-### 4.1.5 Organização e Atualização
+### 4.1.6 Organização e Atualização
 Controle contínuo das mudanças de escopo e garantia do alinhamento entre o código e a documentação.
 * **Matriz de Rastreabilidade:** Técnica utilizada para vincular os Requisitos Funcionais aos Objetivos de Negócio (e às Histórias de Usuário correspondentes), garantindo que nada seja desenvolvido sem um propósito justificado.
 * **Controle de Versão do Backlog:** Atualização contínua das prioridades e refinamento das *User Stories* ao longo das iterações do OpenUP, refletindo as mudanças de rota e as decisões arquiteturais.
@@ -48,8 +50,8 @@ A tabela abaixo mapeia as atividades da Engenharia de Requisitos dentro das quat
 | :--- | :--- | :--- | :--- | :--- |
 | **Concepção (Inception)** | Elicitação e Descoberta | Entendimento do negócio e da dor do cliente (Creche). | Entrevistas com Stakeholders e Brainstorming. | Declaração do Problema, Visão do Produto e levantamento inicial de necessidades. |
 | **Concepção (Inception)** | Análise e Consenso | Definição do que é viável para a primeira entrega. | Matriz de Priorização (Impacto x Dificuldade) e MoSCoW. | Escopo inicial do MVP definido e priorizado. |
-| **Elaboração (Elaboration)** | Declaração de Requisitos | Documentação estruturada das necessidades do sistema. | Casos de Uso e Histórias de Usuário (User Stories). | Backlog inicial populado e Casos de Uso arquiteturalmente significantes detalhados. |
-| **Elaboração (Elaboration)** | Verificação e Validação | Tangibilização das ideias para aprovação visual. | Prototipação de Alta Fidelidade (Figma). | Protótipos validados pelo cliente; redução de riscos de interface. |
+| **Elaboração (Elaboration)** | Declaração de Requisitos | Documentação estruturada das necessidades do sistema. | Especificação de Casos de Uso e Histórias de Usuário. | Backlog inicial populado e Casos de Uso arquiteturalmente significantes detalhados. |
+| **Elaboração (Elaboration)** | Representação de Requisitos | Tangibilização visual das ideias e do escopo. | Diagrama de Casos de Uso e Prototipação de Alta Fidelidade (Figma). | Modelos visuais e protótipos elaborados para reduzir riscos técnicos e de usabilidade. |
 | **Construção (Construction)** | Verificação e Validação | Garantia de qualidade das implementações durante as iterações. | Definition of Ready (DoR), Definition of Done (DoD) e Walkthroughs. | Funcionalidades desenvolvidas alinhadas aos critérios de aceitação e aprovadas. |
 | **Construção (Construction)** | Organização e Atualização | Adaptação às mudanças e detalhamento contínuo do backlog. | Refinamento de Backlog e Matriz de Rastreabilidade. | Backlog atualizado, garantindo que o software construído reflete os requisitos atuais. |
 | **Transição (Transition)** | Verificação e Validação | Homologação final do sistema com o usuário real. | Feedback final do cliente e Testes de Aceitação. | Sistema executável validado, documentado e entregue à Creche Tia Tata. |
@@ -61,5 +63,5 @@ A tabela abaixo mapeia as atividades da Engenharia de Requisitos dentro das quat
 | Data | Versão | Descrição | Autor(es) | Revisor(es) |
 | :--- | :--- | :--- | :--- | :--- |
 | 18/05/2026 | 1.0 | Criação inicial do documento de atividades e técnicas da ER. | Lorena Ribeiro | Equipe |
-| 18/05/2026 | 2.0 | Atualização estrutural: remoção de terminologia de artefatos OpenUP e inclusão das teorias clássicas de ER e Tabela de Fases. | Lorena Ribeiro | Equipe |
-
+| 18/05/2026 | 2.0 | Atualização estrutural: remoção de terminologia de artefatos OpenUP e inclusão das teorias clássicas de ER e Tabela de Fases. | Lorena Ribeiro | Monitor |
+| 18/05/2026 | 2.1 | Inclusão da etapa de Representação de Requisitos e detalhamento do Diagrama de Casos de Uso. | Lorena Ribeiro | Monitor |
