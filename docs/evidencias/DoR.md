@@ -1,5 +1,5 @@
 ---
-sidebar_label: "Evidências DoR - DoD"
+sidebar_label: "Reunião de planejamento"
 sidebar_position: 1
 ---
 
