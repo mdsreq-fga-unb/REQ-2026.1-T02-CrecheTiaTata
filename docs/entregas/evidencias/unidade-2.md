@@ -41,11 +41,27 @@ Evidência da primeira reunião de Definition of Ready, registrando parte do tra
 
 <div className="video-container">
   <iframe
-    src="https://www.youtube.com/embed/Gy8fuoen-xk"
+    src="https://youtu.be/dx_hRwims5Q?si=aPSNu0_t2JT3pM6K"
     frameBorder="0"
     scrolling="no"
     allowFullScreen
     title="Registro da Primeira Reunião de Definition of Ready"
+  ></iframe>
+</div>
+
+---
+
+## Registro da Primeira Reunião de Definition of Ready Parte 2
+
+Evidência da primeira reunião de Definition of Ready, registrando parte do trabalho da equipe no alinhamento e preparação das atividades do projeto.
+
+<div className="video-container">
+  <iframe
+    src="https://youtu.be/PkMDDcwSnpQ?si=91zpKajmDWQ3_DmA"
+    frameBorder="0"
+    scrolling="no"
+    allowFullScreen
+    title="Registro da Primeira Reunião de Definition of Ready Parte 2"
   ></iframe>
 </div>
 
