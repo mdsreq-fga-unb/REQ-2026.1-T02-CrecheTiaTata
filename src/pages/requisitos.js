@@ -98,40 +98,53 @@ const naoFuncionais = [
 ];
 
 const mermaidDiagram = `graph LR
-A[Problema: Baixo engajamento] --> B[Objetivo Geral]
+A[Problema: Baixo engajamento] --> B[Fortalecer a capacidade operacional da Creche da Tia Tata por meio da ampliação da base de doadores e voluntários, da melhoria na comunicação com a comunidade e da otimização da gestão interna de recursos e atividades.]
 
 B --> C1[OE1 Controle de Doações]
 B --> C2[OE2 Gestão de Voluntários]
 B --> C3[OE3 Centralização]
 B --> C4[OE4 Captação Digital]
 
-C1 --> D1[RF-02 Registrar Doação]
-C1 --> D2[RF-03 Listar Doações]
-C1 --> D3[RF-04 Editar Doação]
-C1 --> D4[RF-05 Registrar Doador]
-C1 --> D5[RF-06 Listar Doadores]
-C1 --> E1[RF-07 Registrar Entrega]
-C1 --> E2[RF-08 Listar Entregas]
+C1 --> CA[Cadastro de Doações]
+CA --> D1[RF-02 Registrar Doação]
+CA --> D2[RF-03 Listar Doações]
+CA --> D3[RF-04 Editar Doação]
 
-C2 --> F1[RF-09 Registrar Voluntário]
-C2 --> F2[RF-10 Listar Voluntários]
-C2 --> F3[RF-22 Excluir Voluntário]
-C2 --> F4[RF-24 Editar Voluntário]
-C2 --> F5[RF-25 Histórico]
-C2 --> F6[RF-26 Relatório]
-C2 --> G1[RF-11 Registrar Disponibilidade]
-C2 --> G2[RF-12 Editar Disponibilidade]
-C2 --> G3[RF-13 Gerar Escala]
-C2 --> G4[RF-23 Desalocar]
-C2 --> H1[RF-14 Registrar Evento]
-C2 --> H2[RF-15 Listar Eventos]
-C2 --> H3[RF-16 Associar Voluntário]
-C2 --> H4[RF-17 Registrar Recursos]
-C2 --> H5[RF-18 Resumo Recursos]
+C1 --> RD[Registro de Doadores]
+RD --> D4[RF-05 Registrar Doador]
+RD --> D5[RF-06 Listar Doadores]
 
-C4 --> I1[RF-19 Página Institucional]
-C4 --> I2[RF-20 Publicar Solicitação]
-C4 --> I3[RF-21 Listar Solicitações]
+C1 --> RE[Registro de Entregas]
+RE --> E1[RF-07 Registrar Entrega]
+RE --> E2[RF-08 Listar Entregas]
+
+C2 --> CV[Cadastro de Voluntários]
+CV --> F1[RF-09 Registrar Voluntário]
+CV --> F2[RF-10 Listar Voluntários]
+CV --> F3[RF-22 Excluir Voluntário]
+CV --> F4[RF-24 Editar Voluntário]
+CV --> F5[RF-25 Histórico]
+CV --> F6[RF-26 Relatório]
+
+C2 --> DE[Disponibilidade e Escala]
+DE --> G1[RF-11 Registrar Disponibilidade]
+DE --> G2[RF-12 Editar Disponibilidade]
+DE --> G3[RF-13 Gerar Escala]
+DE --> G4[RF-23 Desalocar]
+
+C2 --> GE[Gestão de Eventos]
+GE --> H1[RF-14 Registrar Evento]
+GE --> H2[RF-15 Listar Eventos]
+GE --> H3[RF-16 Associar Voluntário]
+GE --> H4[RF-17 Registrar Recursos]
+GE --> H5[RF-18 Resumo Recursos]
+
+C3 --> PV[Página sobre, exibição de Vídeos e localização]
+PV --> I1[RF-19 Página Institucional]
+
+C4 --> SA[Solicitações de Apoio]
+SA --> I2[RF-20 Publicar Solicitação]
+SA --> I3[RF-21 Listar Solicitações]
 
 B --> J[Requisitos Não Funcionais]
 J --> RNF1[RNF-01 Performance]
@@ -195,12 +208,10 @@ function MermaidChart() {
       window.mermaid.run({ querySelector: '.mermaid-req' }).then(() => {
         const svg = containerRef.current?.querySelector('svg');
         if (svg) {
-          // Remove background rect mermaid injeta (causa a "barra preta")
           const bgRect = svg.querySelector('rect.er.relationshipLabelBox, rect[class="background"], rect:first-child');
           if (bgRect && (bgRect.getAttribute('fill') === 'black' || bgRect.getAttribute('fill') === '#1f2020' || bgRect.getAttribute('fill') === 'hsl(0, 0%, 12.9411764706%)')) {
             bgRect.setAttribute('fill', 'transparent');
           }
-          // Remove todos os rects de fundo (qualquer fill escuro no primeiro rect)
           const firstRect = svg.querySelector('rect');
           if (firstRect) firstRect.setAttribute('fill', 'transparent');
 
@@ -261,10 +272,10 @@ export default function Requisitos() {
       <div style={pageStyle}>
 
         {/* ── DASHBOARD DE REQUISITOS ── */}
-        <div style={sectionHeader}>📊 Dashboard de Requisitos</div>
+        <div style={sectionHeader}>Dashboard de Requisitos</div>
         <div style={gridContainer}>
           <div style={cardStyle}>
-            <h2 style={h2Style}>✅ Requisitos Funcionais</h2>
+            <h2 style={h2Style}>Requisitos Funcionais</h2>
             {funcionais.map(([id, desc]) => (
               <div key={id} style={requisitoStyle}>
                 <span style={idStyle}>{id}</span> - {desc}
@@ -272,7 +283,7 @@ export default function Requisitos() {
             ))}
           </div>
           <div style={cardStyle}>
-            <h2 style={h2Style}>⚙️ Requisitos Não Funcionais</h2>
+            <h2 style={h2Style}>Requisitos Não Funcionais</h2>
             {naoFuncionais.map(([id, desc]) => (
               <div key={id} style={requisitoStyle}>
                 <span style={idStyle}>{id}</span> - {desc}
@@ -282,7 +293,7 @@ export default function Requisitos() {
         </div>
 
         {/* ── FLUXOGRAMA ── */}
-        <div style={{ ...sectionHeader, marginTop: '20px' }}>📊 Fluxograma do Sistema</div>
+        <div style={{ ...sectionHeader, marginTop: '20px' }}>Fluxograma do Sistema</div>
         <div style={{ padding: '20px' }}>
           <BrowserOnly>{() => <MermaidChart />}</BrowserOnly>
         </div>
