@@ -18,7 +18,6 @@ Fase voltada à exploração do domínio do problema e ao levantamento das neces
 ### 4.1.2 Análise e Consenso
 Atividade focada em refinar, classificar e priorizar os requisitos brutos levantados na elicitação, resolvendo conflitos de escopo.
 * **Matriz de Priorização (Impacto x Dificuldade):** Técnica utilizada para classificar as funcionalidades de acordo com o valor gerado para a creche versus o esforço técnico de implementação, facilitando a visualização dos "Quick Wins" (ex: CRUD de Doadores).
-* **Análise MoSCoW:** Classificação dos requisitos em *Must Have, Should Have, Could Have* e *Won't Have*, fundamental para fechar o escopo exato do Produto Mínimo Viável (MVP).
 
 ### 4.1.3 Declaração de Requisitos
 Tradução das necessidades analisadas para um formato documentado, padronizado e compreensível para a equipe de desenvolvimento.
@@ -62,6 +61,6 @@ A tabela abaixo mapeia as atividades da Engenharia de Requisitos dentro das quat
 
 | Data | Versão | Descrição | Autor(es) | Revisor(es) |
 | :--- | :--- | :--- | :--- | :--- |
-| 18/05/2026 | 1.0 | Criação inicial do documento de atividades e técnicas da ER. | Lorena Ribeiro | Equipe |
+| 20/04/2026 | 1.0 | Criação inicial do documento de atividades e técnicas da ER. | Lorena Ribeiro | Equipe |
 | 18/05/2026 | 2.0 | Atualização estrutural: remoção de terminologia de artefatos OpenUP e inclusão das teorias clássicas de ER e Tabela de Fases. | Lorena Ribeiro | Monitor |
 | 18/05/2026 | 2.1 | Inclusão da etapa de Representação de Requisitos e detalhamento do Diagrama de Casos de Uso. | Lorena Ribeiro | Monitor |
