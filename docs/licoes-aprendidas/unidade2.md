@@ -67,4 +67,4 @@ A página de intervenções sociais foi criada dentro da seção "Visão do Prod
 
 |Data|Versão|Descrição|Autor(es)|Revisor(es)|
 | :--- | :--- | :--- | :--- | :--- |
-| 19/05/2026 | 1.0 | Criação da página de lições aprendidas da Unidade 2 | Matheus Pinheiro |  |
+| 19/05/2026 | 1.0 | Criação da página de lições aprendidas da Unidade 2 | Bruno Henryque |  |
