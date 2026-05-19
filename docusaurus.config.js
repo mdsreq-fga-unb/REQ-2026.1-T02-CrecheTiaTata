@@ -89,11 +89,6 @@ const config = {
             label: 'Documentação',
           },
           {
-            to: '/requisitos',
-            position: 'left',
-            label: 'Requisitos',
-          },
-          {
             href: 'https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata',
             label: 'GitHub',
             position: 'right',
