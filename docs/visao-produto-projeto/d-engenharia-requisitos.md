@@ -61,4 +61,4 @@ A tabela abaixo mapeia as atividades da Engenharia de Requisitos dentro das quat
 | :--- | :--- | :--- | :--- | :--- |
 | 20/04/2026 | 1.0 | Criação inicial do documento de atividades e técnicas da ER. | Lorena Ribeiro | Equipe |
 | 18/05/2026 | 2.0 | Atualização estrutural: remoção de terminologia de artefatos OpenUP e inclusão das teorias clássicas de ER e Tabela de Fases. | Lorena Ribeiro | Monitor |
-| 18/05/2026 | 2.1 | Inclusão da etapa de Representação de Requisitos e detalhamento do Diagrama de Casos de Uso. | Lorena Ribeiro | Monitor |
+| 18/05/2026 | 2.1 | Inclusão da etapa de Representação de Requisitos. | Lorena Ribeiro | Monitor |
