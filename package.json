@@ -48,6 +48,7 @@
   "pnpm": {
   "overrides": {
     "webpack": "5.88.2"
-  }
+  },
+  "onlyBuiltDependencies": ["@swc/core", "core-js"]
 }
 }
