@@ -26,8 +26,8 @@ Objetivo: Desenvolvimento das funcionalidades do Sistema
 - Validação: Demonstração das páginas para o cliente e coleta de feedback
 ### Iteração 4
 - Data: 12/05/2026 - 25/05/2026
-- Objetivo: Cadastro de voluntários, Controle de disponibilidade e gerar escala de voluntários
-- Validação: Validação das funcionalidades de cadastro, gerenciamento de disponibilidade de voluntários e geração da escala de voluntários manualmente, verificando o armazenamento dos dados
+- Objetivo: Cadastro de voluntários e controle de disponibilidade
+- Validação: Validação das funcionalidades de cadastro e gerenciamento de disponibilidade de voluntários, verificando o armazenamento dos dados
 ### Iteração 5
 - Data: 26/05/2026 - 08/06/2026
 - Objetivo: Cadastro de doações e registro de doadores

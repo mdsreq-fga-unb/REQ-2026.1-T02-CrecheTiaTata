@@ -86,7 +86,12 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Documentação', // Mudei de "Tutorial" para "Documentação"
+            label: 'Documentação',
+          },
+          {
+            to: '/requisitos',
+            position: 'left',
+            label: 'Requisitos',
           },
           {
             href: 'https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata',
