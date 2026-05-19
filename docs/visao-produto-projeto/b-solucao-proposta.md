@@ -5,11 +5,11 @@ sidebar_position: 2
 # Solução Proposta
 
 ## 2.1 Objetivo Geral do Produto
-Desenvolver um sistema web simples para apoiar a Creche da Tia Tata na divulgação de necessidades, captação de doações e voluntários, e organização básica dessas contribuições.
+Fortalecer a capacidade operacional da Creche da Tia Tata por meio da ampliação da base de doadores e voluntários, da melhoria na comunicação com a comunidade e da organização básica das contribuições recebidas.
 
 ## 2.2 Objetivos Específicos (OE) do Produto
 * **OE1:** Divulgar informações essenciais da creche e suas necessidades atuais.
-* **OE2:** Facilitar o contato de pessoas interessadas em doar ou atuar como voluntárias.
+* **OE2:** Ampliar a base de doadores e voluntários por meio da melhoria na comunicação com a comunidade.
 * **OE3:** Apoiar o registro e a consulta básica de doações e voluntários.
 
 ### 2.3 Características de Produto
