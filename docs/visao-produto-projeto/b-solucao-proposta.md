@@ -5,24 +5,21 @@ sidebar_position: 2
 # Solução Proposta
 
 ## 2.1 Objetivo Geral do Produto
-Desenvolver um sistema web que centralize a gestão da Creche da Tia Tata e atue como uma plataforma de conexão entre o projeto e a comunidade, com o objetivo de ampliar a captação de doações e voluntários, facilitar a comunicação e a participação, e melhorar a organização interna das atividades.
+Desenvolver um sistema web simples para apoiar a Creche da Tia Tata na divulgação de necessidades, captação de doações e voluntários, e organização básica dessas contribuições.
 
 ## 2.2 Objetivos Específicos (OE) do Produto
-* **OE1:** Melhorar o controle e a rastreabilidade das doações realizadas no projeto.
-* **OE2:** Apoiar a organização e o planejamento das atividades e ações sociais (foco nos voluntários).
-* **OE3:** Centralizar as informações do projeto em um único ambiente acessível.
-* **OE4:** Ampliar a captação de doações e voluntários por meio de presença digital estruturada, aumentando a transparência.
+* **OE1:** Divulgar informações essenciais da creche e suas necessidades atuais.
+* **OE2:** Facilitar o contato de pessoas interessadas em doar ou atuar como voluntárias.
+* **OE3:** Apoiar o registro e a consulta básica de doações e voluntários.
 
 ### 2.3 Características de Produto
 A solução proposta deverá contemplar um conjunto reduzido de características de produto, descritas em nível mais alto. A partir delas, poderão ser derivados poucos requisitos funcionais e não funcionais, evitando que esta seção se torne uma lista detalhada de funcionalidades.
 
 | OE Principal | ID | Característica | Descrição Resumida | Possíveis RFs derivados | Possíveis RNFs derivados | Valor de Negócio Principal |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| OE1 | C1 | Gestão de doações | Apoia o registro, acompanhamento e consulta das doações recebidas pela creche. | Registrar doação; consultar histórico de doações. | Rastreabilidade das informações; integridade dos registros. | Melhor controle e transparência das doações. |
-| OE2 | C2 | Gestão de voluntariado | Apoia o cadastro de pessoas voluntárias e a organização de sua participação nas ações sociais. | Registrar voluntário; consultar disponibilidade; vincular voluntário a uma ação. | Usabilidade no cadastro; disponibilidade das informações para organização interna. | Melhor planejamento das atividades e redução de conflitos de agenda. |
-| OE3 | C3 | Centralização de informações institucionais | Reúne informações essenciais sobre a creche, sua atuação, contato, localização e necessidades atuais. | Visualizar informações da creche; visualizar necessidades prioritárias. | Acessibilidade; responsividade; clareza das informações. | Facilita o acesso da comunidade às informações do projeto. |
-| OE4 | C4 | Canal de engajamento da comunidade | Facilita que doadores e voluntários manifestem interesse em contribuir com a creche. | Solicitar contato para doação; solicitar participação como voluntário. | Segurança no acesso; facilidade de uso em dispositivos móveis. | Amplia a captação de doações e voluntários. |
-| OE4 | C5 | Transparência e divulgação de impacto | Apresenta ações realizadas, resultados alcançados e informações que aumentem a confiança da comunidade no projeto. | Visualizar ações e impactos divulgados pela creche. | Credibilidade das informações; atualização periódica do conteúdo. | Aumenta a confiança de doadores, voluntários e parceiros. |
+| OE1 | C1 | Divulgação de necessidades | Apresenta informações da creche, formas de contato e itens prioritários para doação. | Visualizar informações da creche; visualizar necessidades prioritárias. | Acessibilidade; responsividade; clareza das informações. | Facilita o acesso da comunidade às necessidades reais da creche. |
+| OE2 | C2 | Canal de contribuição | Permite que doadores e voluntários manifestem interesse em contribuir. | Solicitar contato para doação; solicitar participação como voluntário. | Segurança no acesso; facilidade de uso em dispositivos móveis. | Amplia a captação de doações e voluntários. |
+| OE3 | C3 | Organização básica das contribuições | Apoia o cadastro e a consulta de doações e pessoas voluntárias. | Registrar doação; registrar voluntário; consultar registros. | Integridade dos registros; disponibilidade das informações. | Reduz a perda de informações e melhora o acompanhamento interno. |
 
 ### 2.4 Tecnologias a Serem Utilizadas
 
@@ -49,13 +46,13 @@ A proposta apresentada é considerada viável dentro do contexto da disciplina, 
 
 Em relação à equipe, o desenvolvimento será realizado de forma individual, o que reduz a complexidade de comunicação e tomada de decisão, permitindo maior agilidade na implementação das funcionalidades.
 
-Quanto ao prazo, o escopo foi definido de forma adequada para o período do semestre, priorizando funcionalidades essenciais como gestão de doações, cadastro de voluntários e divulgação das necessidades da creche, possibilitando a entrega de um MVP funcional.
+Quanto ao prazo, o escopo foi reduzido para o período do semestre, priorizando a divulgação das necessidades da creche, o contato de doadores e voluntários e o registro básico dessas contribuições.
 
 O acesso ao cliente é direto, com a coordenadora da creche atuando como principal fonte de informações, validação e feedback. Isso favorece um levantamento de requisitos mais fiel e permite ajustes contínuos ao longo do desenvolvimento.
 
 No que se refere ao conhecimento técnico, a equipe possui familiaridade com tecnologias como desenvolvimento web, o que reduz riscos técnicos e contribui para a viabilidade da implementação. Além disso, a escolha de ferramentas modernas e de fácil integração, como React e serviços de backend simplificados, contribui para acelerar o desenvolvimento.
 
-Por fim, a proposta permite a construção de um MVP funcional, contemplando as principais necessidades identificadas, como centralização das informações, facilitação da comunicação e apoio à captação de doações e voluntários.
+Por fim, a proposta permite a construção de um MVP funcional, contemplando as principais necessidades identificadas: divulgação das necessidades, facilitação do contato e apoio à captação de doações e voluntários.
 
 Dessa forma, conclui-se que o projeto é viável, com baixo risco de execução, desde que seja mantido o foco nas funcionalidades essenciais e adotada uma abordagem incremental ao longo do desenvolvimento.
 
