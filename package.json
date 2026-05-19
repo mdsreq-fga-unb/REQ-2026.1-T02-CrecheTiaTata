@@ -11,11 +11,15 @@
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.0",
     "@docusaurus/faster": "3.10.0",
+    "@docusaurus/plugin-pwa": "3.10.0",
     "@docusaurus/preset-classic": "3.10.0",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
@@ -24,8 +28,16 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.29.5",
+    "@babel/preset-react": "^7.28.5",
     "@docusaurus/module-type-aliases": "3.10.0",
-    "@docusaurus/types": "3.10.0"
+    "@docusaurus/types": "3.10.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0"
   },
   "browserslist": {
     "production": [
@@ -46,9 +58,6 @@
     "webpack": "5.105.0"
   },
   "pnpm": {
-  "overrides": {
-    "webpack": "5.88.2"
-  },
-  "onlyBuiltDependencies": ["@swc/core", "core-js"]
-}
+    "onlyBuiltDependencies": ["@swc/core", "core-js", "unrs-resolver"]
+  }
 }
