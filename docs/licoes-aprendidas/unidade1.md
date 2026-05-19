@@ -1,9 +1,9 @@
 ---
-sidebar_label: "Unidade 1"
+sidebar_label: "11.1 Unidade 1"
 sidebar_position: 1
 ---
 
-# 10 Lições aprendidas
+# 11.1 Lições Aprendidas
 
 ### Lições aprendidas – Unidade 1
 

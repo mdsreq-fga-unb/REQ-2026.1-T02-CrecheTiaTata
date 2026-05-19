@@ -1,9 +1,16 @@
 ---
-sidebar_label: "Backlog"
+sidebar_label: "Backlog de Produto"
 sidebar_position: 10
+description: Backlog de produto com priorização e MVP do sistema da Creche da Tia Tata.
 ---
 
-# Backlog — Creche da Tia Tata
+# Backlog de Produto
+
+Esta seção descreve o backlog de produto do sistema da Creche da Tia Tata, contendo a lista priorizada de todas as funcionalidades planejadas, bem como a definição do Produto Mínimo Viável (MVP).
+
+## 10.1 Backlog Geral
+
+O backlog geral contém todas as funcionalidades planejadas para o sistema, organizadas com suas respectivas user stories e requisitos não funcionais relacionados.
 
 | Requisito Funcional | User Story Derivada | RNFs Relacionados |
 |---|---|---|
@@ -33,3 +40,22 @@ sidebar_position: 10
 | **RF-24** – Editar Voluntário | Como administrador, quero editar dados de voluntários para manter cadastro atualizado. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
 | **RF-25** – Histórico do Voluntário | Como administrador, quero visualizar histórico de atividades do voluntário para acompanhar sua participação. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
 | **RF-26** – Relatório de Participação | Como administrador, quero gerar relatório de participação para avaliar engajamento da equipe de voluntários. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
+
+## 10.2 Priorização do Backlog Geral e MVP
+
+A priorização foi realizada com base em dois critérios: **Dificuldade (D)** e **Importância (I)**, permitindo identificar quais funcionalidades são essenciais para o lançamento do MVP e quais podem ser desenvolvidas posteriormente.
+
+O MVP representa o conjunto mínimo de funcionalidades que permite que o sistema seja utilizado pela coordenação da creche, focando nos recursos essenciais para validar as principais hipóteses de valor do projeto.
+
+![Board MVP do projeto](/img/mvp-board.png)
+
+**DIFICULDADE** (dias de 3h de trabalho):
+- 1 = 1 a 5 dias para conclusão com base no DoD
+- 2 = 5 a 14 dias para conclusão com base no DoD
+- 3 = 14+ dias para conclusão com base no DoD
+
+**IMPORTÂNCIA:**
+- 1 = Não relacionado ao problema central
+- 2 = Baixo impacto no problema
+- 3 = Impacta o problema
+- 4 = Essencial na solução
