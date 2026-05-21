@@ -36,8 +36,13 @@ describe('LoginPage', () => {
     expect(screen.getByRole('button', { name: /criar conta e continuar/i })).toBeInTheDocument();
   });
 
-  it('cria conta local sem backend e volta para a ação solicitada', async () => {
+  it('cria conta e volta para a ação solicitada', async () => {
     window.history.pushState({}, '', `/login?modo=cadastro&redirect=${encodeURIComponent('/contato?acao=doar')}`);
+
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ token: 'jwt-token' }),
+    });
 
     render(<LoginPage />);
 
@@ -46,10 +51,18 @@ describe('LoginPage', () => {
     await userEvent.type(screen.getByLabelText(/senha/i), 'senha123');
     await userEvent.click(screen.getByRole('button', { name: /criar conta e continuar/i }));
 
-    expect(fetch).not.toHaveBeenCalled();
-    expect(localStorage.getItem('creche_tia_tata_auth_token')).toBe('local-signup-jwt-token');
-    expect(window.location.pathname).toBe('/contato');
-    expect(window.location.search).toBe('?acao=doar');
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledWith('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: 'Maria Silva', email: 'maria@email.com', password: 'senha123' }),
+      });
+      expect(localStorage.getItem('creche_tia_tata_auth_token')).toBe('jwt-token');
+      expect(window.location.pathname).toBe('/contato');
+      expect(window.location.search).toBe('?acao=doar');
+    });
   });
 
   it('envia a requisição de login ao clicar em entrar', async () => {

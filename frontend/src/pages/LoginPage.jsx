@@ -4,6 +4,7 @@ import { DEFAULT_LOGIN } from '../config/auth';
 import { LOGIN_ERROR_MESSAGES, loginUser } from '../services/authService';
 import { saveAuthToken } from '../utils/authStorage';
 import { navigateTo } from '../utils/navigation';
+import { useSignup } from '../hooks/useSignup';
 
 export default function LoginPage() {
   const params = new URLSearchParams(window.location.search);
@@ -15,13 +16,20 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { signup, isSubmitting: isSignupSubmitting } = useSignup();
   const isSignupMode = authMode === 'signup';
 
-  function handleAccountCreated(event) {
+  async function handleAccountCreated(event) {
     event.preventDefault();
     setErrorMessage('');
-    saveAuthToken('local-signup-jwt-token');
-    navigateTo(redirectTo);
+
+    try {
+      const { token } = await signup({ name, email, password });
+      saveAuthToken(token);
+      navigateTo(redirectTo);
+    } catch (error) {
+      setErrorMessage(error?.message || LOGIN_ERROR_MESSAGES.unexpected);
+    }
   }
 
   async function handleLogin(event) {
@@ -154,10 +162,16 @@ export default function LoginPage() {
 
               <button
                 className="rounded-xl bg-emerald-600 px-6 py-4 font-bold text-white shadow-sm transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300"
-                disabled={isSubmitting}
+                disabled={isSignupMode ? isSignupSubmitting : isSubmitting}
                 type="submit"
               >
-                {isSubmitting ? 'Entrando...' : isSignupMode ? 'Criar conta e continuar' : 'Entrar'}
+                {isSignupMode
+                  ? isSignupSubmitting
+                    ? 'Criando...'
+                    : 'Criar conta e continuar'
+                  : isSubmitting
+                  ? 'Entrando...'
+                  : 'Entrar'}
               </button>
 
               <button
