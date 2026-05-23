@@ -33,7 +33,7 @@ describe('LoginPage', () => {
 
     expect(screen.getByRole('heading', { level: 2, name: /criar conta/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/nome/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /criar conta e continuar/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /criar conta/i })).toBeInTheDocument();
   });
 
   it('cria conta e volta para a ação solicitada', async () => {
@@ -48,8 +48,9 @@ describe('LoginPage', () => {
 
     await userEvent.type(screen.getByLabelText(/nome/i), 'Maria Silva');
     await userEvent.type(screen.getByLabelText(/e-mail/i), 'maria@email.com');
-    await userEvent.type(screen.getByLabelText(/senha/i), 'senha123');
-    await userEvent.click(screen.getByRole('button', { name: /criar conta e continuar/i }));
+    await userEvent.type(screen.getByLabelText(/^Senha$/i), 'senha123');
+    await userEvent.type(screen.getByLabelText(/confirmar senha/i), 'senha123');
+    await userEvent.click(screen.getByRole('button', { name: /criar conta/i }));
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith('/api/auth/signup', {
@@ -128,7 +129,7 @@ describe('LoginPage', () => {
     render(<LoginPage />);
 
     await userEvent.type(screen.getByLabelText(/e-mail/i), 'usuario@email.com');
-    await userEvent.type(screen.getByLabelText(/senha/i), 'errada');
+    await userEvent.type(screen.getByLabelText(/senha/i), 'errada123');
     await userEvent.click(screen.getByRole('button', { name: /entrar/i }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent(/senha incorreta/i);
