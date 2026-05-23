@@ -264,12 +264,12 @@ export default function LoginPage() {
                 {isSignupMode
                   ? isSignupSubmitting
                     ? 'Criando...'
-                    : 'Criar conta e continuar'
+                    : 'Criar conta'
                   : isSubmitting
                   ? 'Entrando...'
                   : 'Entrar'}
               </button>
-
+            {!isSignupMode && (
               <button
                 className="text-center text-sm font-bold text-emerald-700 transition hover:text-emerald-900"
                 onClick={() => navigateTo('/recuperar-senha')}
@@ -277,6 +277,7 @@ export default function LoginPage() {
               >
                 Esqueci minha senha
               </button>
+            )}
             </form>
           </div>
         </div>
