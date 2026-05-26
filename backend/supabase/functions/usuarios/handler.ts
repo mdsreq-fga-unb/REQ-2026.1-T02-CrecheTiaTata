@@ -3,23 +3,25 @@ import { corsHeaders } from "../_shared/cors.ts";
 // deno-lint-ignore no-explicit-any
 type SupabaseClientLike = any;
 
-export interface Usuario {
+export interface UsuarioPerfil {
   id?: string;
   nome: string;
   email: string;
-  senha?: string;
   telefone?: string;
   disponibilidade?: string;
   acoes_preferencia?: string[];
-  created_at?: string;
 }
 
-async function hashSenha(senha: string): Promise<string> {
-  const data = new TextEncoder().encode(senha);
-  const hash = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(hash))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+async function verificarJWT(
+  req: Request,
+  supabase: SupabaseClientLike,
+) {
+  const authHeader = req.headers.get("Authorization");
+  if (!authHeader?.startsWith("Bearer ")) return null;
+  const token = authHeader.slice(7);
+  const { data: { user }, error } = await supabase.auth.getUser(token);
+  if (error || !user) return null;
+  return user;
 }
 
 export async function handleUsuarios(
@@ -34,7 +36,61 @@ export async function handleUsuarios(
   const email = url.searchParams.get("email");
   const action = url.searchParams.get("action");
 
+  if (req.method === "POST" && action === "login") {
+    let body: { email: string; senha: string };
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(JSON.stringify({ error: "Corpo inválido" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (!body.email || !body.senha) {
+      return new Response(
+        JSON.stringify({ error: "Campos obrigatórios: email, senha" }),
+        {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: body.email,
+      password: body.senha,
+    });
+
+    if (error || !data.session) {
+      return new Response(JSON.stringify({ autenticado: false }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    return new Response(
+      JSON.stringify({
+        autenticado: true,
+        token: data.session.access_token,
+        usuario: { id: data.user.id, email: data.user.email },
+      }),
+      {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
+  }
+
   if (req.method === "GET") {
+    const user = await verificarJWT(req, supabase);
+    if (!user) {
+      return new Response(JSON.stringify({ error: "Não autorizado" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     if (!email) {
       return new Response(
         JSON.stringify({ error: "Parâmetro email obrigatório" }),
@@ -64,52 +120,11 @@ export async function handleUsuarios(
     });
   }
 
-  if (req.method === "POST" && action === "login") {
-    let body: { email: string; senha: string };
-    try {
-      body = await req.json();
-    } catch {
-      return new Response(JSON.stringify({ error: "Corpo inválido" }), {
-        status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    if (!body.email || !body.senha) {
-      return new Response(
-        JSON.stringify({ error: "Campos obrigatórios: email, senha" }),
-        {
-          status: 400,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        },
-      );
-    }
-
-    const senhaHash = await hashSenha(body.senha);
-    const { data, error } = await supabase
-      .from("usuarios")
-      .select("id, nome, email")
-      .eq("email", body.email)
-      .eq("senha", senhaHash)
-      .single();
-
-    if (error || !data) {
-      return new Response(
-        JSON.stringify({ autenticado: false }),
-        {
-          status: 401,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        },
-      );
-    }
-
-    return new Response(
-      JSON.stringify({ autenticado: true, usuario: data }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      },
-    );
+  if (req.method === "POST" && action !== null && action !== "login") {
+    return new Response(JSON.stringify({ error: "Ação desconhecida" }), {
+      status: 400,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 
   if (req.method === "POST" && action) {
@@ -123,7 +138,7 @@ export async function handleUsuarios(
   }
 
   if (req.method === "POST") {
-    let body: Usuario;
+    let body: UsuarioPerfil & { senha: string };
     try {
       body = await req.json();
     } catch {
@@ -143,15 +158,35 @@ export async function handleUsuarios(
       );
     }
 
-    const senhaHash = await hashSenha(body.senha);
+    const { data: authData, error: authError } =
+      await supabase.auth.admin.createUser({
+        email: body.email,
+        password: body.senha,
+        email_confirm: true,
+      });
+
+    if (authError) {
+      return new Response(JSON.stringify({ error: authError.message }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     const { data, error } = await supabase
       .from("usuarios")
-      .insert({ ...body, senha: senhaHash })
+      .insert({
+        id: authData.user.id,
+        nome: body.nome,
+        email: body.email,
+        telefone: body.telefone,
+        disponibilidade: body.disponibilidade,
+        acoes_preferencia: body.acoes_preferencia,
+      })
       .select("id, nome, email, telefone, disponibilidade")
       .single();
 
     if (error) {
+      await supabase.auth.admin.deleteUser(authData.user.id);
       return new Response(JSON.stringify({ error: error.message }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -165,6 +200,14 @@ export async function handleUsuarios(
   }
 
   if (req.method === "PUT") {
+    const user = await verificarJWT(req, supabase);
+    if (!user) {
+      return new Response(JSON.stringify({ error: "Não autorizado" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     if (!email) {
       return new Response(
         JSON.stringify({ error: "Parâmetro email obrigatório" }),
@@ -175,7 +218,7 @@ export async function handleUsuarios(
       );
     }
 
-    let body: Partial<Usuario>;
+    let body: Partial<UsuarioPerfil>;
     try {
       body = await req.json();
     } catch {
@@ -183,10 +226,6 @@ export async function handleUsuarios(
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
-    }
-
-    if (body.senha) {
-      body = { ...body, senha: await hashSenha(body.senha) };
     }
 
     const { data, error } = await supabase
@@ -210,19 +249,17 @@ export async function handleUsuarios(
   }
 
   if (req.method === "DELETE") {
-    let deleteBody: { senha: string };
-    try {
-      deleteBody = await req.json();
-    } catch {
-      return new Response(JSON.stringify({ error: "Corpo inválido" }), {
-        status: 400,
+    const user = await verificarJWT(req, supabase);
+    if (!user) {
+      return new Response(JSON.stringify({ error: "Não autorizado" }), {
+        status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    if (!email || !deleteBody.senha) {
+    if (!email) {
       return new Response(
-        JSON.stringify({ error: "Parâmetros obrigatórios: email (query), senha (body)" }),
+        JSON.stringify({ error: "Parâmetro email obrigatório" }),
         {
           status: 400,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -230,35 +267,35 @@ export async function handleUsuarios(
       );
     }
 
-    const senhaHash = await hashSenha(deleteBody.senha);
-    const { data: usuario, error: authError } = await supabase
+    const { data: usuario } = await supabase
       .from("usuarios")
       .select("id")
       .eq("email", email)
-      .eq("senha", senhaHash)
       .single();
 
-    if (authError || !usuario) {
+    if (!usuario) {
       return new Response(
-        JSON.stringify({ error: "Credenciais inválidas" }),
+        JSON.stringify({ error: "Usuário não encontrado" }),
         {
-          status: 401,
+          status: 404,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         },
       );
     }
 
-    const { error } = await supabase
+    const { error: profileError } = await supabase
       .from("usuarios")
       .delete()
       .eq("id", usuario.id);
 
-    if (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
+    if (profileError) {
+      return new Response(JSON.stringify({ error: profileError.message }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+
+    await supabase.auth.admin.deleteUser(usuario.id);
 
     return new Response(null, { status: 204, headers: corsHeaders });
   }
