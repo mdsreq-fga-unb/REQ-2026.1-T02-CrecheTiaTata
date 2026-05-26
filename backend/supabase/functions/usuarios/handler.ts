@@ -112,6 +112,16 @@ export async function handleUsuarios(
     );
   }
 
+  if (req.method === "POST" && action) {
+    return new Response(
+      JSON.stringify({ error: "Ação inválida" }),
+      {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
+  }
+
   if (req.method === "POST") {
     let body: Usuario;
     try {
