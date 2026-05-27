@@ -199,7 +199,10 @@ export default function AtualizarPerfilPage() {
             </label>
 
             {erroDelete && (
-              <div className="rounded-xl bg-white p-3 text-sm font-semibold text-red-700 border border-red-200">
+              <div
+                role="alert"
+                className="rounded-xl bg-white p-3 text-sm font-semibold text-red-700 border border-red-200"
+              >
                 {erroDelete}
               </div>
             )}
