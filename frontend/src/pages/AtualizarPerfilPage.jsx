@@ -41,7 +41,7 @@ export default function AtualizarPerfilPage() {
     } catch (error) {
       setErroAtualizacao('Falha ao conectar com o servidor.');
     } finally {
-      setIsSubmitting(false);
+      setIsUpdating(false);
     }
   };
 
@@ -71,7 +71,7 @@ export default function AtualizarPerfilPage() {
     } catch (error) {
       setErroDelete('Erro ao apagar conta. Verifique sua senha.');
     } finally {
-      setIsSubmitting(false);
+      setIsDeleting(false);
     }
   };
 
