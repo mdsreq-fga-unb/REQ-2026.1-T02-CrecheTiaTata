@@ -2,6 +2,7 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '';
 
 export const API_ENDPOINTS = {
   login: import.meta.env.VITE_LOGIN_ENDPOINT ?? '/api/auth/login',
+  signup: import.meta.env.VITE_SIGNUP_ENDPOINT ?? '/api/auth/signup',
 };
 
 export function buildApiUrl(endpoint) {
