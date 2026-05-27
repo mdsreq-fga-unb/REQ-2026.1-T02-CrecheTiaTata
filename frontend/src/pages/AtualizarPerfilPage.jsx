@@ -132,10 +132,18 @@ export default function AtualizarPerfilPage() {
           </label>
 
           {erroAtualizacao && (
-            <div className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-700">{erroAtualizacao}</div>
+            <div role="alert" className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-700">
+              {erroAtualizacao}
+            </div>
           )}
           {sucessoAtualizacao && (
-            <div className="rounded-xl bg-emerald-50 p-4 text-sm font-semibold text-emerald-700">{sucessoAtualizacao}</div>
+            <div
+              role="status"
+              aria-live="polite"
+              className="rounded-xl bg-emerald-50 p-4 text-sm font-semibold text-emerald-700"
+            >
+              {sucessoAtualizacao}
+            </div>
           )}
 
           <button
