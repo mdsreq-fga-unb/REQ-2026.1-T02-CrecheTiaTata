@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { navigateTo } from '../utils/navigation';
+import { clearAuthToken } from '../utils/authStorage';
 
 export default function AtualizarPerfilPage() {
   const [email, setEmail] = useState('');
@@ -13,7 +14,8 @@ export default function AtualizarPerfilPage() {
   const [confirmaSenhaDelete, setConfirmaSenhaDelete] = useState('');
   const [confirmacaoCheckbox, setConfirmacaoCheckbox] = useState(false);
   const [erroDelete, setErroDelete] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const validarEmailRegex = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,11 +26,11 @@ export default function AtualizarPerfilPage() {
     event.preventDefault();
     setErroAtualizacao('');
     setSucessoAtualizacao('');
-    setIsSubmitting(true);
+    setIsUpdating(true);
 
     if (email && !validarEmailRegex(email)) {
       setErroAtualizacao('Formato de e-mail inválido!');
-      setIsSubmitting(false);
+      setIsUpdating(false);
       return;
     }
 
@@ -46,23 +48,24 @@ export default function AtualizarPerfilPage() {
   const handleDeletarConta = async (event) => {
     event.preventDefault();
     setErroDelete('');
-    setIsSubmitting(true);
+    setIsDeleting(true);
 
     if (senhaDelete !== confirmaSenhaDelete) {
       setErroDelete('As senhas não coincidem!');
-      setIsSubmitting(false);
+      setIsDeleting(false);
       return;
     }
 
     if (!confirmacaoCheckbox) {
       setErroDelete('Você precisa confirmar que deseja apagar a conta permanentemente.');
-      setIsSubmitting(false);
+      setIsDeleting(false);
       return;
     }
 
     try {
       // Mock da requisição DELETE
       await new Promise((resolve) => setTimeout(resolve, 500));
+      clearAuthToken();
       alert('Conta deletada com sucesso.');
       navigateTo('/');
     } catch (error) {
@@ -82,7 +85,7 @@ export default function AtualizarPerfilPage() {
         </header>
 
         {/* --- FORMULÁRIO DE ATUALIZAÇÃO --- */}
-        <form className="grid gap-6" onSubmit={handleAtualizarDados}>
+        <form className="grid gap-6" onSubmit={handleAtualizarDados} noValidate>
           <h2 className="text-xl font-bold text-slate-900 border-b pb-2">Informações de Contato</h2>
           
           <div className="grid gap-4 sm:grid-cols-2">
@@ -148,10 +151,10 @@ export default function AtualizarPerfilPage() {
 
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isUpdating}
             className="w-full rounded-xl bg-emerald-600 px-6 py-4 font-bold text-white transition hover:bg-emerald-700 disabled:opacity-50"
           >
-            {isSubmitting ? 'Salvando...' : 'Salvar Alterações'}
+            {isUpdating ? 'Salvando...' : 'Salvar Alterações'}
           </button>
         </form>
 
@@ -209,7 +212,7 @@ export default function AtualizarPerfilPage() {
 
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isDeleting}
               className="mt-2 rounded-xl bg-red-600 px-6 py-3 font-bold text-white transition hover:bg-red-700 w-full sm:w-auto sm:place-self-start"
             >
               Apagar Minha Conta

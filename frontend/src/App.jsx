@@ -8,6 +8,8 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import PasswordRecoveryPage from './pages/PasswordRecoveryPage';
 import SobrePage from './pages/SobrePage';
+import { isAuthTokenValid } from './utils/authStorage';
+
 // NOVO:
 import AtualizarPerfilPage from './pages/AtualizarPerfilPage';
 
@@ -39,7 +41,7 @@ function App() {
       {isLoginPage && <LoginPage />}
       {isPasswordRecoveryPage && <PasswordRecoveryPage />}
       
-      {isPerfilPage && <AtualizarPerfilPage />}
+      {isPerfilPage && (isAuthTokenValid() ? <AtualizarPerfilPage /> : <LoginPage />)}
 
       {isHomePage && <HomePage />}
       {isHomePage && <CtaSection />}
