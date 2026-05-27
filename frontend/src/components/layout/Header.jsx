@@ -38,14 +38,20 @@ export default function Header({ menuOpen, setMenuOpen }) {
             Contato
           </button>
           {isAuthenticated ? (
-            <button type="button" onClick={handleLogout} className="hover:text-emerald-700">
-              Sair
-            </button>
+            <div className="flex items-center gap-8">
+              <button type="button" onClick={() => navigateTo('/perfil')} className="hover:text-emerald-700">
+                Meu Perfil
+              </button>
+              <button type="button" onClick={handleLogout} className="hover:text-emerald-700">
+                Sair
+              </button>
+            </div>
           ) : (
             <button type="button" onClick={() => navigateTo('/login?modo=cadastro')} className="hover:text-emerald-700">
               Entrar/Criar conta
             </button>
           )}
+          
           <a
             href="/#ajudar"
             className="rounded-full bg-emerald-600 px-5 py-2.5 text-white shadow-sm transition hover:bg-emerald-700"
@@ -100,9 +106,17 @@ export default function Header({ menuOpen, setMenuOpen }) {
               Contato
             </button>
             {isAuthenticated ? (
-              <button type="button" onClick={handleLogout} className="text-left">
-                Sair
-              </button>
+              <>
+                <button type="button" onClick={() => {closeMenu();navigateTo('/perfil');}} 
+                  className="text-left">
+                  Meu Perfil
+                </button>
+
+                <button type="button" onClick={handleLogout} className="text-left">
+                  Sair
+                </button>
+                
+              </>
             ) : (
               <button
                 type="button"
