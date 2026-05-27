@@ -33,23 +33,37 @@ describe('LoginPage', () => {
 
     expect(screen.getByRole('heading', { level: 2, name: /criar conta/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/nome/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /criar conta e continuar/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /criar conta/i })).toBeInTheDocument();
   });
 
-  it('cria conta local sem backend e volta para a ação solicitada', async () => {
+  it('cria conta e volta para a ação solicitada', async () => {
     window.history.pushState({}, '', `/login?modo=cadastro&redirect=${encodeURIComponent('/contato?acao=doar')}`);
+
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ token: 'jwt-token' }),
+    });
 
     render(<LoginPage />);
 
     await userEvent.type(screen.getByLabelText(/nome/i), 'Maria Silva');
     await userEvent.type(screen.getByLabelText(/e-mail/i), 'maria@email.com');
-    await userEvent.type(screen.getByLabelText(/senha/i), 'senha123');
-    await userEvent.click(screen.getByRole('button', { name: /criar conta e continuar/i }));
+    await userEvent.type(screen.getByLabelText(/^Senha$/i), 'senha123');
+    await userEvent.type(screen.getByLabelText(/confirmar senha/i), 'senha123');
+    await userEvent.click(screen.getByRole('button', { name: /criar conta/i }));
 
-    expect(fetch).not.toHaveBeenCalled();
-    expect(localStorage.getItem('creche_tia_tata_auth_token')).toBe('local-signup-jwt-token');
-    expect(window.location.pathname).toBe('/contato');
-    expect(window.location.search).toBe('?acao=doar');
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledWith('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: 'Maria Silva', email: 'maria@email.com', password: 'senha123' }),
+      });
+      expect(localStorage.getItem('creche_tia_tata_auth_token')).toBe('jwt-token');
+      expect(window.location.pathname).toBe('/contato');
+      expect(window.location.search).toBe('?acao=doar');
+    });
   });
 
   it('envia a requisição de login ao clicar em entrar', async () => {
@@ -115,7 +129,7 @@ describe('LoginPage', () => {
     render(<LoginPage />);
 
     await userEvent.type(screen.getByLabelText(/e-mail/i), 'usuario@email.com');
-    await userEvent.type(screen.getByLabelText(/senha/i), 'errada');
+    await userEvent.type(screen.getByLabelText(/senha/i), 'errada123');
     await userEvent.click(screen.getByRole('button', { name: /entrar/i }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent(/senha incorreta/i);

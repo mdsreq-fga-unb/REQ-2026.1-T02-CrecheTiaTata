@@ -4,6 +4,7 @@ import { DEFAULT_LOGIN } from '../config/auth';
 import { LOGIN_ERROR_MESSAGES, loginUser } from '../services/authService';
 import { saveAuthToken } from '../utils/authStorage';
 import { navigateTo } from '../utils/navigation';
+import { useSignup } from '../hooks/useSignup';
 
 export default function LoginPage() {
   const params = new URLSearchParams(window.location.search);
@@ -13,21 +14,81 @@ export default function LoginPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { signup, isSubmitting: isSignupSubmitting } = useSignup();
   const isSignupMode = authMode === 'signup';
+  const EMAIL_REGEX =  /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+  const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{6,64}$/;
+  const NAME_REGEX = /^(?=.{2,100}$)\p{L}+(?:[ '\-]\p{L}+)*$/u;
 
-  function handleAccountCreated(event) {
+  function clearFieldError(field) {
+    setFieldErrors((current) => ({ ...current, [field]: '' }));
+  }
+
+  function validateFields() {
+    const errors = { name: '', email: '', password: '', confirmPassword: '' };
+
+    if (isSignupMode) {
+      if (!name.trim()) {
+        errors.name = 'Por favor, preencha este campo';
+      } else if (!NAME_REGEX.test(name.trim())) {
+        errors.name = 'Nome inválido. Use de 2 a 100 letras, espaços, hífens ou apóstrofos';
+      }
+    }
+
+    if (!email.trim()) {
+      errors.email = 'Por favor, preencha este campo';
+    } else if (!EMAIL_REGEX.test(email.trim())) {
+      errors.email = 'Formato de email inválido';
+    }
+
+    if (!password) {
+      errors.password = 'Por favor, preencha este campo';
+    } else if (!PASSWORD_REGEX.test(password)) {
+      errors.password = 'Senha inválida. Deve ter entre 6 e 64 caracteres e incluir letras e números';
+    }
+
+    if (isSignupMode) {
+      if (!confirmPassword) {
+        errors.confirmPassword = 'Por favor, confirme sua senha';
+      } else if (password !== confirmPassword) {
+        errors.confirmPassword = 'As senhas não coincidem';
+      }
+    }
+
+    setFieldErrors(errors);
+    return !errors.name && !errors.email && !errors.password && !errors.confirmPassword;
+  }
+
+  async function handleAccountCreated(event) {
     event.preventDefault();
     setErrorMessage('');
-    saveAuthToken('local-signup-jwt-token');
-    navigateTo(redirectTo);
+
+    if (!validateFields()) {
+      return;
+    }
+
+    try {
+      const { token } = await signup({ name, email, password });
+      saveAuthToken(token);
+      navigateTo(redirectTo);
+    } catch (error) {
+      setErrorMessage(error?.message || LOGIN_ERROR_MESSAGES.unexpected);
+    }
   }
 
   async function handleLogin(event) {
     event.preventDefault();
     setErrorMessage('');
     setIsSubmitting(true);
+
+    if (!validateFields()) {
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const { token } = await loginUser({ email, password });
@@ -72,7 +133,7 @@ export default function LoginPage() {
               </p>
             </div>
 
-            <form className="mt-8 grid gap-5 lg:mt-0" onSubmit={isSignupMode ? handleAccountCreated : handleLogin}>
+            <form className="mt-8 grid gap-5 lg:mt-0" noValidate onSubmit={isSignupMode ? handleAccountCreated : handleLogin}>
               <header>
                 <p className="text-sm font-bold uppercase tracking-wide text-emerald-700">Acesso de doadores e voluntários</p>
                 <h2 className="mt-2 text-3xl font-black text-slate-950">
@@ -115,12 +176,18 @@ export default function LoginPage() {
                     autoComplete="name"
                     className="rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
                     name="name"
-                    onChange={(event) => setName(event.target.value)}
+                    onChange={(event) => {
+                      setName(event.target.value);
+                      clearFieldError('name');
+                    }}
                     placeholder="Digite seu nome completo"
                     required
                     type="text"
                     value={name}
                   />
+                  {fieldErrors.name && (
+                    <p className="text-sm font-medium text-red-700">{fieldErrors.name}</p>
+                  )}
                 </label>
               )}
 
@@ -130,12 +197,18 @@ export default function LoginPage() {
                   autoComplete="email"
                   className="rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
                   name="email"
-                  onChange={(event) => setEmail(event.target.value)}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                    clearFieldError('email');
+                  }}
                   placeholder="seuemail@exemplo.com"
                   required
                   type="email"
                   value={email}
                 />
+                {fieldErrors.email && (
+                  <p className="text-sm font-medium text-red-700">{fieldErrors.email}</p>
+                )}
               </label>
 
               <label className="grid gap-2 text-sm font-bold text-slate-700">
@@ -144,22 +217,59 @@ export default function LoginPage() {
                   autoComplete="current-password"
                   className="rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
                   name="password"
-                  onChange={(event) => setPassword(event.target.value)}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                    clearFieldError('password');
+                    if (isSignupMode) {
+                      clearFieldError('confirmPassword');
+                    }
+                  }}
                   placeholder="Digite sua senha"
                   required
                   type="password"
                   value={password}
                 />
+                {fieldErrors.password && (
+                  <p className="text-sm font-medium text-red-700">{fieldErrors.password}</p>
+                )}
               </label>
+
+              {isSignupMode && (
+                <label className="grid gap-2 text-sm font-bold text-slate-700">
+                  Confirmar senha
+                  <input
+                    autoComplete="current-password"
+                    className="rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                    name="confirmPassword"
+                    onChange={(event) => {
+                      setConfirmPassword(event.target.value);
+                      clearFieldError('confirmPassword');
+                    }}
+                    placeholder="Digite sua senha"
+                    required
+                    type="password"
+                    value={confirmPassword}
+                  />
+                  {fieldErrors.confirmPassword && (
+                    <p className="text-sm font-medium text-red-700">{fieldErrors.confirmPassword}</p>
+                  )}
+                </label>
+              )}
 
               <button
                 className="rounded-xl bg-emerald-600 px-6 py-4 font-bold text-white shadow-sm transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300"
-                disabled={isSubmitting}
+                disabled={isSignupMode ? isSignupSubmitting : isSubmitting}
                 type="submit"
               >
-                {isSubmitting ? 'Entrando...' : isSignupMode ? 'Criar conta e continuar' : 'Entrar'}
+                {isSignupMode
+                  ? isSignupSubmitting
+                    ? 'Criando...'
+                    : 'Criar conta'
+                  : isSubmitting
+                  ? 'Entrando...'
+                  : 'Entrar'}
               </button>
-
+            {!isSignupMode && (
               <button
                 className="text-center text-sm font-bold text-emerald-700 transition hover:text-emerald-900"
                 onClick={() => navigateTo('/recuperar-senha')}
@@ -167,6 +277,7 @@ export default function LoginPage() {
               >
                 Esqueci minha senha
               </button>
+            )}
             </form>
           </div>
         </div>
