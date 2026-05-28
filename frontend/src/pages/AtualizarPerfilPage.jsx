@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { navigateTo } from '../utils/navigation';
-import { clearAuthToken } from '../utils/authStorage';
+import { clearAuthToken, getUserEmailFromToken } from '../utils/authStorage';
+import { deleteAccount, updateProfile } from '../services/profileService';
 
 export default function AtualizarPerfilPage() {
-  const [email, setEmail] = useState('');
+  const [email] = useState(() => getUserEmailFromToken() ?? '');
   const [senha, setSenha] = useState('');
   const [disponibilidade, setDisponibilidade] = useState('');
   const [acoes, setAcoes] = useState('');
@@ -17,29 +18,47 @@ export default function AtualizarPerfilPage() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const validarEmailRegex = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  };
-
   const handleAtualizarDados = async (event) => {
     event.preventDefault();
     setErroAtualizacao('');
     setSucessoAtualizacao('');
     setIsUpdating(true);
 
-    if (email && !validarEmailRegex(email)) {
-      setErroAtualizacao('Formato de e-mail inválido!');
+    const emailAtual = getUserEmailFromToken();
+
+    if (!emailAtual) {
+      setErroAtualizacao('Sessão expirada. Entre novamente.');
+      setIsUpdating(false);
+      return;
+    }
+
+    const changes = {};
+    if (senha) changes.password = senha;
+    if (disponibilidade) changes.disponibilidade = disponibilidade;
+    if (acoes) {
+      changes.acoes_preferencia = acoes
+        .split(/[,\n]/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+
+    if (Object.keys(changes).length === 0) {
+      setErroAtualizacao('Nada para atualizar.');
       setIsUpdating(false);
       return;
     }
 
     try {
-      // Mock da requisição PUT
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await updateProfile(emailAtual, changes);
+      if (changes.password) {
+        clearAuthToken();
+        alert('Senha alterada. Entre novamente com a nova senha.');
+        navigateTo('/login');
+        return;
+      }
       setSucessoAtualizacao('Dados atualizados com sucesso!');
     } catch (error) {
-      setErroAtualizacao('Falha ao conectar com o servidor.');
+      setErroAtualizacao(error?.message || 'Falha ao conectar com o servidor.');
     } finally {
       setIsUpdating(false);
     }
@@ -62,14 +81,21 @@ export default function AtualizarPerfilPage() {
       return;
     }
 
+    const emailAtual = getUserEmailFromToken();
+
+    if (!emailAtual) {
+      setErroDelete('Sessão expirada. Entre novamente.');
+      setIsDeleting(false);
+      return;
+    }
+
     try {
-      // Mock da requisição DELETE
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await deleteAccount(emailAtual);
       clearAuthToken();
       alert('Conta deletada com sucesso.');
       navigateTo('/');
     } catch (error) {
-      setErroDelete('Erro ao apagar conta. Verifique sua senha.');
+      setErroDelete(error?.message || 'Erro ao apagar conta.');
     } finally {
       setIsDeleting(false);
     }
@@ -92,11 +118,11 @@ export default function AtualizarPerfilPage() {
             <label className="grid gap-2 text-sm font-bold text-slate-700">
               E-mail
               <input
-                className="rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                className="rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 font-normal text-slate-500 outline-none cursor-not-allowed"
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="novoemail@exemplo.com"
+                disabled
+                readOnly
               />
             </label>
             <label className="grid gap-2 text-sm font-bold text-slate-700">

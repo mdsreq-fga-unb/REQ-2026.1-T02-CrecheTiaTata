@@ -29,6 +29,20 @@ export function getAuthExpiration() {
   return Number.isFinite(expiration) ? expiration : null;
 }
 
+export function getUserEmailFromToken() {
+  const token = getAuthToken();
+  if (!token) {
+    return null;
+  }
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.email ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export function isAuthTokenValid(now = Date.now()) {
   const token = localStorage.getItem(TOKEN_KEY);
   const expiresAt = getAuthExpiration();

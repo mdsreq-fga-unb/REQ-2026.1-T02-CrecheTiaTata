@@ -7,6 +7,7 @@ async function signupUser({ name, email, password }) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
     },
     body: JSON.stringify({ name, email, password }),
   });

@@ -3,6 +3,7 @@ import { describe, expect, it, vi, beforeEach } from 'vitest';
 import AtualizarPerfilPage from './AtualizarPerfilPage';
 import { navigateTo } from '../utils/navigation';
 import { clearAuthToken } from '../utils/authStorage';
+import { deleteAccount, updateProfile } from '../services/profileService';
 
 // Criando os Mocks das funções externas
 vi.mock('../utils/navigation', () => ({
@@ -11,6 +12,12 @@ vi.mock('../utils/navigation', () => ({
 
 vi.mock('../utils/authStorage', () => ({
   clearAuthToken: vi.fn(),
+  getUserEmailFromToken: vi.fn(() => 'usuario@exemplo.com'),
+}));
+
+vi.mock('../services/profileService', () => ({
+  updateProfile: vi.fn(() => Promise.resolve({})),
+  deleteAccount: vi.fn(() => Promise.resolve()),
 }));
 
 describe('AtualizarPerfilPage', () => {
@@ -29,32 +36,42 @@ describe('AtualizarPerfilPage', () => {
 
   // --- TESTES DO FORMULÁRIO DE ATUALIZAÇÃO ---
 
-  it('exibe erro de e-mail inválido ao tentar atualizar', async () => {
+  it('mantém o campo de e-mail desabilitado', () => {
     render(<AtualizarPerfilPage />);
-    const emailInput = screen.getByLabelText(/e-mail/i);
-    const form = emailInput.closest('form');
-
-    fireEvent.change(emailInput, { target: { value: 'email_invalido_sem_arroba' } });
-    fireEvent.submit(form);
-
-    expect(await screen.findByText(/formato de e-mail inválido/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/e-mail/i)).toBeDisabled();
   });
 
   it('realiza a atualização com sucesso e exibe estado de loading', async () => {
     render(<AtualizarPerfilPage />);
-    const emailInput = screen.getByLabelText(/e-mail/i);
-    const form = emailInput.closest('form');
+    const disponibilidadeInput = screen.getByLabelText(/disponibilidade/i);
+    const form = disponibilidadeInput.closest('form');
     const saveButton = screen.getByRole('button', { name: /salvar alterações/i });
 
-    fireEvent.change(emailInput, { target: { value: 'certo@exemplo.com' } });
+    fireEvent.change(disponibilidadeInput, { target: { value: 'Tarde' } });
     fireEvent.submit(form);
 
-    // O botão deve mudar de texto e ficar desabilitado imediatamente após o clique
     expect(saveButton).toHaveTextContent(/salvando/i);
     expect(saveButton).toBeDisabled();
 
-    // Aguarda o fim do delay simulado e verifica a mensagem de sucesso
     expect(await screen.findByText(/dados atualizados com sucesso/i)).toBeInTheDocument();
+    expect(updateProfile).toHaveBeenCalledWith('usuario@exemplo.com', { disponibilidade: 'Tarde' });
+  });
+
+  it('ao trocar a senha, limpa token e redireciona para o login', async () => {
+    window.alert = vi.fn();
+
+    render(<AtualizarPerfilPage />);
+    const senhaInput = screen.getByLabelText(/nova senha/i);
+    const form = senhaInput.closest('form');
+
+    fireEvent.change(senhaInput, { target: { value: 'novaSenha456' } });
+    fireEvent.submit(form);
+
+    await waitFor(() => {
+      expect(updateProfile).toHaveBeenCalledWith('usuario@exemplo.com', { password: 'novaSenha456' });
+      expect(clearAuthToken).toHaveBeenCalled();
+      expect(navigateTo).toHaveBeenCalledWith('/login');
+    });
   });
 
   // --- TESTES DA ZONA DE PERIGO (DELETAR CONTA) ---

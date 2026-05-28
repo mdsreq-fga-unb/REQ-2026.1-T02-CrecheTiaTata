@@ -95,7 +95,7 @@ Deno.test("POST login retorna token com credenciais válidas", async () => {
   const req = new Request("http://localhost/usuarios?action=login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: "ana@email.com", senha: "senha123" }),
+    body: JSON.stringify({ email: "ana@email.com", password: "senha123" }),
   });
   const res = await handleUsuarios(req, mock);
 
@@ -111,7 +111,7 @@ Deno.test("POST login retorna 401 com credenciais inválidas", async () => {
   const req = new Request("http://localhost/usuarios?action=login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: "ana@email.com", senha: "errada" }),
+    body: JSON.stringify({ email: "ana@email.com", password: "errada" }),
   });
   const res = await handleUsuarios(req, mock);
 
@@ -181,7 +181,7 @@ Deno.test("POST cria conta com dados válidos", async () => {
   const req = new Request("http://localhost/usuarios", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ nome: "Bruno", email: "bruno@email.com", senha: "senha123" }),
+    body: JSON.stringify({ name: "Bruno", email: "bruno@email.com", password: "senha123" }),
   });
   const res = await handleUsuarios(req, mock);
 
@@ -210,7 +210,7 @@ Deno.test("POST retorna 400 quando auth retorna erro (email duplicado)", async (
   const req = new Request("http://localhost/usuarios", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ nome: "Bruno", email: "bruno@email.com", senha: "senha123" }),
+    body: JSON.stringify({ name: "Bruno", email: "bruno@email.com", password: "senha123" }),
   });
   const res = await handleUsuarios(req, mock);
 
@@ -259,7 +259,13 @@ Deno.test("PUT retorna 400 quando email não informado", async () => {
 });
 
 Deno.test("PUT retorna 400 quando banco retorna erro", async () => {
-  const mock = createMockSupabase({ dbError: { message: "Erro ao atualizar" }, authUser: MOCK_USER });
+  const mock = createMockSupabase({
+    authUser: MOCK_USER,
+    dbResults: [
+      { data: { id: "uuid-1" }, error: null },
+      { data: null, error: { message: "Erro ao atualizar" } },
+    ],
+  });
 
   const req = reqComToken("http://localhost/usuarios?email=ana@email.com", {
     method: "PUT",
