@@ -30,12 +30,12 @@ Objetivo: Desenvolvimento das funcionalidades do Sistema
 - Validação: Validação das funcionalidades de cadastro e gerenciamento de disponibilidade de voluntários, verificando o armazenamento dos dados
 ### Iteração 5
 - Data: 26/05/2026 - 08/06/2026
-- Objetivo: Cadastro de doações e registro de doadores
-- Validação: Validação da página de doações, verificando o cadastro de doadores, registro adequado das doações e consistência das informações armazenadas
+- Objetivo: Cadastro de doações, registro de doadores e autentificação de usuário administrador
+- Validação: Validação da página de doações, verificando o cadastro de doadores, registro e edição adequado das doações e página da administração pós-login que apresentará uma listagem de usuários podendo confirmar/recusar seu pedido como voluntário
 ### Iteração 6
 - Data: 09/06/2026 - 15/06/2026
-- Objetivo: Canal de solicitações e histórico de entregas
-- Validação: Demonstração das funcionalidades de acompanhamento do histórico de entregas assim como do canal de solicitações de doações, com base nos critérios de aceitação definidos.
+- Objetivo: Canal de solicitações, histórico de entregas e confirmação de voluntários
+- Validação: Demonstração das funcionalidades de acompanhamento do histórico de entregas assim como do canal de solicitações de doações e visualização da confirmação ou não da própria ação de voluntário
 
 ## Fase de Transição
 Objetivo: Entrega do sistema ao cliente
