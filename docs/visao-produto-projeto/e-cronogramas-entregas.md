@@ -52,3 +52,4 @@ Objetivo: Entrega do sistema ao cliente
 | 23/04/2026 | 1.1 | Alinhamento do cronograma com o processo escolhido | Matheus Pinheiro |  |
 | 01/05/2026 | 1.2 | Alteração na data final das iterações da fase de contrução para terminarem nas segundas feiras | Matheus Pinheiro |  |
 | 17/05/2026 | 2.0 | Ajustes na ordem das iterações e remoção de funcionalidades fora do MVP| Matheus Pinheiro |  |
+| 27/05/2026 | 3.0 | Ajustes nas iterações 5 e 6 para adição de páginas de administração e confirmação de ação voluntária| Matheus Pinheiro |  |
