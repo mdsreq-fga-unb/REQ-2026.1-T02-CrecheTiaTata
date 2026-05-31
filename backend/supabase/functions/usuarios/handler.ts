@@ -1,4 +1,5 @@
 import { corsHeaders } from "../_shared/cors.ts";
+import { validarEmail } from "../_shared/validacao.ts";
 
 // deno-lint-ignore no-explicit-any
 type SupabaseClientLike = any;
@@ -10,6 +11,7 @@ export interface UsuarioPerfil {
   telefone?: string;
   disponibilidade?: string;
   acoes_preferencia?: string[];
+  papel?: "admin" | "usuario";
 }
 
 async function verificarJWT(
@@ -69,12 +71,31 @@ export async function handleUsuarios(
       });
     }
 
+    const { data: perfil } = await supabase
+      .from("usuarios")
+      .select("papel")
+      .eq("id", data.user.id)
+      .single();
+
+    if (!perfil || perfil.papel !== "admin") {
+      return new Response(
+        JSON.stringify({
+          autenticado: false,
+          error: "Acesso restrito a administradores",
+        }),
+        {
+          status: 403,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
     return new Response(
       JSON.stringify({
         autenticado: true,
         token: data.session.access_token,
-        usuario: { id: data.user.id, email: data.user.email },
-        user: { id: data.user.id, email: data.user.email },
+        usuario: { id: data.user.id, email: data.user.email, papel: perfil.papel },
+        user: { id: data.user.id, email: data.user.email, papel: perfil.papel },
       }),
       {
         status: 200,
@@ -146,6 +167,7 @@ export async function handleUsuarios(
       telefone?: string;
       disponibilidade?: string;
       acoes_preferencia?: string[];
+      papel?: "admin" | "usuario";
     };
     try {
       body = await req.json();
@@ -159,6 +181,16 @@ export async function handleUsuarios(
     if (!body.name || !body.email || !body.password) {
       return new Response(
         JSON.stringify({ error: "Campos obrigatórios: name, email, password" }),
+        {
+          status: 422,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    if (!validarEmail(body.email)) {
+      return new Response(
+        JSON.stringify({ error: "E-mail inválido ou domínio não permitido" }),
         {
           status: 422,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -189,8 +221,9 @@ export async function handleUsuarios(
         telefone: body.telefone,
         disponibilidade: body.disponibilidade,
         acoes_preferencia: body.acoes_preferencia,
+        papel: body.papel ?? "admin",
       })
-      .select("id, nome, email, telefone, disponibilidade")
+      .select("id, nome, email, telefone, disponibilidade, papel")
       .single();
 
     if (error) {

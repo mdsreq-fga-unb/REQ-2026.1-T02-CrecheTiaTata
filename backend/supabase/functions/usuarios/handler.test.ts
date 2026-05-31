@@ -89,8 +89,12 @@ function reqComToken(url: string, init: RequestInit = {}) {
 
 // POST login
 
-Deno.test("POST login retorna token com credenciais válidas", async () => {
-  const mock = createMockSupabase({ authUser: MOCK_USER, session: MOCK_SESSION });
+Deno.test("POST login retorna token com credenciais válidas de admin", async () => {
+  const mock = createMockSupabase({
+    authUser: MOCK_USER,
+    session: MOCK_SESSION,
+    dbData: { papel: "admin" },
+  });
 
   const req = new Request("http://localhost/usuarios?action=login", {
     method: "POST",
@@ -103,6 +107,25 @@ Deno.test("POST login retorna token com credenciais válidas", async () => {
   const body = await res.json();
   assertEquals(body.autenticado, true);
   assertEquals(body.token, MOCK_TOKEN);
+  assertEquals(body.usuario.papel, "admin");
+});
+
+Deno.test("POST login retorna 403 quando usuário não é admin", async () => {
+  const mock = createMockSupabase({
+    authUser: MOCK_USER,
+    session: MOCK_SESSION,
+    dbData: { papel: "usuario" },
+  });
+
+  const req = new Request("http://localhost/usuarios?action=login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: "ana@email.com", password: "senha123" }),
+  });
+  const res = await handleUsuarios(req, mock);
+
+  assertEquals(res.status, 403);
+  assertEquals((await res.json()).autenticado, false);
 });
 
 Deno.test("POST login retorna 401 com credenciais inválidas", async () => {
@@ -175,13 +198,13 @@ Deno.test("GET perfil retorna 400 quando banco retorna erro", async () => {
 // POST criar conta
 
 Deno.test("POST cria conta com dados válidos", async () => {
-  const perfil = { id: "uuid-1", nome: "Bruno", email: "bruno@email.com" };
+  const perfil = { id: "uuid-1", nome: "Bruno", email: "bruno@gmail.com" };
   const mock = createMockSupabase({ dbData: perfil, authUser: MOCK_USER });
 
   const req = new Request("http://localhost/usuarios", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: "Bruno", email: "bruno@email.com", password: "senha123" }),
+    body: JSON.stringify({ name: "Bruno", email: "bruno@gmail.com", password: "senha123" }),
   });
   const res = await handleUsuarios(req, mock);
 
@@ -204,13 +227,39 @@ Deno.test("POST retorna 422 quando campos obrigatórios faltam", async () => {
   assertEquals(res.status, 422);
 });
 
+Deno.test("POST retorna 422 quando email não tem @", async () => {
+  const mock = createMockSupabase({ authUser: MOCK_USER });
+
+  const req = new Request("http://localhost/usuarios", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name: "Bruno", email: "brunoemail.com", password: "senha123" }),
+  });
+  const res = await handleUsuarios(req, mock);
+
+  assertEquals(res.status, 422);
+});
+
+Deno.test("POST retorna 422 quando domínio do email não é permitido", async () => {
+  const mock = createMockSupabase({ authUser: MOCK_USER });
+
+  const req = new Request("http://localhost/usuarios", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name: "Bruno", email: "bruno@dominioqualquer.xyz", password: "senha123" }),
+  });
+  const res = await handleUsuarios(req, mock);
+
+  assertEquals(res.status, 422);
+});
+
 Deno.test("POST retorna 400 quando auth retorna erro (email duplicado)", async () => {
   const mock = createMockSupabase({ authError: { message: "User already registered" } });
 
   const req = new Request("http://localhost/usuarios", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: "Bruno", email: "bruno@email.com", password: "senha123" }),
+    body: JSON.stringify({ name: "Bruno", email: "bruno@gmail.com", password: "senha123" }),
   });
   const res = await handleUsuarios(req, mock);
 
