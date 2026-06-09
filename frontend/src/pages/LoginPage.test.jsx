@@ -41,7 +41,7 @@ describe('LoginPage', () => {
 
     fetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ token: 'jwt-token' }),
+      json: async () => ({ criado: true, token: 'jwt-token' }),
     });
 
     render(<LoginPage />);
