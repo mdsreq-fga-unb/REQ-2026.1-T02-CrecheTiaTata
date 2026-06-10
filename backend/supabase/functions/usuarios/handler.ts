@@ -77,25 +77,14 @@ export async function handleUsuarios(
       .eq("id", data.user.id)
       .single();
 
-    if (!perfil || perfil.papel !== "admin") {
-      return new Response(
-        JSON.stringify({
-          autenticado: false,
-          error: "Acesso restrito a administradores",
-        }),
-        {
-          status: 403,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        },
-      );
-    }
+    const papel = perfil?.papel ?? "usuario";
 
     return new Response(
       JSON.stringify({
         autenticado: true,
         token: data.session.access_token,
-        usuario: { id: data.user.id, email: data.user.email, papel: perfil.papel },
-        user: { id: data.user.id, email: data.user.email, papel: perfil.papel },
+        usuario: { id: data.user.id, email: data.user.email, papel },
+        user: { id: data.user.id, email: data.user.email, papel },
       }),
       {
         status: 200,

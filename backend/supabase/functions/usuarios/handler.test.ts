@@ -110,7 +110,7 @@ Deno.test("POST login retorna token com credenciais válidas de admin", async ()
   assertEquals(body.usuario.papel, "admin");
 });
 
-Deno.test("POST login retorna 403 quando usuário não é admin", async () => {
+Deno.test("POST login de usuário comum retorna 200 com papel usuario", async () => {
   const mock = createMockSupabase({
     authUser: MOCK_USER,
     session: MOCK_SESSION,
@@ -124,8 +124,10 @@ Deno.test("POST login retorna 403 quando usuário não é admin", async () => {
   });
   const res = await handleUsuarios(req, mock);
 
-  assertEquals(res.status, 403);
-  assertEquals((await res.json()).autenticado, false);
+  assertEquals(res.status, 200);
+  const body = await res.json();
+  assertEquals(body.autenticado, true);
+  assertEquals(body.usuario.papel, "usuario");
 });
 
 Deno.test("POST login retorna 401 com credenciais inválidas", async () => {
