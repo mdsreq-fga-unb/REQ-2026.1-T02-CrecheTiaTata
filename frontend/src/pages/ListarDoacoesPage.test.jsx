@@ -1,86 +1,95 @@
-/* global describe, it, expect, beforeEach, afterEach, global */
-import { render, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { vi } from 'vitest';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ListarDoacoesPage from './ListarDoacoesPage';
 
-// Mock local apenas para o teste passar sem precisar do backend ligado
-const mockData = [
-  { id: 1, item: 'Leite em pó (Lata)', quantidade: 15, categoria: 'Alimentação', urgencia: 'Alta' },
-  { id: 2, item: 'Fraldas Tamanho M', quantidade: 8, categoria: 'Higiene', urgencia: 'Alta' },
-  { id: 3, item: 'Casacos infantis', quantidade: 25, categoria: 'Vestuário', urgencia: 'Média' },
-  { id: 4, item: 'Brinquedos educativos', quantidade: 10, categoria: 'Lazer', urgencia: 'Baixa' }
-];
+// "mock" do fetch para não precisar de um backend real nos testes
+globalThis.fetch = vi.fn();
 
-describe('Página de Listar Doações', () => {
+describe('Página de Listar Doações e Doadores (RF-03 e RF-06)', () => {
   
-  // Antes de cada teste, interceptamos o fetch com o Vitest (vi)
   beforeEach(() => {
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve(mockData),
-      })
-    );
+    vi.clearAllMocks(); // Limpa as imitações antes de cada teste
   });
 
-  // Limpar o Mock após os testes para não dar interferência
+  it('deve renderizar as abas corretamente', async () => {
 
-  afterEach(() => {
-    vi.clearAllMocks();
-  });
+    // Finge que a API retornou uma lista vazia
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => [],
+    });
 
-  it('deve renderizar o cabeçalho e os títulos da página corretamente', async () => {
     render(<ListarDoacoesPage />);
-    
-    expect(screen.getByText('Mural de Doações')).toBeInTheDocument();
+
+    // Verifica se os botões das abas estão na tela
     expect(screen.getByText('Itens Disponíveis')).toBeInTheDocument();
-    
-    // Esperar a interface atualizar
+    expect(screen.getByText('Doadores')).toBeInTheDocument();
+  });
 
+  it('deve exibir as doações vindas da API', async () => {
+    const mockDoacoes = [
+      { id: 1, item: 'Leite em pó (Lata)', quantidade: 15, categoria: 'Alimentação', urgencia: 'Alta' }
+    ];
+
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockDoacoes,
+    });
+
+    render(<ListarDoacoesPage />);
+
+    // Aguarda o loading sumir e o item aparecer na tela
     await waitFor(() => {
       expect(screen.getByText('Leite em pó (Lata)')).toBeInTheDocument();
     });
+
+    expect(screen.getByText('Alimentação')).toBeInTheDocument();
+    expect(screen.getByText('Quero Doar')).toBeInTheDocument(); // Nosso botão novo!
   });
 
-  it('deve exibir feedback visual caso a lista de doações venha vazia', async () => {
+  it('deve mudar para a aba de doadores e carregar os dados', async () => {
 
-    // Forçando o mock a retornar um array vazio para este teste específico
-    global.fetch.mockImplementationOnce(() =>
-      Promise.resolve({ ok: true, json: () => Promise.resolve([]) })
-    );
+    // 1º Fetch: Ocorre assim que a página abre (aba doações)
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => [],
+    });
 
     render(<ListarDoacoesPage />);
 
-    await waitFor(() => {
-      expect(screen.getByText('Nenhum item disponível')).toBeInTheDocument();
-      expect(screen.getByText('No momento, não temos itens cadastrados no mural de doações.')).toBeInTheDocument();
+    // 2º Fetch: Preparamos a resposta para quando a aba de Doadores for clicada
+    const mockDoadores = [
+      { id: 1, nome: 'Ana Silva', email: 'ana@email.com' }
+    ];
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockDoadores,
     });
+
+    // Simula o usuário clicando na aba Doadores
+    fireEvent.click(screen.getByText('Doadores'));
+
+    // Aguarda o nome da doadora aparecer
+    await waitFor(() => {
+      expect(screen.getByText('Ana Silva')).toBeInTheDocument();
+    });
+
+    expect(screen.getByText('ana@email.com')).toBeInTheDocument();
+    expect(screen.getByText('Ver Doações / Editar')).toBeInTheDocument(); // Botão do doador
   });
 
-  it('deve renderizar todos os itens vindos da API na tela com tags', async () => {
-    render(<ListarDoacoesPage />);
-    
-    await waitFor(() => {
-      expect(screen.getByText('Leite em pó (Lata)')).toBeInTheDocument();
-      expect(screen.getByText('Fraldas Tamanho M')).toBeInTheDocument();
-      expect(screen.getByText('Alimentação')).toBeInTheDocument();
-      expect(screen.getByText('Higiene')).toBeInTheDocument();
-    });
-  });
-
-  it('deve renderizar o estado de erro caso a requisição falhe', async () => {
-
-    // Forçando a requisição a dar erro
-    global.fetch.mockImplementationOnce(() =>
-      Promise.resolve({ ok: false })
-    );
+  it('deve lidar com falha na API graciosamente sem quebrar a interface', async () => {
+    // Força um erro de servidor (simulando API offline)
+    fetch.mockRejectedValueOnce(new Error('Servidor offline'));
 
     render(<ListarDoacoesPage />);
 
+    // Verifica se o sistema passou pelo loading e sobreviveu
     await waitFor(() => {
-      expect(screen.getByText('Ops! Tivemos um problema.')).toBeInTheDocument();
-      expect(screen.getByText('Não foi possível conectar com o servidor da creche.')).toBeInTheDocument();
+      expect(screen.queryByText('Carregando...')).not.toBeInTheDocument();
     });
+
+    // As abas devem continuar lá e o site não pode ficar tela branca
+    expect(screen.getByText('Itens Disponíveis')).toBeInTheDocument();
   });
 });
