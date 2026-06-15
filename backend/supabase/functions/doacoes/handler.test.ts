@@ -106,7 +106,11 @@ Deno.test("POST retorna 422 quando quantidade é zero ou negativa", async () => 
 
   const req = reqComToken("http://localhost/doacoes", {
     method: "POST",
-    body: JSON.stringify({ tipo: "alimento", descricao: "arroz", quantidade: 0 }),
+    body: JSON.stringify({
+      tipo: "alimento",
+      descricao: "arroz",
+      quantidade: 0,
+    }),
   });
   const res = await handleDoacoes(req, mock);
 
