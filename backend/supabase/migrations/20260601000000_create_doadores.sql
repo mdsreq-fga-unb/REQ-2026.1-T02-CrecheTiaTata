@@ -1,5 +1,7 @@
 -- RF-05: Registrar Doador
 -- Tabela de doadores (base de apoiadores da creche).
+create extension if not exists pgcrypto;
+
 create table if not exists public.doadores (
   id uuid primary key default gen_random_uuid(),
   nome text not null,
