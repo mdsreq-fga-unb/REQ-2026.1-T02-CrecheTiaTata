@@ -70,14 +70,22 @@ export async function handleDoacoes(
       );
     }
 
-    if (body.quantidade !== undefined && body.quantidade <= 0) {
-      return new Response(
-        JSON.stringify({ error: "Quantidade deve ser maior que zero" }),
-        {
-          status: 422,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        },
-      );
+    if (body.quantidade !== undefined) {
+      if (
+        typeof body.quantidade !== "number" ||
+        !Number.isInteger(body.quantidade) ||
+        body.quantidade <= 0
+      ) {
+        return new Response(
+          JSON.stringify({
+            error: "Quantidade deve ser um inteiro maior que zero",
+          }),
+          {
+            status: 422,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          },
+        );
+      }
     }
 
     const { data, error } = await supabase
