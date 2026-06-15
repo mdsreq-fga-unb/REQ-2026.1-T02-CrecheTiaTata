@@ -156,7 +156,6 @@ export async function handleUsuarios(
       telefone?: string;
       disponibilidade?: string;
       acoes_preferencia?: string[];
-      papel?: "admin" | "usuario";
     };
     try {
       body = await req.json();
@@ -210,7 +209,7 @@ export async function handleUsuarios(
         telefone: body.telefone,
         disponibilidade: body.disponibilidade,
         acoes_preferencia: body.acoes_preferencia,
-        papel: body.papel ?? "admin",
+        papel: "usuario",
       })
       .select("id, nome, email, telefone, disponibilidade, papel")
       .single();
@@ -271,7 +270,9 @@ export async function handleUsuarios(
       });
     }
 
-    const { password, ...perfil } = body;
+    // papel é descartado: alteração de papel não pode vir deste endpoint
+    // (evita escalada de privilégio por auto-promoção a admin).
+    const { password, papel: _papelIgnorado, ...perfil } = body;
 
     const { data: alvo, error: alvoError } = await supabase
       .from("usuarios")
