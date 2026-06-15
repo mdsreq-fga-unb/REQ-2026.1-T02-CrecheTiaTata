@@ -187,8 +187,8 @@ export async function handleUsuarios(
       );
     }
 
-    const { data: authData, error: authError } =
-      await supabase.auth.admin.createUser({
+    const { data: authData, error: authError } = await supabase.auth.admin
+      .createUser({
         email: body.email,
         password: body.password,
         email_confirm: true,
