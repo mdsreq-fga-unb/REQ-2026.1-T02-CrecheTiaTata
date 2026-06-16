@@ -1,8 +1,3 @@
----
-sidebar_label: "Unidade 3"
-sidebar_position: 3
----
-
 # 11 Lições aprendidas
 
 ### Lições aprendidas - Unidade 3
