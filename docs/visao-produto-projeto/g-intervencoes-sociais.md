@@ -50,6 +50,19 @@ Com o apoio do sistema, espera-se que as intervenções sociais tenham maior alc
 * aumentar a participação de doadores e voluntários;
 * apoiar a continuidade das ações sociais da creche.
 
+### 7.6 Efeitos Não Previstos e Riscos Colaterais
+
+A introdução de um sistema digital no contexto da Creche da Tia Tata pode gerar efeitos que vão além dos impactos positivos esperados. É importante identificar e monitorar esses riscos para que possam ser mitigados ao longo do desenvolvimento e operação do produto.
+
+| Efeito Não Previsto | Descrição | Risco | Mitigação |
+|---|---|---|---|
+| **Exclusão digital** | Parte dos doadores e voluntários pode não ter familiaridade com tecnologia, ficando excluída do canal digital | Médio | Manter canais alternativos de contato (WhatsApp, telefone) paralelamente ao sistema |
+| **Dependência tecnológica** | A coordenação pode passar a depender exclusivamente do sistema, perdendo práticas manuais de backup | Alto | Exportação periódica de dados e treinamento sobre rotinas de backup |
+| **Geração de expectativas não atendidas** | A visibilidade ampliada das necessidades pode gerar volume de contatos maior do que a creche consegue atender | Médio | Definir capacidade de resposta e comunicar prazos claros no sistema |
+| **Privacidade de dados** | O cadastro de voluntários e doadores envolve dados pessoais sensíveis | Alto | Implementar política de privacidade, coletar apenas dados necessários e aplicar criptografia (RNF-09) |
+| **Resistência à mudança** | A equipe da creche pode ter dificuldade em adotar o novo sistema no dia a dia | Baixo | Realizar onboarding presencial com a coordenadora e produzir documentação simples de uso |
+| **Perda de controle sobre informações públicas** | Solicitações publicadas podem ficar desatualizadas, gerando confusão na comunidade | Médio | Implementar data de expiração ou revisão periódica obrigatória para cada solicitação publicada |
+
 ---
 ## Versões
 |Data|Versão|Descrição|Autor(es)|Revisor(es)|
