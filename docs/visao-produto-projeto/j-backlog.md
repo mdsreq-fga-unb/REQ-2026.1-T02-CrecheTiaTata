@@ -1,16 +1,16 @@
 ---
-sidebar_label: "Backlog de Produto"
+sidebar_label: "Work Item List"
 sidebar_position: 10
-description: Backlog de produto com priorização e MVP do sistema da Creche da Tia Tata.
+description: Work Item List com priorização e MVP do sistema da Creche da Tia Tata.
 ---
 
-# Backlog de Produto
+# Work Item List
 
-Esta seção descreve o backlog de produto do sistema da Creche da Tia Tata, contendo a lista priorizada de todas as funcionalidades planejadas, bem como a definição do Produto Mínimo Viável (MVP).
+Esta seção descreve a Lista de Itens de Trabalho do sistema da Creche da Tia Tata, contendo a lista priorizada de todas as funcionalidades planejadas, bem como a definição do Produto Mínimo Viável (MVP).
 
-## 10.1 Backlog Geral
+## 10.1 Work Item List Geral
 
-O backlog geral contém todas as funcionalidades planejadas para o sistema, organizadas com suas respectivas user stories e requisitos não funcionais relacionados.
+O Work Item List geral contém todas as funcionalidades planejadas para o sistema, organizadas com suas respectivas user stories e requisitos não funcionais relacionados.
 
 | Requisito Funcional | User Story Derivada | RNFs Relacionados |
 |---|---|---|
@@ -41,7 +41,7 @@ O backlog geral contém todas as funcionalidades planejadas para o sistema, orga
 | **RF-25** – Histórico do Voluntário | Como administrador, quero visualizar histórico de atividades do voluntário para acompanhar sua participação. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
 | **RF-26** – Relatório de Participação | Como administrador, quero gerar relatório de participação para avaliar engajamento da equipe de voluntários. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
 
-## 10.2 Priorização do Backlog Geral e MVP
+## 10.2 Priorização da Work Item List Geral e MVP
 
 A priorização foi realizada com base em dois critérios: **Dificuldade (D)** e **Importância (I)**, permitindo identificar quais funcionalidades são essenciais para o lançamento do MVP e quais podem ser desenvolvidas posteriormente.
 
