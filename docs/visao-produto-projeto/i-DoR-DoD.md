@@ -30,8 +30,6 @@ No desenvolvimento das tarefas será utilizado o **Definition of Done (DoD)**, a
 | 4 | Code review aprovado | Mínimo de **1 aprovação** de outro membro da equipe via Pull Request |
 | 5 | Todos os critérios de aceitação do DoR validados | Checklist da *issue* 100% marcado |
 | 6 | Funcionalidade testada em ambiente de homologação | Testada manualmente no ambiente de staging pelo desenvolvedor responsável |
-| 7 | Documentação atualizada (quando aplicável) | Páginas do GitPages afetadas pela mudança atualizadas |
-| 8 | Sem dados sensíveis expostos | Nenhuma senha, token ou chave de API em texto claro no código (verificado por inspeção no PR) |
 
 ### Tipos de Testes Utilizados
 
