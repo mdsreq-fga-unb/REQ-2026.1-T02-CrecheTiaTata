@@ -3,28 +3,26 @@ name: Deploy Automático do Site
 on:
   push:
     branches:
-      - main # O robô vai acordar sempre que alguém commitar na main
+      - develop
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Baixando os arquivos
-        uses: actions/checkout@v4
-        
-      - name: Instalando o Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
-      - name: Instalando dependências
-        run: npm install
+      - run: npm ci
 
-      - name: Compilando o site (Build)
-        run: npm run build
+      - run: npm run build
 
-      - name: Jogando na vitrine (Deploy)
-        uses: peaceiris/actions-gh-pages@v4
+      - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
+          destination_dir: unidade3
+          keep_files: true

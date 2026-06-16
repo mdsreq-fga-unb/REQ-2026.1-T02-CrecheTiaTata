@@ -17,11 +17,11 @@ Fase voltada à exploração do domínio do problema e ao levantamento das neces
 
 ### 4.1.2 Análise e Consenso
 Atividade focada em refinar, classificar e priorizar os requisitos brutos levantados na elicitação, resolvendo conflitos de escopo.
-* **Matriz de Priorização (Impacto x Dificuldade):** Técnica utilizada para classificar as funcionalidades de acordo com o valor gerado para a creche versus o esforço técnico de implementação, facilitando a visualização dos "Quick Wins" (ex: CRUD de Doadores).
+* **[Matriz de Priorização (Impacto x Dificuldade)](/docs/visao-produto-projeto/j-backlog#103-priorização-da-lista-de-itens-de-trabalho):** Técnica utilizada para classificar as funcionalidades de acordo com o valor gerado para a creche versus o esforço técnico de implementação, facilitando a visualização dos "Quick Wins" (ex: CRUD de Doadores).
 
 ### 4.1.3 Declaração de Requisitos
 Tradução das necessidades analisadas para um formato documentado, padronizado e compreensível para a equipe de desenvolvimento.
-* **Histórias de Usuário (User Stories):** Descrição das funcionalidades sob a perspectiva de valor para o usuário, utilizadas para popular o backlog e guiar o desenvolvimento ágil.
+* **Itens de Trabalho (Work Items):** Descrição das funcionalidades sob a perspectiva de valor para o usuário, utilizados para popular a [Lista de Itens de Trabalho](/docs/visao-produto-projeto/j-backlog#101-itens-de-trabalho) e guiar o desenvolvimento iterativo no OpenUP.
 
 ### 4.1.4 Representação de Requisitos
 Atividade focada em ilustrar visualmente a estrutura, o comportamento e a interface do sistema, facilitando a comunicação técnica e a validação.
@@ -30,12 +30,12 @@ Atividade focada em ilustrar visualmente a estrutura, o comportamento e a interf
 ### 4.1.5 Verificação e Validação de Requisitos
 Garantia de que os requisitos e representações criadas realmente atendem às expectativas do cliente antes e durante a construção.
 * **Feedback do Cliente:** Apresentação dos protótipos de software gerados em cada iteração para colher aprovação e ajustes diretamente com a gestão da creche.
-* **Definition of Done (DoD) e Definition of Ready (DoR):** Critérios de aceitação estabelecidos para garantir que um requisito só comece a ser feito quando estiver claro (DoR) e só seja entregue quando estiver testado e validado (DoD).
+* **[Definition of Done (DoD) e Definition of Ready (DoR)](/docs/visao-produto-projeto/i-DoR-DoD):** Critérios de aceitação estabelecidos para garantir que um requisito só comece a ser feito quando estiver claro (DoR) e só seja entregue quando estiver testado e validado (DoD).
 
 ### 4.1.6 Organização e Atualização
 Controle contínuo das mudanças de escopo e garantia do alinhamento entre o código e a documentação.
-* **Matriz de Rastreabilidade:** Técnica utilizada para vincular os Requisitos Funcionais às Histórias de Usuário correspondentes, garantindo que nada seja desenvolvido sem um propósito justificado.
-* **Controle de Versão do Backlog:** Atualização contínua das prioridades e refinamento das *User Stories* ao longo das iterações do OpenUP, refletindo as mudanças de rota e as decisões arquiteturais.
+* **[Matriz de Rastreabilidade](/docs/visao-produto-projeto/j-backlog#102-matriz-síntese-de-rastreabilidade):** Técnica utilizada para vincular os Requisitos Funcionais às Histórias de Usuário correspondentes, garantindo que nada seja desenvolvido sem um propósito justificado.
+* **[Controle de Versão da Lista de Itens de Trabalho](/docs/visao-produto-projeto/j-backlog#101-itens-de-trabalho):** Atualização contínua das prioridades e refinamento das *User Stories* ao longo das iterações do OpenUP, refletindo as mudanças de rota e as decisões arquiteturais.
 
 ---
 
@@ -47,10 +47,10 @@ A tabela abaixo mapeia as atividades da Engenharia de Requisitos dentro das quat
 | :--- | :--- | :--- | :--- | :--- |
 | **Concepção (Inception)** | Elicitação e Descoberta | Entendimento do negócio e da dor do cliente (Creche). | Entrevistas com Stakeholders. | Declaração do Problema, Visão do Produto e levantamento inicial de necessidades. |
 | **Concepção (Inception)** | Análise e Consenso | Definição do que é viável para a primeira entrega. | Matriz de Priorização (Impacto x Dificuldade). | Escopo inicial do MVP definido e priorizado. |
-| **Elaboração (Elaboration)** | Declaração de Requisitos | Documentação estruturada das necessidades do sistema. | Especificação das Histórias de Usuário. | Backlog inicial populado e Casos de Uso arquiteturalmente significantes detalhados. |
+| **Elaboração (Elaboration)** | Declaração de Requisitos | Documentação estruturada das necessidades do sistema. | Especificação das Histórias de Usuário. | Lista de Itens de Trabalho inicial populada e Casos de Uso arquiteturalmente significantes detalhados. |
 | **Elaboração (Elaboration)** | Representação de Requisitos | Tangibilização visual das ideias e do escopo. | Prototipação de Alta Fidelidade (Figma). | Protótipos elaborados para reduzir riscos técnicos e de usabilidade. |
 | **Construção (Construction)** | Verificação e Validação | Garantia de qualidade das implementações durante as iterações. | Definition of Ready (DoR), Definition of Done (DoD) e Walkthroughs. | Funcionalidades desenvolvidas alinhadas aos critérios de aceitação e aprovadas. |
-| **Construção (Construction)** | Organização e Atualização | Adaptação às mudanças e detalhamento contínuo do backlog. | Refinamento de Backlog e Matriz de Rastreabilidade. | Backlog atualizado, garantindo que o software construído reflete os requisitos atuais. |
+| **Construção (Construction)** | Organização e Atualização | Adaptação às mudanças e detalhamento contínuo da Lista de Itens de Trabalho. | Refinamento da Lista de Itens de Trabalho e Matriz de Rastreabilidade. | Lista de Itens de Trabalho atualizada, garantindo que o software construído reflete os requisitos atuais. |
 | **Transição (Transition)** | Verificação e Validação | Homologação final do sistema com o usuário real. | Feedback final do cliente e Testes de Aceitação. | Sistema executável validado, documentado e entregue à Creche Tia Tata. |
 
 ---
