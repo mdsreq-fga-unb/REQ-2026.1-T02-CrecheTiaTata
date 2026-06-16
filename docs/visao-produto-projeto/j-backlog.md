@@ -8,7 +8,7 @@ description: Lista de Itens de Trabalho com priorização e MVP do sistema da Cr
 
 No contexto do **OpenUP**, o artefato equivalente ao backlog de metodologias ágeis é a **Lista de Itens de Trabalho (Work Items List)**. Ela contém todos os itens de trabalho priorizados que guiam o desenvolvimento ao longo das iterações, servindo como referência para o planejamento de cada ciclo.
 
-## 10.1 Itens de Trabalho
+## 10.1 Itens de Trabalho {#itens-de-trabalho}
 
 A Lista de Itens de Trabalho contém todos os itens planejados para o sistema, descritos no formato OpenUP com a descrição direta do comportamento esperado e os requisitos não funcionais relacionados.
 
@@ -41,7 +41,7 @@ A Lista de Itens de Trabalho contém todos os itens planejados para o sistema, d
 | **IT-25** | Histórico do Voluntário | O sistema deve exibir o histórico de participação do voluntário em atividades da creche para acompanhamento de seu engajamento. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
 | **IT-26** | Relatório de Participação | O sistema deve gerar relatório consolidado de participação dos voluntários para avaliação do engajamento da equipe de apoio. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
 
-## 10.2 Matriz-Síntese de Rastreabilidade
+## 10.2 Matriz-Síntese de Rastreabilidade {#matriz-rastreabilidade}
 
 A matriz-síntese conecta os Objetivos Específicos (OE), as Características de Produto (CP), o Valor de Negócio (VN), os Requisitos Funcionais (RF) e os Requisitos Não Funcionais (RNF), garantindo rastreabilidade completa entre a visão estratégica e os artefatos técnicos.
 
@@ -51,7 +51,7 @@ A matriz-síntese conecta os Objetivos Específicos (OE), as Características de
 | OE2 – Facilitar contato de doadores e voluntários | C1 (Vitrine Pública Digital), C2 (Canal de Engajamento) | Reduzir atrito na captação de apoiadores | RF-05, RF-09, RF-19, RF-20, RF-21 | RNF-03, RNF-07, RNF-13 |
 | OE3 – Apoiar registro e consulta de contribuições | C3 (Gestão de Voluntários), C4 (Gestão de Doações), C5 (Painel Admin) | Eliminar perda de informações e organizar operações internas | RF-01, RF-02, RF-03, RF-04, RF-05, RF-06, RF-07, RF-08, RF-09, RF-10, RF-11, RF-12, RF-13, RF-14, RF-15, RF-16, RF-17, RF-18, RF-22, RF-23, RF-24, RF-25, RF-26 | RNF-01, RNF-05, RNF-08, RNF-09, RNF-10, RNF-12 |
 
-## 10.3 Priorização da Lista de Itens de Trabalho
+## 10.3 Priorização da Lista de Itens de Trabalho {#priorizacao}
 
 A priorização foi realizada com base em dois critérios: **Importância (I)** e **Dificuldade (D)**, posicionando cada item em uma matriz de quadrantes que permite identificar visualmente a ordem de desenvolvimento.
 

@@ -17,11 +17,11 @@ Fase voltada à exploração do domínio do problema e ao levantamento das neces
 
 ### 4.1.2 Análise e Consenso
 Atividade focada em refinar, classificar e priorizar os requisitos brutos levantados na elicitação, resolvendo conflitos de escopo.
-* **[Matriz de Priorização (Impacto x Dificuldade)](/docs/visao-produto-projeto/j-backlog#103-priorização-da-lista-de-itens-de-trabalho):** Técnica utilizada para classificar as funcionalidades de acordo com o valor gerado para a creche versus o esforço técnico de implementação, facilitando a visualização dos "Quick Wins" (ex: CRUD de Doadores).
+* **[Matriz de Priorização (Impacto x Dificuldade)](/docs/visao-produto-projeto/j-backlog#priorizacao):** Técnica utilizada para classificar as funcionalidades de acordo com o valor gerado para a creche versus o esforço técnico de implementação, facilitando a visualização dos "Quick Wins" (ex: CRUD de Doadores).
 
 ### 4.1.3 Declaração de Requisitos
 Tradução das necessidades analisadas para um formato documentado, padronizado e compreensível para a equipe de desenvolvimento.
-* **Itens de Trabalho (Work Items):** Descrição das funcionalidades sob a perspectiva de valor para o usuário, utilizados para popular a [Lista de Itens de Trabalho](/docs/visao-produto-projeto/j-backlog#101-itens-de-trabalho) e guiar o desenvolvimento iterativo no OpenUP.
+* **Itens de Trabalho (Work Items):** Descrição das funcionalidades sob a perspectiva de valor para o usuário, utilizados para popular a [Lista de Itens de Trabalho](/docs/visao-produto-projeto/j-backlog#itens-de-trabalho) e guiar o desenvolvimento iterativo no OpenUP.
 
 ### 4.1.4 Representação de Requisitos
 Atividade focada em ilustrar visualmente a estrutura, o comportamento e a interface do sistema, facilitando a comunicação técnica e a validação.
@@ -34,8 +34,8 @@ Garantia de que os requisitos e representações criadas realmente atendem às e
 
 ### 4.1.6 Organização e Atualização
 Controle contínuo das mudanças de escopo e garantia do alinhamento entre o código e a documentação.
-* **[Matriz de Rastreabilidade](/docs/visao-produto-projeto/j-backlog#102-matriz-síntese-de-rastreabilidade):** Técnica utilizada para vincular os Requisitos Funcionais às Histórias de Usuário correspondentes, garantindo que nada seja desenvolvido sem um propósito justificado.
-* **[Controle de Versão da Lista de Itens de Trabalho](/docs/visao-produto-projeto/j-backlog#101-itens-de-trabalho):** Atualização contínua das prioridades e refinamento das *User Stories* ao longo das iterações do OpenUP, refletindo as mudanças de rota e as decisões arquiteturais.
+* **[Matriz de Rastreabilidade](/docs/visao-produto-projeto/j-backlog#matriz-rastreabilidade):** Técnica utilizada para vincular os Requisitos Funcionais às Histórias de Usuário correspondentes, garantindo que nada seja desenvolvido sem um propósito justificado.
+* **[Controle de Versão da Lista de Itens de Trabalho](/docs/visao-produto-projeto/j-backlog#itens-de-trabalho):** Atualização contínua das prioridades e refinamento das *User Stories* ao longo das iterações do OpenUP, refletindo as mudanças de rota e as decisões arquiteturais.
 
 ---
 
