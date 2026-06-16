@@ -21,7 +21,7 @@ Atividade focada em refinar, classificar e priorizar os requisitos brutos levant
 
 ### 4.1.3 Declaração de Requisitos
 Tradução das necessidades analisadas para um formato documentado, padronizado e compreensível para a equipe de desenvolvimento.
-* **Histórias de Usuário (User Stories):** Descrição das funcionalidades sob a perspectiva de valor para o usuário, utilizadas para popular a [Lista de Itens de Trabalho](/docs/visao-produto-projeto/j-backlog#101-itens-de-trabalho) e guiar o desenvolvimento iterativo no OpenUP.
+* **Itens de Trabalho (Work Items):** Descrição das funcionalidades sob a perspectiva de valor para o usuário, utilizados para popular a [Lista de Itens de Trabalho](/docs/visao-produto-projeto/j-backlog#101-itens-de-trabalho) e guiar o desenvolvimento iterativo no OpenUP.
 
 ### 4.1.4 Representação de Requisitos
 Atividade focada em ilustrar visualmente a estrutura, o comportamento e a interface do sistema, facilitando a comunicação técnica e a validação.
