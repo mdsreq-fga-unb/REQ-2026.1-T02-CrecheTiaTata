@@ -16,8 +16,7 @@ Uma *issue* está **pronta para desenvolvimento** quando todos os critérios aba
 | 1 | A *issue* possui descrição clara do que deve ser feito | Descrição com mínimo 50 palavras, contexto de negócio e comportamento esperado |
 | 2 | A *issue* possui critérios de aceitação | Mínimo de 2 critérios de aceitação redigidos no formato "Dado/Quando/Então" |
 | 3 | A *issue* não possui dependência bloqueante | Todas as dependências estão com status *Done* ou a *issue* pode ser desenvolvida em paralelo |
-| 4 | A *issue* foi estimada pela equipe | Story points atribuídos (escala Fibonacci: 1, 2, 3, 5, 8) |
-| 5 | A *issue* está vinculada ao requisito funcional correspondente | Campo "Requisito" preenchido com o ID (ex: RF-02) |
+| 4 | A *issue* está vinculada ao requisito funcional correspondente | Campo "Requisito" preenchido com o ID (ex: RF-02) |
 
 ## 9.2 Definition of Done (DoD)
 
