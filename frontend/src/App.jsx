@@ -14,6 +14,7 @@ import { isAuthTokenValid } from './utils/authStorage';
 
 // NOVO:
 import AtualizarPerfilPage from './pages/AtualizarPerfilPage';
+import VoluntariosPage from './pages/voluntarios';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,11 +35,12 @@ function App() {
   const isPerfilPage = path === '/perfil';
   const isGerenciamentoPage = path === '/gerenciamento';
   const isSolicitacoesPage = path === '/solicitacoes';
-  const isHomePage = !isSobrePage && !isComoAjudarPage && !isContatoPage && !isLoginPage && !isPasswordRecoveryPage && !isPerfilPage && !isGerenciamentoPage && !isSolicitacoesPage;
+  const isVoluntariosPage = path === '/voluntarios';
+  const isHomePage = !isSobrePage && !isComoAjudarPage && !isContatoPage && !isLoginPage && !isPasswordRecoveryPage && !isPerfilPage && !isGerenciamentoPage && !isSolicitacoesPage && !isVoluntariosPage;
 
   return (
     <main className="min-h-screen bg-stone-50 font-sans text-slate-900">
-      {!isLoginPage && !isPasswordRecoveryPage && !isGerenciamentoPage && !isSolicitacoesPage && <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />}
+      {!isLoginPage && !isPasswordRecoveryPage && !isGerenciamentoPage && !isSolicitacoesPage && !isVoluntariosPage && <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />}
       {isSobrePage && <SobrePage />}
       {isComoAjudarPage && <ComoAjudarPage />}
       {isContatoPage && <ContatoPage />}
@@ -48,12 +50,13 @@ function App() {
       {isGerenciamentoPage && <GerenciamentoPage />}                                              {/* So pra teste */}
       {/* {isSolicitacoesPage && (isAuthTokenValid() ? <SolicitacoesPage /> : <LoginPage />)}     Pra qnd tiver com token no login*/}
       {isSolicitacoesPage && <SolicitacoesPage />}                                                {/* So pra teste */}
+      {isVoluntariosPage && <VoluntariosPage />}
 
       {isPerfilPage && (isAuthTokenValid() ? <AtualizarPerfilPage /> : <LoginPage />)}
 
       {isHomePage && <HomePage />}
       {isHomePage && <CtaSection />}
-      {!isSobrePage && !isLoginPage && !isPasswordRecoveryPage && !isGerenciamentoPage && !isSolicitacoesPage && <Footer />}
+      {!isSobrePage && !isLoginPage && !isPasswordRecoveryPage && !isGerenciamentoPage && !isSolicitacoesPage && !isVoluntariosPage && <Footer />}
     </main>
   );
 }
