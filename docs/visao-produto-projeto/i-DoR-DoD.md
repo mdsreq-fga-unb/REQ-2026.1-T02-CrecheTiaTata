@@ -48,4 +48,4 @@ Os testes definidos para o projeto incluem:
 |Data|Versão|Descrição|Autor(es)|Revisor(es)|
 | :--- | :--- | :--- | :--- | :--- |
 | 18/05/2026 | 1.0 | Criação da página | Matheus Pinheiro | |
-| 15/06/2026 | 1.1 | Adição de métricas mensuráveis e objetivas no DoR e DoD | Matheus Pinheiro | |
+| 15/06/2026 | 1.1 | Atualização do DoR, DoD e adição de métricas mensuráveis e objetivas no DoR e DoD | Enzo | |
