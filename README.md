@@ -30,7 +30,7 @@ A proposta nasce da necessidade de fortalecer a gestão interna da instituição
 
 O portal de documentação do projeto, construído com **Docusaurus**, está disponível em:
 
-🔗 [REQ-2026.1-T02-CrecheTiaTata no GitHub Pages](https://mdsreq-fga-unb.github.io/REQ-2026.1-T02-CrecheTiaTata/)
+🔗 [REQ-2026.1-T02-CrecheTiaTata no GitHub Pages](https://mdsreq-fga-unb.github.io/REQ-2026.1-T02-CrecheTiaTata/unidade3/)
 
 ---
 
