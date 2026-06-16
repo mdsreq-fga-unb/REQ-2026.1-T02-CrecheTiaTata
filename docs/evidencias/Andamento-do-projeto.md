@@ -61,6 +61,24 @@ Futuramento teremos GIFs mostrando o sistema
 ![alt text](image-9.png)
 ![alt text](image-10.png)
 
+---
+
+## Cronograma (Fase de construção)
+### Iteração 3
+* RF 19
+
+Feito: 19
+
+### Iteração 4
+* RF 9, 12, 11, 22, 23, 24
+
+Feito: 9
+
+### Iteração 5
+* RF 1, 2, 3, 4, 5, 6
+
+### Iteração 5
+* RF 7, 8, 11, 20, 21
 
 ## Versões
 |Data|Versão|Descrição|Autor(es)|Revisor(es)|
