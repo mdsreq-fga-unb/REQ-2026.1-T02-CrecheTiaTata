@@ -112,8 +112,8 @@ describe('SolicitacoesVoluntariosPage', () => {
       expect(screen.getAllByRole('button', { name: 'Recusar' })).toHaveLength(3);
     });
 
-    it('não exibe a seção "Processadas" inicialmente', () => {
-      expect(screen.queryByText('Processadas nesta sessão')).not.toBeInTheDocument();
+    it('não exibe a seção "Histórico" inicialmente', () => {
+      expect(screen.queryByText('Histórico de solicitações')).not.toBeInTheDocument();
     });
   });
 
@@ -147,12 +147,12 @@ describe('SolicitacoesVoluntariosPage', () => {
       expect(screen.getByText('✓ Aceito')).toBeInTheDocument();
     });
 
-    it('move o card para a seção "Processadas nesta sessão"', async () => {
+    it('move o card para a seção "Histórico de solicitações"', async () => {
       const [primeiroAceitar] = screen.getAllByRole('button', { name: 'Aceitar' });
       fireEvent.click(primeiroAceitar);
       await advance(600);
 
-      expect(screen.getByText('Processadas nesta sessão')).toBeInTheDocument();
+      expect(screen.getByText('Histórico de solicitações')).toBeInTheDocument();
     });
 
     it('reduz a lista de pendentes de 3 para 2 após aceitar', async () => {
@@ -177,12 +177,12 @@ describe('SolicitacoesVoluntariosPage', () => {
       expect(screen.getByText('✗ Recusado')).toBeInTheDocument();
     });
 
-    it('move o card para a seção "Processadas nesta sessão"', async () => {
+    it('move o card para a seção "Histórico de solicitações"', async () => {
       const [primeiroRecusar] = screen.getAllByRole('button', { name: 'Recusar' });
       fireEvent.click(primeiroRecusar);
       await advance(600);
 
-      expect(screen.getByText('Processadas nesta sessão')).toBeInTheDocument();
+      expect(screen.getByText('Histórico de solicitações')).toBeInTheDocument();
     });
 
     it('reduz a lista de pendentes de 3 para 2 após recusar', async () => {
@@ -205,7 +205,7 @@ describe('SolicitacoesVoluntariosPage', () => {
       await advance(600);
     });
 
-    it('exibe o botão "Reverter" na seção de processadas', () => {
+    it('exibe o botão "Reverter" na seção de histórico', () => {
       expect(screen.getByRole('button', { name: 'Reverter' })).toBeInTheDocument();
     });
 
@@ -214,9 +214,9 @@ describe('SolicitacoesVoluntariosPage', () => {
       expect(screen.getAllByRole('button', { name: 'Aceitar' })).toHaveLength(3);
     });
 
-    it('remove a seção "Processadas" quando não há mais itens processados', () => {
+    it('remove a seção "Histórico" quando não há mais itens processados', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Reverter' }));
-      expect(screen.queryByText('Processadas nesta sessão')).not.toBeInTheDocument();
+      expect(screen.queryByText('Histórico de solicitações')).not.toBeInTheDocument();
     });
 
     it('remove o badge "✓ Aceito" após reverter', () => {

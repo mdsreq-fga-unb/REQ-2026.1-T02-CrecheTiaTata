@@ -124,7 +124,7 @@ export default function SolicitacoesVoluntariosPage() {
     <div className="min-h-screen bg-stone-50">
       <AdminNavbar
         activeTab="voluntarios"
-        onTabSelect={(tab) => {
+        onTabSelect={(tab: any) => {
           navigateTo('/gerenciamento');
         }}
         onLogout={handleLogout}
@@ -241,7 +241,7 @@ export default function SolicitacoesVoluntariosPage() {
           {!loading && !fetchError && processadas.length > 0 && (
             <div className="mt-10">
               <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-400">
-                Processadas nesta sessão
+                Histórico de solicitações
               </p>
               <div className="grid gap-3">
                 {processadas.map((s) => {
