@@ -59,6 +59,79 @@ Deno.test("GET retorna 400 quando banco retorna erro", async () => {
   assertEquals((await res.json()).error, "Erro de conexão");
 });
 
+Deno.test("RF11 - GET retorna voluntários filtrados por nome", async () => {
+  const voluntarios = [
+    {
+      id: "1",
+      nome: "Ana",
+      email: "ana@email.com",
+      area_atuacao: "educacao",
+    },
+  ];
+
+  const mock = createMockSupabase(voluntarios, null, 1);
+
+  const req = new Request("http://localhost/voluntarios?nome=Ana", {
+    method: "GET",
+  } );
+  const res = await handleVoluntarios(req, mock);
+  const body = await res.json();
+
+  assertEquals(res.status, 200);
+  assertEquals(body.data.length, 1);
+  assertEquals(body.data[0].nome, "Ana");
+  assertEquals(body.count, 1);
+});
+
+Deno.test("RF11 - GET retorna voluntários filtrados por área de atuação", async () => {
+  const voluntarios = [
+    {
+      id: "2",
+      nome: "Bruno",
+      email: "bruno@email.com",
+      area_atuacao: "logistica",
+    },
+  ];
+
+  const mock = createMockSupabase(voluntarios, null, 1);
+
+  const req = new Request("http://localhost/voluntarios?area_atuacao=logistica", {
+    method: "GET",
+  } );
+  const res = await handleVoluntarios(req, mock);
+  const body = await res.json();
+
+  assertEquals(res.status, 200);
+  assertEquals(body.data.length, 1);
+  assertEquals(body.data[0].area_atuacao, "logistica");
+  assertEquals(body.count, 1);
+});
+
+Deno.test("RF11 - GET retorna lista vazia quando nenhum voluntário corresponde aos filtros", async () => {
+  const mock = createMockSupabase([], null, 0);
+
+  const req = new Request("http://localhost/voluntarios?nome=Inexistente", {
+    method: "GET",
+  } );
+  const res = await handleVoluntarios(req, mock);
+  const body = await res.json();
+
+  assertEquals(res.status, 200);
+  assertEquals(body.data, []);
+  assertEquals(body.count, 0);
+});
+
+Deno.test("RF11 - GET retorna 400 quando limit é inválido", async () => {
+  const mock = createMockSupabase(null);
+
+  const req = new Request("http://localhost/voluntarios?limit=0", {
+    method: "GET",
+  } );
+  const res = await handleVoluntarios(req, mock);
+
+  assertEquals(res.status, 400);
+});
+
 // POST
 
 Deno.test("POST cria voluntário com dados válidos", async () => {
