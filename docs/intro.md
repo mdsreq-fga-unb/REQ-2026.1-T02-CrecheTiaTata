@@ -56,5 +56,16 @@ Somos estudantes da **Universidade de Brasília (UnB) | Faculdade de Ciências e
     </div>
   </a>
 
+  <a href="https://github.com/Katuner" style={{ textDecoration: "none", color: "inherit" }}>
+    <div className="team-card">
+      <img 
+        src="https://github.com/Katuner.png"
+        alt="Lucas Oliveira Meireles"
+        className="team-avatar"
+      />
+      <h3>Lucas Oliveira Meireles</h3>
+    </div>
+  </a>
+
 
 </div>

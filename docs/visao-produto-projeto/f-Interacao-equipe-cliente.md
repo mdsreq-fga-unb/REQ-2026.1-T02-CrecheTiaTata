@@ -9,16 +9,16 @@ sidebar_position: 6
 | :---| :--- | :--- | :---|
 |Gerente do Projeto  | Coordena o projeto, prazos e comunicação entre equipe e usuário  | Enzo |      | 
 |Desenvolvedor FrontEnd | Responsável pelo design, interface e implementações de funcionalidades do lado do cliente  | Bruno| Lorena e Matheus|  
-|Desenvolvedor BackEnd  | Responsável pela implementação da lógica de negócio, APIs e integração com o banco de dados  | Enzo | |
+|Desenvolvedor BackEnd  | Responsável pela implementação da lógica de negócio, APIs e integração com o banco de dados  | Enzo | Lucas |
 |Analista de Qualidade| Responsável pela qualidade do produto, com testes de funcionalidade, performance e usabilidade  | Matheus |  |
-|Analista de Requisitos | Define e garante o atendimento dos requisitos funcionais e não funcionais  | Lorena |Bruno, Enzo e Matheus|
+|Analista de Requisitos | Define e garante o atendimento dos requisitos funcionais e não funcionais  | Lorena |Bruno, Enzo, Matheus e Lucas|
 
 ### 6.2 Comunicação
 #### Ferramentas de Comunicação
 - <b>WhatsApp</b>: Usado para comunicação rápida entre a equipe e o cliente, incluindo reuniões de validação
 - <b>Discord</b>: Reuniões da equipe como reunião de avaliação da iteração e reunião de planejamento 
 - <b>GitHub</b>: Usado para organização do repositório e issues
-- <b>GitHub Projects</b>: Usado para organização do backlog
+- <b>GitHub Projects</b>: Usado para organização da Lista de Itens de Trabalho
 
 #### Métodos e Frequências de Reuniões
 - <b>Reunião de avaliação da iteração</b>: Realizada no final de cada iteração para discutir o que foi entregue e possíveis melhorias

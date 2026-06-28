@@ -1,22 +1,29 @@
 import { corsHeaders } from "../_shared/cors.ts";
 import { verificarJWT } from "../_shared/auth.ts";
-import { validarEmail } from "../_shared/validacao.ts";
 
 // deno-lint-ignore no-explicit-any
 type SupabaseClientLike = any;
 
-export const TIPOS_DOADOR = ["pessoa_fisica", "pessoa_juridica"];
+export const TIPOS_DOACAO = [
+  "dinheiro",
+  "alimento",
+  "roupa",
+  "brinquedo",
+  "material",
+  "outro",
+];
 
-export interface Doador {
+export interface Doacao {
   id?: string;
-  nome: string;
-  tipo?: string;
-  email?: string;
-  telefone?: string;
+  doador_nome?: string;
+  tipo: string;
+  descricao: string;
+  quantidade?: number;
+  data_doacao?: string;
   created_at?: string;
 }
 
-export async function handleDoadores(
+export async function handleDoacoes(
   req: Request,
   supabase: SupabaseClientLike,
 ): Promise<Response> {
@@ -33,7 +40,7 @@ export async function handleDoadores(
       });
     }
 
-    let body: Doador;
+    let body: Doacao;
     try {
       body = await req.json();
     } catch {
@@ -43,9 +50,9 @@ export async function handleDoadores(
       });
     }
 
-    if (!body.nome) {
+    if (!body.tipo || !body.descricao) {
       return new Response(
-        JSON.stringify({ error: "Campo obrigatório: nome" }),
+        JSON.stringify({ error: "Campos obrigatórios: tipo, descricao" }),
         {
           status: 422,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -53,9 +60,9 @@ export async function handleDoadores(
       );
     }
 
-    if (body.tipo !== undefined && !TIPOS_DOADOR.includes(body.tipo)) {
+    if (!TIPOS_DOACAO.includes(body.tipo)) {
       return new Response(
-        JSON.stringify({ error: "Tipo de doador inválido" }),
+        JSON.stringify({ error: "Tipo de doação inválido" }),
         {
           status: 422,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -63,23 +70,32 @@ export async function handleDoadores(
       );
     }
 
-    if (body.email !== undefined && !validarEmail(body.email)) {
-      return new Response(
-        JSON.stringify({ error: "E-mail inválido ou domínio não permitido" }),
-        {
-          status: 422,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        },
-      );
+    if (body.quantidade !== undefined) {
+      if (
+        typeof body.quantidade !== "number" ||
+        !Number.isInteger(body.quantidade) ||
+        body.quantidade <= 0
+      ) {
+        return new Response(
+          JSON.stringify({
+            error: "Quantidade deve ser um inteiro maior que zero",
+          }),
+          {
+            status: 422,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          },
+        );
+      }
     }
 
     const { data, error } = await supabase
-      .from("doadores")
+      .from("doacoes")
       .insert({
-        nome: body.nome,
-        tipo: body.tipo ?? "pessoa_fisica",
-        email: body.email,
-        telefone: body.telefone,
+        doador_nome: body.doador_nome,
+        tipo: body.tipo,
+        descricao: body.descricao,
+        quantidade: body.quantidade ?? 1,
+        data_doacao: body.data_doacao,
       })
       .select()
       .single();
@@ -92,7 +108,7 @@ export async function handleDoadores(
     }
 
     return new Response(
-      JSON.stringify({ registrado: true, doador: data }),
+      JSON.stringify({ registrada: true, doacao: data }),
       {
         status: 201,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
