@@ -1,4 +1,5 @@
 import { corsHeaders } from "../_shared/cors.ts";
+import { validarEmail } from "../_shared/validacao.ts";
 
 // deno-lint-ignore no-explicit-any
 type SupabaseClientLike = any;
@@ -10,6 +11,7 @@ export interface UsuarioPerfil {
   telefone?: string;
   disponibilidade?: string;
   acoes_preferencia?: string[];
+  papel?: "admin" | "usuario";
 }
 
 async function verificarJWT(
@@ -69,12 +71,20 @@ export async function handleUsuarios(
       });
     }
 
+    const { data: perfil } = await supabase
+      .from("usuarios")
+      .select("papel")
+      .eq("id", data.user.id)
+      .single();
+
+    const papel = perfil?.papel ?? "usuario";
+
     return new Response(
       JSON.stringify({
         autenticado: true,
         token: data.session.access_token,
-        usuario: { id: data.user.id, email: data.user.email },
-        user: { id: data.user.id, email: data.user.email },
+        usuario: { id: data.user.id, email: data.user.email, papel },
+        user: { id: data.user.id, email: data.user.email, papel },
       }),
       {
         status: 200,
@@ -166,8 +176,18 @@ export async function handleUsuarios(
       );
     }
 
-    const { data: authData, error: authError } =
-      await supabase.auth.admin.createUser({
+    if (!validarEmail(body.email)) {
+      return new Response(
+        JSON.stringify({ error: "E-mail inválido ou domínio não permitido" }),
+        {
+          status: 422,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    const { data: authData, error: authError } = await supabase.auth.admin
+      .createUser({
         email: body.email,
         password: body.password,
         email_confirm: true,
@@ -189,8 +209,9 @@ export async function handleUsuarios(
         telefone: body.telefone,
         disponibilidade: body.disponibilidade,
         acoes_preferencia: body.acoes_preferencia,
+        papel: "usuario",
       })
-      .select("id, nome, email, telefone, disponibilidade")
+      .select("id, nome, email, telefone, disponibilidade, papel")
       .single();
 
     if (error) {
@@ -249,7 +270,9 @@ export async function handleUsuarios(
       });
     }
 
-    const { password, ...perfil } = body;
+    // papel é descartado: alteração de papel não pode vir deste endpoint
+    // (evita escalada de privilégio por auto-promoção a admin).
+    const { password, papel: _papelIgnorado, ...perfil } = body;
 
     const { data: alvo, error: alvoError } = await supabase
       .from("usuarios")

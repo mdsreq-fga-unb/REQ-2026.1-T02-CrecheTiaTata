@@ -82,10 +82,13 @@ export async function handleVoluntarios(
 
   if (req.method === "PUT") {
     if (!id) {
-      return new Response(JSON.stringify({ error: "Parâmetro id obrigatório" }), {
-        status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({ error: "Parâmetro id obrigatório" }),
+        {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
     }
 
     let body: Partial<Voluntario>;
@@ -120,10 +123,13 @@ export async function handleVoluntarios(
 
   if (req.method === "DELETE") {
     if (!id) {
-      return new Response(JSON.stringify({ error: "Parâmetro id obrigatório" }), {
-        status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({ error: "Parâmetro id obrigatório" }),
+        {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
     }
 
     const { error } = await supabase

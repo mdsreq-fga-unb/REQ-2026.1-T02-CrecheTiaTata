@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { handleDoacoes } from "./handler.ts";
+import { handleDoadores } from "./handler.ts";
 
 Deno.serve(async (req: Request) => {
   const supabase = createClient(
@@ -7,5 +7,5 @@ Deno.serve(async (req: Request) => {
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
   );
 
-  return await handleDoacoes(req, supabase);
+  return await handleDoadores(req, supabase);
 });

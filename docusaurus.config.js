@@ -8,7 +8,7 @@ const config = {
 
   // Configurações para o GitHub Pages
   url: 'https://mdsreq-fga-unb.github.io', // URL base da organização no GitHub
-  baseUrl: '/REQ-2026.1-T02-CrecheTiaTata/', // Nome exato do repositório
+  baseUrl: '/REQ-2026.1-T02-CrecheTiaTata/unidade3/', // Subfolder da unidade 3
   organizationName: 'mdsreq-fga-unb', 
   projectName: 'REQ-2026.1-T02-CrecheTiaTata', 
   deploymentBranch: 'gh-pages',

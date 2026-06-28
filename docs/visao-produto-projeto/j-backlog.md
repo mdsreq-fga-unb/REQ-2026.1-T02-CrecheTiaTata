@@ -1,61 +1,77 @@
 ---
-sidebar_label: "Backlog de Produto"
+sidebar_label: "Lista de Itens de Trabalho"
 sidebar_position: 10
-description: Backlog de produto com priorização e MVP do sistema da Creche da Tia Tata.
+description: Lista de Itens de Trabalho com priorização e MVP do sistema da Creche da Tia Tata.
 ---
 
-# Backlog de Produto
+# Lista de Itens de Trabalho
 
-Esta seção descreve o backlog de produto do sistema da Creche da Tia Tata, contendo a lista priorizada de todas as funcionalidades planejadas, bem como a definição do Produto Mínimo Viável (MVP).
+No contexto do **OpenUP**, o artefato equivalente ao backlog de metodologias ágeis é a **Lista de Itens de Trabalho (Work Items List)**. Ela contém todos os itens de trabalho priorizados que guiam o desenvolvimento ao longo das iterações, servindo como referência para o planejamento de cada ciclo.
 
-## 10.1 Backlog Geral
+## 10.1 Itens de Trabalho {#itens-de-trabalho}
 
-O backlog geral contém todas as funcionalidades planejadas para o sistema, organizadas com suas respectivas user stories e requisitos não funcionais relacionados.
+A Lista de Itens de Trabalho contém todos os itens planejados para o sistema, descritos no formato OpenUP com a descrição direta do comportamento esperado e os requisitos não funcionais relacionados.
 
-| Requisito Funcional | User Story Derivada | RNFs Relacionados |
-|---|---|---|
-| **RF-01** – Autenticar Administrador | Como administrador, quero fazer login no sistema para acessar funcionalidades de gestão. | RNF-08 (Bloqueio sem login), RNF-09 (bcrypt+AES), RNF-12 (Expiração de sessão), RNF-13 (Feedback) |
-| **RF-02** – Registrar Doação | Como administrador, quero registrar doações recebidas para manter controle do que foi doado. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-03** – Listar Doações | Como administrador, quero listar todas as doações para consultar histórico de contribuições. | RNF-01 (Resposta 3s), RNF-03 (50 usuários), RNF-07 (Interface intuitiva) |
-| **RF-04** – Editar Doação | Como administrador, quero editar registros de doação para corrigir informações incorretas. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-05** – Registrar Doador | Como administrador, quero registrar doadores para manter base de apoiadores da creche. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs) |
-| **RF-06** – Listar Doadores | Como administrador, quero listar doadores cadastrados para consultar e gerenciar apoiadores. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **RF-07** – Registrar Entrega | Como administrador, quero registrar entregas de doações para rastrear o que foi distribuído. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-08** – Listar Entregas | Como administrador, quero listar entregas realizadas para acompanhar distribuição de doações. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **RF-09** – Registrar Voluntário | Como administrador, quero registrar voluntários para gerenciar quem apoia atividades da creche. | RNF-01, RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-10** – Listar Voluntários | Como administrador, quero listar voluntários cadastrados para visualizar e gerenciar equipe de apoio. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **RF-11** – Registrar Disponibilidade | Como administrador, quero registrar disponibilidade dos voluntários para planejar escalas. | RNF-01, RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **RF-12** – Editar Disponibilidade | Como administrador, quero editar disponibilidade de voluntários para manter informações atualizadas. | RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **RF-13** – Gerar Escala | Como administrador, quero gerar escala de voluntários para organizar atividades da creche. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva), RNF-13 (Feedback) |
-| **RF-14** – Registrar Evento | Como administrador, quero registrar eventos para organizar e planejar atividades da creche. | RNF-01, RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-15** – Listar Eventos | Como administrador, quero listar eventos cadastrados para acompanhar agenda da creche. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **RF-16** – Associar Voluntário a Evento | Como administrador, quero associar voluntários a eventos para garantir cobertura das atividades. | RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **RF-17** – Registrar Recursos por Evento | Como administrador, quero registrar recursos necessários por evento para controlar o que é preciso em cada atividade. | RNF-01, RNF-05 (Confirmação), RNF-10 (Logs) |
-| **RF-18** – Resumo de Recursos por Evento | Como administrador, quero visualizar resumo de recursos por evento para ter visão consolidada das necessidades. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **RF-19** – Página Institucional Pública | Como visitante, quero acessar informações institucionais da creche para conhecer projeto e missão. | RNF-02 (Carregamento 5s), RNF-04 (Disponibilidade), RNF-11 (Padrões web), RNF-14 (Contato visível) |
-| **RF-20** – Publicar Solicitação de Apoio | Como administrador, quero publicar solicitações de apoio para divulgar necessidades da creche ao público. | RNF-04 (Disponibilidade), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-21** – Listar Solicitações | Como visitante, quero listar solicitações de apoio para visualizar necessidades atuais da creche. | RNF-02 (Carregamento 5s), RNF-04 (Disponibilidade), RNF-07 (Interface), RNF-14 (Doações visíveis) |
-| **RF-22** – Excluir Voluntário | Como administrador, quero excluir voluntário do sistema para remover quem não atua mais na creche. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-23** – Desalocar Voluntário | Como administrador, quero desalocar voluntário de evento para ajustar escala conforme necessidade. | RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **RF-24** – Editar Voluntário | Como administrador, quero editar dados de voluntários para manter cadastro atualizado. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-25** – Histórico do Voluntário | Como administrador, quero visualizar histórico de atividades do voluntário para acompanhar sua participação. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
-| **RF-26** – Relatório de Participação | Como administrador, quero gerar relatório de participação para avaliar engajamento da equipe de voluntários. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
+| ID | Item de Trabalho | Descrição do Item de Trabalho | RNFs Relacionados |
+|---|---|---|---|
+| **IT-01** | Autenticar Administrador | O sistema deve permitir que o administrador acesse a área restrita mediante autenticação com credenciais (e-mail e senha). | RNF-08 (Bloqueio sem login), RNF-09 (bcrypt+AES), RNF-12 (Expiração de sessão), RNF-13 (Feedback) |
+| **IT-02** | Registrar Doação | O sistema deve permitir o registro de doações recebidas, incluindo tipo, quantidade e data, para controle de contribuições. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
+| **IT-03** | Listar Doações | O sistema deve exibir a lista de todas as doações registradas, permitindo consulta do histórico de contribuições. | RNF-01 (Resposta 3s), RNF-03 (50 usuários), RNF-07 (Interface intuitiva) |
+| **IT-04** | Editar Doação | O sistema deve permitir a edição de registros de doação para correção de informações incorretas. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
+| **IT-05** | Registrar Doador | O sistema deve permitir o cadastro de doadores para manutenção da base de apoiadores da creche. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs) |
+| **IT-06** | Listar Doadores | O sistema deve exibir a lista de doadores cadastrados para consulta e gerenciamento dos apoiadores. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
+| **IT-07** | Registrar Entrega | O sistema deve permitir o registro de entregas realizadas para rastreamento da distribuição de doações. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
+| **IT-08** | Listar Entregas | O sistema deve exibir a lista de entregas realizadas para acompanhamento da distribuição de doações. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
+| **IT-09** | Registrar Voluntário | O sistema deve permitir o cadastro de voluntários para gerenciamento de quem apoia as atividades da creche. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
+| **IT-10** | Listar Voluntários | O sistema deve exibir a lista de voluntários cadastrados para visualização e gerenciamento da equipe de apoio. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
+| **IT-11** | Registrar Disponibilidade | O sistema deve permitir o registro da disponibilidade de horários dos voluntários para planejamento de escalas. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-13 (Feedback) |
+| **IT-12** | Editar Disponibilidade | O sistema deve permitir a edição da disponibilidade de voluntários para manutenção de informações atualizadas. | RNF-05 (Confirmação), RNF-13 (Feedback) |
+| **IT-13** | Gerar Escala | O sistema deve gerar escalas de voluntários com base nas disponibilidades registradas para organização das atividades. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva), RNF-13 (Feedback) |
+| **IT-14** | Registrar Evento | O sistema deve permitir o registro de eventos para planejamento e organização das atividades da creche. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
+| **IT-15** | Listar Eventos | O sistema deve exibir a lista de eventos cadastrados para acompanhamento da agenda da creche. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
+| **IT-16** | Associar Voluntário a Evento | O sistema deve permitir a associação de voluntários a eventos para garantir cobertura das atividades planejadas. | RNF-05 (Confirmação), RNF-13 (Feedback) |
+| **IT-17** | Registrar Recursos por Evento | O sistema deve permitir o registro de recursos necessários por evento para controle do que é preciso em cada atividade. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs) |
+| **IT-18** | Resumo de Recursos por Evento | O sistema deve exibir um resumo consolidado de recursos por evento para visão geral das necessidades. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
+| **IT-19** | Página Institucional Pública | O sistema deve disponibilizar uma página pública com informações institucionais da creche, sua missão e formas de contato, acessível sem autenticação. | RNF-02 (Carregamento 5s), RNF-04 (Disponibilidade), RNF-11 (Padrões web), RNF-14 (Contato visível) |
+| **IT-20** | Publicar Solicitação de Apoio | O sistema deve permitir que o administrador publique solicitações de apoio para divulgar necessidades da creche ao público externo. | RNF-04 (Disponibilidade), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
+| **IT-21** | Listar Solicitações de Apoio | O sistema deve exibir publicamente a lista de solicitações de apoio ativas para que visitantes visualizem as necessidades atuais da creche. | RNF-02 (Carregamento 5s), RNF-04 (Disponibilidade), RNF-07 (Interface), RNF-14 (Doações visíveis) |
+| **IT-22** | Excluir Voluntário | O sistema deve permitir a exclusão de voluntários que não atuam mais na creche, com confirmação obrigatória antes da remoção. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
+| **IT-23** | Desalocar Voluntário de Evento | O sistema deve permitir a desalocação de voluntários de eventos para ajuste de escala conforme necessidade operacional. | RNF-05 (Confirmação), RNF-13 (Feedback) |
+| **IT-24** | Editar Voluntário | O sistema deve permitir a edição de dados de voluntários para manutenção do cadastro atualizado. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
+| **IT-25** | Histórico do Voluntário | O sistema deve exibir o histórico de participação do voluntário em atividades da creche para acompanhamento de seu engajamento. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
+| **IT-26** | Relatório de Participação | O sistema deve gerar relatório consolidado de participação dos voluntários para avaliação do engajamento da equipe de apoio. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
 
-## 10.2 Priorização do Backlog Geral e MVP
+## 10.2 Matriz-Síntese de Rastreabilidade {#matriz-rastreabilidade}
 
-A priorização foi realizada com base em dois critérios: **Dificuldade (D)** e **Importância (I)**, permitindo identificar quais funcionalidades são essenciais para o lançamento do MVP e quais podem ser desenvolvidas posteriormente.
+A matriz-síntese conecta os Objetivos Específicos (OE), as Características de Produto (CP), o Valor de Negócio (VN), os Requisitos Funcionais (RF) e os Requisitos Não Funcionais (RNF), garantindo rastreabilidade completa entre a visão estratégica e os artefatos técnicos.
 
-O MVP representa o conjunto mínimo de funcionalidades que permite que o sistema seja utilizado pela coordenação da creche, focando nos recursos essenciais para validar as principais hipóteses de valor do projeto.
+| OE | CP | Valor de Negócio | RFs | RNFs |
+|---|---|---|---|---|
+| OE1 – Divulgar informações da creche | C1 (Vitrine Pública Digital) | Ampliar alcance e reduzir dependência do boca a boca | RF-19, RF-20, RF-21 | RNF-02, RNF-04, RNF-11, RNF-14 |
+| OE2 – Facilitar contato de doadores e voluntários | C1 (Vitrine Pública Digital), C2 (Canal de Engajamento) | Reduzir atrito na captação de apoiadores | RF-05, RF-09, RF-19, RF-20, RF-21 | RNF-03, RNF-07, RNF-13 |
+| OE3 – Apoiar registro e consulta de contribuições | C3 (Gestão de Voluntários), C4 (Gestão de Doações), C5 (Painel Admin) | Eliminar perda de informações e organizar operações internas | RF-01, RF-02, RF-03, RF-04, RF-05, RF-06, RF-07, RF-08, RF-09, RF-10, RF-11, RF-12, RF-13, RF-14, RF-15, RF-16, RF-17, RF-18, RF-22, RF-23, RF-24, RF-25, RF-26 | RNF-01, RNF-05, RNF-08, RNF-09, RNF-10, RNF-12 |
 
-![Board MVP do projeto](/img/mvp-board.png)
+## 10.3 Priorização da Lista de Itens de Trabalho {#priorizacao}
 
-**DIFICULDADE** (dias de 3h de trabalho):
-- 1 = 1 a 5 dias para conclusão com base no DoD
-- 2 = 5 a 14 dias para conclusão com base no DoD
-- 3 = 14+ dias para conclusão com base no DoD
+A priorização foi realizada com base em dois critérios: **Importância (I)** e **Dificuldade (D)**, posicionando cada item em uma matriz de quadrantes que permite identificar visualmente a ordem de desenvolvimento.
 
-**IMPORTÂNCIA:**
+**Escala de Dificuldade (D)** — dias de trabalho de 3h com base no DoD:
+- 1 = 1 a 5 dias
+- 2 = 5 a 14 dias
+- 3 = 14+ dias
+
+**Escala de Importância (I)**:
 - 1 = Não relacionado ao problema central
 - 2 = Baixo impacto no problema
 - 3 = Impacta o problema
 - 4 = Essencial na solução
+
+O **Índice de Prioridade (IP = I / D)** determina a ordem relativa dentro de cada quadrante: quanto maior o IP, maior a prioridade.
+
+![Priorização por quadrantes](/img/priorizacao-quadrantes.jpeg)
+
+## 10.4 Produto Mínimo Viável (MVP)
+
+O MVP representa o conjunto mínimo de itens de trabalho que permite que o sistema seja utilizado pela coordenação da creche, validando as hipóteses centrais do projeto com a cliente. No OpenUP, esses itens são priorizados nas primeiras iterações da fase de Construção.
+
+![Board MVP do projeto](/img/mvp-board.png)
