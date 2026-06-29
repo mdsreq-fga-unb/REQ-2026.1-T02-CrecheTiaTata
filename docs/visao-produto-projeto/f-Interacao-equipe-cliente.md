@@ -9,9 +9,9 @@ sidebar_position: 6
 | :---| :--- | :--- | :---|
 |Gerente do Projeto  | Coordena o projeto, prazos e comunicação entre equipe e usuário  | Enzo |      | 
 |Desenvolvedor FrontEnd | Responsável pelo design, interface e implementações de funcionalidades do lado do cliente  | Bruno| Lorena e Matheus|  
-|Desenvolvedor BackEnd  | Responsável pela implementação da lógica de negócio, APIs e integração com o banco de dados  | Enzo | |
+|Desenvolvedor BackEnd  | Responsável pela implementação da lógica de negócio, APIs e integração com o banco de dados  | Enzo | Lucas |
 |Analista de Qualidade| Responsável pela qualidade do produto, com testes de funcionalidade, performance e usabilidade  | Matheus |  |
-|Analista de Requisitos | Define e garante o atendimento dos requisitos funcionais e não funcionais  | Lorena |Bruno, Enzo e Matheus|
+|Analista de Requisitos | Define e garante o atendimento dos requisitos funcionais e não funcionais  | Lorena |Bruno, Enzo, Matheus e Lucas|
 
 ### 6.2 Comunicação
 #### Ferramentas de Comunicação
