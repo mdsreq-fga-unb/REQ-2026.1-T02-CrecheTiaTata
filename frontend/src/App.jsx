@@ -11,6 +11,7 @@ import SobrePage from './pages/SobrePage';
 import { isAuthTokenValid } from './utils/authStorage';
 import AtualizarPerfilPage from './pages/AtualizarPerfilPage';
 import ListarDoacoesPage from './pages/ListarDoacoesPage';
+import ListarEntregasPage from './pages/ListarEntregasPage';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,9 +31,10 @@ function App() {
 
   const isPerfilPage = path === '/perfil';
   const isDoacoesPage = path === '/doacoes';
+  const isEntregasPage = path === '/entregas';
 
-  const isHomePage = !isSobrePage && !isComoAjudarPage && !isContatoPage && !isLoginPage && !isPasswordRecoveryPage && !isPerfilPage && !isDoacoesPage;
-  
+  const isHomePage = !isSobrePage && !isComoAjudarPage && !isContatoPage && !isLoginPage && !isPasswordRecoveryPage && !isPerfilPage && !isDoacoesPage && !isEntregasPage;
+
   return (
     <main className="min-h-screen bg-stone-50 font-sans text-slate-900">
 
@@ -46,6 +48,7 @@ function App() {
       
       {isPerfilPage && (isAuthTokenValid() ? <AtualizarPerfilPage /> : <LoginPage />)}
       {isDoacoesPage && <ListarDoacoesPage />}
+      {isEntregasPage && <ListarEntregasPage />}
 
       {isHomePage && <HomePage />}
       {isHomePage && <CtaSection />}
