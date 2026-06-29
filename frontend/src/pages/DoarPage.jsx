@@ -31,17 +31,18 @@ export default function DoarPage() {
     };
 
     const [quantidade, setQuantidade] = useState("");
-    const [telefone, setTelefone] = useState("");
     const [endereco, setEndereco] = useState("");
     const [horario, setHorario] = useState("");
     const [erro, setErro] = useState("");
     const [enviado, setEnviado] = useState(false);
     const [enviando, setEnviando] = useState(false);
 
+    // TODO: Obter dados do usuário logado (telefone, nome, email) da sessão/contexto autenticado
+
     const handleSubmit = async () => {
         setErro("");
 
-        if (!quantidade || !telefone || !endereco || !horario) {
+        if (!quantidade || !endereco || !horario) {
             setErro("Por favor, preencha todos os campos antes de continuar.");
             return;
         }
@@ -152,16 +153,6 @@ export default function DoarPage() {
                             />
                         </Campo>
 
-                        <Campo label="Telefone para contato">
-                            <input
-                                type="tel"
-                                value={telefone}
-                                onChange={(e) => setTelefone(e.target.value)}
-                                placeholder="(00) 00000-0000"
-                                className={inputClass}
-                            />
-                        </Campo>
-
                         <Campo
                             label="Endereço de entrega"
                             hint="Rua, número, bairro e cidade"
@@ -207,8 +198,7 @@ export default function DoarPage() {
                     </button>
 
                     <p className="mt-4 text-center text-xs text-slate-400">
-                        Entraremos em contato pelo telefone informado para
-                        combinar os detalhes.
+                        Entraremos em contato para combinar os detalhes da entrega.
                     </p>
                 </div>
             </div>
