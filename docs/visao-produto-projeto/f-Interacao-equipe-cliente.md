@@ -18,7 +18,7 @@ sidebar_position: 6
 - <b>WhatsApp</b>: Usado para comunicação rápida entre a equipe e o cliente, incluindo reuniões de validação
 - <b>Discord</b>: Reuniões da equipe como reunião de avaliação da iteração e reunião de planejamento 
 - <b>GitHub</b>: Usado para organização do repositório e issues
-- <b>GitHub Projects</b>: Usado para organização do backlog
+- <b>GitHub Projects</b>: Usado para organização da Lista de Itens de Trabalho
 
 #### Métodos e Frequências de Reuniões
 - <b>Reunião de avaliação da iteração</b>: Realizada no final de cada iteração para discutir o que foi entregue e possíveis melhorias

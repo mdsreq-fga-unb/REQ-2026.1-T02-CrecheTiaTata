@@ -21,7 +21,7 @@ Atividade focada em refinar, classificar e priorizar os requisitos brutos levant
 
 ### 4.1.3 Declaração de Requisitos
 Tradução das necessidades analisadas para um formato documentado, padronizado e compreensível para a equipe de desenvolvimento.
-* **Histórias de Usuário (User Stories):** Descrição das funcionalidades sob a perspectiva de valor para o usuário, utilizadas para popular o backlog e guiar o desenvolvimento ágil.
+* **Histórias de Usuário (User Stories):** Descrição das funcionalidades sob a perspectiva de valor para o usuário, utilizadas para popular a Lista de Itens de Trabalho e guiar o desenvolvimento iterativo no OpenUP.
 
 ### 4.1.4 Representação de Requisitos
 Atividade focada em ilustrar visualmente a estrutura, o comportamento e a interface do sistema, facilitando a comunicação técnica e a validação.
@@ -35,7 +35,7 @@ Garantia de que os requisitos e representações criadas realmente atendem às e
 ### 4.1.6 Organização e Atualização
 Controle contínuo das mudanças de escopo e garantia do alinhamento entre o código e a documentação.
 * **Matriz de Rastreabilidade:** Técnica utilizada para vincular os Requisitos Funcionais às Histórias de Usuário correspondentes, garantindo que nada seja desenvolvido sem um propósito justificado.
-* **Controle de Versão do Backlog:** Atualização contínua das prioridades e refinamento das *User Stories* ao longo das iterações do OpenUP, refletindo as mudanças de rota e as decisões arquiteturais.
+* **Controle de Versão da Lista de Itens de Trabalho:** Atualização contínua das prioridades e refinamento das *User Stories* ao longo das iterações do OpenUP, refletindo as mudanças de rota e as decisões arquiteturais.
 
 ---
 
@@ -47,10 +47,10 @@ A tabela abaixo mapeia as atividades da Engenharia de Requisitos dentro das quat
 | :--- | :--- | :--- | :--- | :--- |
 | **Concepção (Inception)** | Elicitação e Descoberta | Entendimento do negócio e da dor do cliente (Creche). | Entrevistas com Stakeholders. | Declaração do Problema, Visão do Produto e levantamento inicial de necessidades. |
 | **Concepção (Inception)** | Análise e Consenso | Definição do que é viável para a primeira entrega. | Matriz de Priorização (Impacto x Dificuldade). | Escopo inicial do MVP definido e priorizado. |
-| **Elaboração (Elaboration)** | Declaração de Requisitos | Documentação estruturada das necessidades do sistema. | Especificação das Histórias de Usuário. | Backlog inicial populado e Casos de Uso arquiteturalmente significantes detalhados. |
+| **Elaboração (Elaboration)** | Declaração de Requisitos | Documentação estruturada das necessidades do sistema. | Especificação das Histórias de Usuário. | Lista de Itens de Trabalho inicial populada e Casos de Uso arquiteturalmente significantes detalhados. |
 | **Elaboração (Elaboration)** | Representação de Requisitos | Tangibilização visual das ideias e do escopo. | Prototipação de Alta Fidelidade (Figma). | Protótipos elaborados para reduzir riscos técnicos e de usabilidade. |
 | **Construção (Construction)** | Verificação e Validação | Garantia de qualidade das implementações durante as iterações. | Definition of Ready (DoR), Definition of Done (DoD) e Walkthroughs. | Funcionalidades desenvolvidas alinhadas aos critérios de aceitação e aprovadas. |
-| **Construção (Construction)** | Organização e Atualização | Adaptação às mudanças e detalhamento contínuo do backlog. | Refinamento de Backlog e Matriz de Rastreabilidade. | Backlog atualizado, garantindo que o software construído reflete os requisitos atuais. |
+| **Construção (Construction)** | Organização e Atualização | Adaptação às mudanças e detalhamento contínuo da Lista de Itens de Trabalho. | Refinamento da Lista de Itens de Trabalho e Matriz de Rastreabilidade. | Lista de Itens de Trabalho atualizada, garantindo que o software construído reflete os requisitos atuais. |
 | **Transição (Transition)** | Verificação e Validação | Homologação final do sistema com o usuário real. | Feedback final do cliente e Testes de Aceitação. | Sistema executável validado, documentado e entregue à Creche Tia Tata. |
 
 ---
