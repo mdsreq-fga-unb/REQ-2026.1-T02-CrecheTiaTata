@@ -244,7 +244,32 @@ Esta página documenta os critérios de aceitação, regras de negócio e cenár
 
 ---
 
+## RF-12 — Editar Disponibilidade
+
+### Regras de Negócio
+
+- Somente disponibilidades existentes podem ser editadas; `id` inválido retorna `HTTP 404`.
+- As mesmas regras de validação do RF-11 se aplicam: `horario_inicio` < `horario_fim`, `dia_semana` válido.
+- Edição não pode gerar conflito de horário com outra disponibilidade do mesmo voluntário no mesmo dia.
+- Somente administradores autenticados podem editar disponibilidades.
+
+### Critérios de Aceitação
+
+| # | Cenário | Dado | Quando | Então |
+|---|---|---|---|---|
+| CA-12.1 | Edição com dados válidos | administrador autenticado, disponibilidade com `id` existente | realiza `PUT /disponibilidades/:id` com novos horários válidos | sistema retorna `HTTP 200` com dados atualizados |
+| CA-12.2 | Conflito gerado pela edição | voluntário já tem outra disponibilidade no mesmo dia que sobrepõe o novo horário | realiza `PUT /disponibilidades/:id` | sistema retorna `HTTP 422` com `"Conflito de horário para este voluntário"` |
+| CA-12.3 | Horário inválido após edição | `horario_inicio` maior ou igual a `horario_fim` no novo payload | realiza `PUT /disponibilidades/:id` | sistema retorna `HTTP 422` com mensagem de horário inválido |
+| CA-12.4 | ID inexistente | `id` de disponibilidade não existe no banco | realiza `PUT /disponibilidades/:id` | sistema retorna `HTTP 404` |
+| CA-12.5 | Usuário sem autenticação | requisição sem token | realiza `PUT /disponibilidades/:id` | sistema retorna `HTTP 401` |
+
+---
+
 ## RF-13 — Gerar Escala
+
+> **Nota:** RF-13 não está no escopo do MVP de 18 RFs, mas seus critérios de aceitação e regras de negócio foram documentados conforme solicitação do professor (feedback issue [#118](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/118): "Definir regras de negócio para [...] escala").
+
+
 
 ### Regras de Negócio
 
