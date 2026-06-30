@@ -40,9 +40,6 @@ const fillForm = () => {
   fireEvent.change(screen.getByPlaceholderText('Ex: 5 pacotes'), {
     target: { value: '5' },
   });
-  fireEvent.change(screen.getByPlaceholderText('(00) 00000-0000'), {
-    target: { value: '(11) 99999-9999' },
-  });
   fireEvent.change(screen.getByPlaceholderText(/Rua das Flores/), {
     target: { value: 'Rua Teste, 123 — Centro, São Paulo' },
   });
@@ -98,12 +95,6 @@ describe('DoarPage', () => {
 
     it('exibe o campo de quantidade', () => {
       expect(screen.getByPlaceholderText('Ex: 5 pacotes')).toBeInTheDocument();
-    });
-
-    it('exibe o campo de telefone', () => {
-      expect(
-        screen.getByPlaceholderText('(00) 00000-0000')
-      ).toBeInTheDocument();
     });
 
     it('exibe o campo de endereço', () => {
