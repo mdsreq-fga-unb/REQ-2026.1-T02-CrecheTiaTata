@@ -6,6 +6,10 @@ description: Lista de requisitos funcionais do sistema da Creche da Tia Tata.
 
 # 8.1 Requisitos Funcionais
 
+> **Total:** 27 Requisitos Funcionais (RF-01 a RF-27). O **MVP** contempla 18 RFs priorizados — ver [Andamento do Projeto](../../evidencias/Andamento-do-projeto.md) e [Lista de Itens de Trabalho](../j-backlog.md).
+>
+> **RF-01 vs RF-27:** RF-01 autentica especificamente o administrador para acesso à área de gestão. RF-27 é o login geral para qualquer usuário cadastrado (doadores, voluntários, administradores) e está fora do MVP atual.
+
 ## Autenticação
 
 | ID | Descrição |

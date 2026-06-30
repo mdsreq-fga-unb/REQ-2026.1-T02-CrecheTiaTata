@@ -12,34 +12,35 @@ No contexto do **OpenUP**, o artefato equivalente ao backlog de metodologias ág
 
 A Lista de Itens de Trabalho contém todos os itens planejados para o sistema, descritos no formato OpenUP com a descrição direta do comportamento esperado e os requisitos não funcionais relacionados.
 
-| ID | Item de Trabalho | Descrição do Item de Trabalho | RNFs Relacionados |
-|---|---|---|---|
-| **IT-01** | Autenticar Administrador | O sistema deve permitir que o administrador acesse a área restrita mediante autenticação com credenciais (e-mail e senha). | RNF-08 (Bloqueio sem login), RNF-09 (bcrypt+AES), RNF-12 (Expiração de sessão), RNF-13 (Feedback) |
-| **IT-02** | Registrar Doação | O sistema deve permitir o registro de doações recebidas, incluindo tipo, quantidade e data, para controle de contribuições. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **IT-03** | Listar Doações | O sistema deve exibir a lista de todas as doações registradas, permitindo consulta do histórico de contribuições. | RNF-01 (Resposta 3s), RNF-03 (50 usuários), RNF-07 (Interface intuitiva) |
-| **IT-04** | Editar Doação | O sistema deve permitir a edição de registros de doação para correção de informações incorretas. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **IT-05** | Registrar Doador | O sistema deve permitir o cadastro de doadores para manutenção da base de apoiadores da creche. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs) |
-| **IT-06** | Listar Doadores | O sistema deve exibir a lista de doadores cadastrados para consulta e gerenciamento dos apoiadores. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **IT-07** | Registrar Entrega | O sistema deve permitir o registro de entregas realizadas para rastreamento da distribuição de doações. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **IT-08** | Listar Entregas | O sistema deve exibir a lista de entregas realizadas para acompanhamento da distribuição de doações. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **IT-09** | Registrar Voluntário | O sistema deve permitir o cadastro de voluntários para gerenciamento de quem apoia as atividades da creche. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **IT-10** | Listar Voluntários | O sistema deve exibir a lista de voluntários cadastrados para visualização e gerenciamento da equipe de apoio. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **IT-11** | Registrar Disponibilidade | O sistema deve permitir o registro da disponibilidade de horários dos voluntários para planejamento de escalas. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **IT-12** | Editar Disponibilidade | O sistema deve permitir a edição da disponibilidade de voluntários para manutenção de informações atualizadas. | RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **IT-13** | Gerar Escala | O sistema deve gerar escalas de voluntários com base nas disponibilidades registradas para organização das atividades. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva), RNF-13 (Feedback) |
-| **IT-14** | Registrar Evento | O sistema deve permitir o registro de eventos para planejamento e organização das atividades da creche. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **IT-15** | Listar Eventos | O sistema deve exibir a lista de eventos cadastrados para acompanhamento da agenda da creche. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **IT-16** | Associar Voluntário a Evento | O sistema deve permitir a associação de voluntários a eventos para garantir cobertura das atividades planejadas. | RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **IT-17** | Registrar Recursos por Evento | O sistema deve permitir o registro de recursos necessários por evento para controle do que é preciso em cada atividade. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs) |
-| **IT-18** | Resumo de Recursos por Evento | O sistema deve exibir um resumo consolidado de recursos por evento para visão geral das necessidades. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **IT-19** | Página Institucional Pública | O sistema deve disponibilizar uma página pública com informações institucionais da creche, sua missão e formas de contato, acessível sem autenticação. | RNF-02 (Carregamento 5s), RNF-04 (Disponibilidade), RNF-11 (Padrões web), RNF-14 (Contato visível) |
-| **IT-20** | Publicar Solicitação de Apoio | O sistema deve permitir que o administrador publique solicitações de apoio para divulgar necessidades da creche ao público externo. | RNF-04 (Disponibilidade), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **IT-21** | Listar Solicitações de Apoio | O sistema deve exibir publicamente a lista de solicitações de apoio ativas para que visitantes visualizem as necessidades atuais da creche. | RNF-02 (Carregamento 5s), RNF-04 (Disponibilidade), RNF-07 (Interface), RNF-14 (Doações visíveis) |
-| **IT-22** | Excluir Voluntário | O sistema deve permitir a exclusão de voluntários que não atuam mais na creche, com confirmação obrigatória antes da remoção. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **IT-23** | Desalocar Voluntário de Evento | O sistema deve permitir a desalocação de voluntários de eventos para ajuste de escala conforme necessidade operacional. | RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **IT-24** | Editar Voluntário | O sistema deve permitir a edição de dados de voluntários para manutenção do cadastro atualizado. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **IT-25** | Histórico do Voluntário | O sistema deve exibir o histórico de participação do voluntário em atividades da creche para acompanhamento de seu engajamento. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
-| **IT-26** | Relatório de Participação | O sistema deve gerar relatório consolidado de participação dos voluntários para avaliação do engajamento da equipe de apoio. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
+| ID | Item de Trabalho | Descrição do Item de Trabalho | RNFs Relacionados | Critérios de Aceitação |
+|---|---|---|---|---|
+| **IT-01** | Autenticar Administrador | O sistema deve permitir que o administrador acesse a área restrita mediante autenticação com credenciais (e-mail e senha). | RNF-08, RNF-09, RNF-12, RNF-13 | [CA-01.1 a CA-01.5](h-requisitos/criterios-aceitacao#rf-01--autenticar-administrador) |
+| **IT-02** | Registrar Doação | O sistema deve permitir o registro de doações recebidas, incluindo tipo, quantidade e data, para controle de contribuições. | RNF-01, RNF-05, RNF-10, RNF-13 | [CA-02.1 a CA-02.6](h-requisitos/criterios-aceitacao#rf-02--registrar-doação) |
+| **IT-03** | Listar Doações | O sistema deve exibir a lista de todas as doações registradas, permitindo consulta do histórico de contribuições. | RNF-01, RNF-03, RNF-07 | [CA-03.1 a CA-03.4](h-requisitos/criterios-aceitacao#rf-03--listar-doações) |
+| **IT-04** | Editar Doação | O sistema deve permitir a edição de registros de doação para correção de informações incorretas. | RNF-05, RNF-10, RNF-13 | [CA-04.1 a CA-04.4](h-requisitos/criterios-aceitacao#rf-04--editar-doação) |
+| **IT-05** | Registrar Doador | O sistema deve permitir o cadastro de doadores para manutenção da base de apoiadores da creche. | RNF-01, RNF-05, RNF-10 | [CA-05.1 a CA-05.6](h-requisitos/criterios-aceitacao#rf-05--registrar-doador) |
+| **IT-06** | Listar Doadores | O sistema deve exibir a lista de doadores cadastrados para consulta e gerenciamento dos apoiadores. | RNF-01, RNF-07 | [CA-06.1 a CA-06.4](h-requisitos/criterios-aceitacao#rf-06--listar-doadores) |
+| **IT-07** | Registrar Entrega | O sistema deve permitir o registro de entregas realizadas para rastreamento da distribuição de doações. | RNF-05, RNF-10, RNF-13 | [CA-07.1 a CA-07.5](h-requisitos/criterios-aceitacao#rf-07--registrar-entrega) |
+| **IT-08** | Listar Entregas | O sistema deve exibir a lista de entregas realizadas para acompanhamento da distribuição de doações. | RNF-01, RNF-07 | [CA-08.1 a CA-08.4](h-requisitos/criterios-aceitacao#rf-08--listar-entregas) |
+| **IT-09** | Registrar Voluntário | O sistema deve permitir o cadastro de voluntários para gerenciamento de quem apoia as atividades da creche. | RNF-01, RNF-05, RNF-10, RNF-13 | [CA-09.1 a CA-09.4](h-requisitos/criterios-aceitacao#rf-09--registrar-voluntário) |
+| **IT-10** | Listar Voluntários | O sistema deve exibir a lista de voluntários cadastrados para visualização e gerenciamento da equipe de apoio. | RNF-01, RNF-07 | [CA-10.1 a CA-10.4](h-requisitos/criterios-aceitacao#rf-10--listar-voluntários) |
+| **IT-11** | Registrar Disponibilidade | O sistema deve permitir o registro da disponibilidade de horários dos voluntários para planejamento de escalas. | RNF-01, RNF-05, RNF-13 | [CA-11.1 a CA-11.5](h-requisitos/criterios-aceitacao#rf-11--registrar-disponibilidade) |
+| **IT-12** | Editar Disponibilidade | O sistema deve permitir a edição da disponibilidade de voluntários para manutenção de informações atualizadas. | RNF-05, RNF-13 | — |
+| **IT-13** | Gerar Escala | O sistema deve gerar escalas de voluntários com base nas disponibilidades registradas para organização das atividades. | RNF-01, RNF-07, RNF-13 | [CA-13.1 a CA-13.4](h-requisitos/criterios-aceitacao#rf-13--gerar-escala) |
+| **IT-14** | Registrar Evento | O sistema deve permitir o registro de eventos para planejamento e organização das atividades da creche. | RNF-01, RNF-05, RNF-10, RNF-13 | — |
+| **IT-15** | Listar Eventos | O sistema deve exibir a lista de eventos cadastrados para acompanhamento da agenda da creche. | RNF-01, RNF-07 | — |
+| **IT-16** | Associar Voluntário a Evento | O sistema deve permitir a associação de voluntários a eventos para garantir cobertura das atividades planejadas. | RNF-05, RNF-13 | — |
+| **IT-17** | Registrar Recursos por Evento | O sistema deve permitir o registro de recursos necessários por evento para controle do que é preciso em cada atividade. | RNF-01, RNF-05, RNF-10 | — |
+| **IT-18** | Resumo de Recursos por Evento | O sistema deve exibir um resumo consolidado de recursos por evento para visão geral das necessidades. | RNF-01, RNF-07 | — |
+| **IT-19** | Página Institucional Pública | O sistema deve disponibilizar uma página pública com informações institucionais da creche, sua missão e formas de contato, acessível sem autenticação. | RNF-02, RNF-04, RNF-11, RNF-14 | — |
+| **IT-20** | Publicar Solicitação de Apoio | O sistema deve permitir que o administrador publique solicitações de apoio para divulgar necessidades da creche ao público externo. | RNF-04, RNF-05, RNF-10, RNF-13 | [CA-20.1 a CA-20.5](h-requisitos/criterios-aceitacao#rf-20--publicar-solicitação-de-apoio) |
+| **IT-21** | Listar Solicitações de Apoio | O sistema deve exibir publicamente a lista de solicitações de apoio ativas para que visitantes visualizem as necessidades atuais da creche. | RNF-02, RNF-04, RNF-07, RNF-14 | [CA-21.1 a CA-21.4](h-requisitos/criterios-aceitacao#rf-21--listar-solicitações-de-apoio) |
+| **IT-22** | Excluir Voluntário | O sistema deve permitir a exclusão de voluntários que não atuam mais na creche, com confirmação obrigatória antes da remoção. | RNF-05, RNF-10, RNF-13 | — |
+| **IT-23** | Desalocar Voluntário de Evento | O sistema deve permitir a desalocação de voluntários de eventos para ajuste de escala conforme necessidade operacional. | RNF-05, RNF-13 | — |
+| **IT-24** | Editar Voluntário | O sistema deve permitir a edição de dados de voluntários para manutenção do cadastro atualizado. | RNF-05, RNF-10, RNF-13 | — |
+| **IT-25** | Histórico do Voluntário | O sistema deve exibir o histórico de participação do voluntário em atividades da creche para acompanhamento de seu engajamento. | RNF-01, RNF-07, RNF-10 | — |
+| **IT-26** | Relatório de Participação | O sistema deve gerar relatório consolidado de participação dos voluntários para avaliação do engajamento da equipe de apoio. | RNF-01, RNF-07, RNF-10 | — |
+| **IT-27** | Login de Usuário (RF-27) | O sistema deve permitir que doadores, voluntários e administradores realizem autenticação por e-mail e senha para acessar funcionalidades correspondentes ao seu perfil. Diferente do RF-01 (restrito a admins), este RF cobre o login geral de qualquer usuário cadastrado. | RNF-08, RNF-12, RNF-13 | — |
 
 ## 10.2 Matriz-Síntese de Rastreabilidade {#matriz-rastreabilidade}
 
