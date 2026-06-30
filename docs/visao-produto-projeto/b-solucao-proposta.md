@@ -13,13 +13,15 @@ Fortalecer a capacidade operacional da Creche da Tia Tata por meio da ampliaçã
 * **OE3:** Apoiar o registro e a consulta básica de doações e voluntários.
 
 ### 2.3 Características de Produto
-A solução proposta deverá contemplar um conjunto reduzido de características de produto, descritas em nível mais alto. A partir delas, poderão ser derivados poucos requisitos funcionais e não funcionais, evitando que esta seção se torne uma lista detalhada de funcionalidades.
+A solução proposta deverá contemplar um conjunto de características de produto, descritas em nível mais alto. Uma característica pode atender a múltiplos objetivos específicos, e um objetivo específico pode ser atendido por múltiplas características, refletindo a complexidade real do sistema.
 
-| OE Principal | ID | Característica | Descrição Resumida | Possíveis RFs derivados | Possíveis RNFs derivados | Valor de Negócio Principal |
+| OEs Atendidos | ID | Característica | Descrição Resumida | Possíveis RFs derivados | Possíveis RNFs derivados | Valor de Negócio Principal |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| OE1 | C1 | Divulgação de necessidades | Apresenta informações da creche, formas de contato e itens prioritários para doação. | Visualizar informações da creche; visualizar necessidades prioritárias. | Acessibilidade; responsividade; clareza das informações. | Facilita o acesso da comunidade às necessidades reais da creche. |
-| OE2 | C2 | Canal de contribuição | Permite que doadores e voluntários manifestem interesse em contribuir. | Solicitar contato para doação; solicitar participação como voluntário. | Segurança no acesso; facilidade de uso em dispositivos móveis. | Amplia a captação de doações e voluntários. |
-| OE3 | C3 | Organização básica das contribuições | Apoia o cadastro e a consulta de doações e pessoas voluntárias. | Registrar doação; registrar voluntário; consultar registros. | Integridade dos registros; disponibilidade das informações. | Reduz a perda de informações e melhora o acompanhamento interno. |
+| OE1, OE2 | C1 | Vitrine Pública Digital | Página institucional acessível ao público com informações da creche, necessidades prioritárias em tempo real e formas de contato visíveis, sem necessidade de login. | RF-19 (Página Institucional), RF-20 (Publicar Solicitação), RF-21 (Listar Solicitações) | RNF-02 (Carregamento 5s), RNF-04 (Disponibilidade), RNF-11 (Padrões web), RNF-14 (Contato visível) | Ampliar alcance da creche na comunidade e reduzir a dependência do boca a boca |
+| OE1, OE2 | C2 | Canal de Engajamento da Comunidade | Mecanismos que permitem a doadores e voluntários manifestar interesse, realizar contato e iniciar o processo de contribuição de forma rápida e intuitiva. | RF-05 (Registrar Doador), RF-09 (Registrar Voluntário) | RNF-03 (50 usuários), RNF-07 (Interface intuitiva), RNF-13 (Feedback) | Reduzir o atrito no processo de captação e aumentar a conversão de interesse em contribuição |
+| OE2, OE3 | C3 | Gestão de Voluntários | Módulo administrativo para cadastro, edição, controle de disponibilidade, geração de escalas e histórico de participação de voluntários. | RF-09 a RF-13, RF-22 a RF-25 | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs) | Organizar e aproveitar o capital humano disponível, reduzindo perdas por falta de controle |
+| OE3 | C4 | Gestão de Doações e Entregas | Módulo administrativo para registro, listagem e rastreamento de doações recebidas e itens entregues às famílias. | RF-02 a RF-08 | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) | Eliminar perda de informações e garantir distribuição justa e rastreável dos recursos |
+| OE2, OE3 | C5 | Painel Administrativo Seguro | Área restrita com autenticação para a coordenação gerenciar todas as operações do sistema, incluindo eventos, recursos e relatórios de participação. | RF-01 (Autenticação), RF-14 a RF-18, RF-26 | RNF-08 (Bloqueio sem login), RNF-09 (bcrypt+AES), RNF-12 (Expiração de sessão) | Garantir segurança e controle centralizado sobre os dados da instituição |
 
 ### 2.4 Tecnologias a Serem Utilizadas
 

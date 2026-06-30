@@ -11,7 +11,9 @@ function createMockSupabase({
   authUser = null as typeof MOCK_USER | null,
   authError = null as { message: string } | null,
   session = null as typeof MOCK_SESSION | null,
-  dbResults = null as Array<{ data: unknown; error: { message: string } | null }> | null,
+  dbResults = null as
+    | Array<{ data: unknown; error: { message: string } | null }>
+    | null,
 } = {}) {
   let dbCallIndex = 0;
 
@@ -110,7 +112,7 @@ Deno.test("POST login retorna token com credenciais válidas de admin", async ()
   assertEquals(body.usuario.papel, "admin");
 });
 
-Deno.test("POST login retorna 403 quando usuário não é admin", async () => {
+Deno.test("POST login de usuário comum retorna 200 com papel usuario", async () => {
   const mock = createMockSupabase({
     authUser: MOCK_USER,
     session: MOCK_SESSION,
@@ -124,12 +126,16 @@ Deno.test("POST login retorna 403 quando usuário não é admin", async () => {
   });
   const res = await handleUsuarios(req, mock);
 
-  assertEquals(res.status, 403);
-  assertEquals((await res.json()).autenticado, false);
+  assertEquals(res.status, 200);
+  const body = await res.json();
+  assertEquals(body.autenticado, true);
+  assertEquals(body.usuario.papel, "usuario");
 });
 
 Deno.test("POST login retorna 401 com credenciais inválidas", async () => {
-  const mock = createMockSupabase({ authError: { message: "Invalid credentials" } });
+  const mock = createMockSupabase({
+    authError: { message: "Invalid credentials" },
+  });
 
   const req = new Request("http://localhost/usuarios?action=login", {
     method: "POST",
@@ -158,10 +164,17 @@ Deno.test("POST login retorna 400 quando campos faltam", async () => {
 // GET perfil
 
 Deno.test("GET perfil retorna dados com JWT válido", async () => {
-  const perfil = { nome: "Ana", email: "ana@email.com", telefone: "61999999999", disponibilidade: "manhã" };
+  const perfil = {
+    nome: "Ana",
+    email: "ana@email.com",
+    telefone: "61999999999",
+    disponibilidade: "manhã",
+  };
   const mock = createMockSupabase({ dbData: perfil, authUser: MOCK_USER });
 
-  const req = reqComToken("http://localhost/usuarios?email=ana@email.com", { method: "GET" });
+  const req = reqComToken("http://localhost/usuarios?email=ana@email.com", {
+    method: "GET",
+  });
   const res = await handleUsuarios(req, mock);
 
   assertEquals(res.status, 200);
@@ -171,7 +184,9 @@ Deno.test("GET perfil retorna dados com JWT válido", async () => {
 Deno.test("GET perfil retorna 401 sem JWT", async () => {
   const mock = createMockSupabase({ dbData: null });
 
-  const req = new Request("http://localhost/usuarios?email=ana@email.com", { method: "GET" });
+  const req = new Request("http://localhost/usuarios?email=ana@email.com", {
+    method: "GET",
+  });
   const res = await handleUsuarios(req, mock);
 
   assertEquals(res.status, 401);
@@ -187,9 +202,15 @@ Deno.test("GET perfil retorna 400 quando email não informado", async () => {
 });
 
 Deno.test("GET perfil retorna 400 quando banco retorna erro", async () => {
-  const mock = createMockSupabase({ dbError: { message: "Não encontrado" }, authUser: MOCK_USER });
+  const mock = createMockSupabase({
+    dbError: { message: "Não encontrado" },
+    authUser: MOCK_USER,
+  });
 
-  const req = reqComToken("http://localhost/usuarios?email=naoexiste@email.com", { method: "GET" });
+  const req = reqComToken(
+    "http://localhost/usuarios?email=naoexiste@email.com",
+    { method: "GET" },
+  );
   const res = await handleUsuarios(req, mock);
 
   assertEquals(res.status, 400);
@@ -204,7 +225,11 @@ Deno.test("POST cria conta com dados válidos", async () => {
   const req = new Request("http://localhost/usuarios", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: "Bruno", email: "bruno@gmail.com", password: "senha123" }),
+    body: JSON.stringify({
+      name: "Bruno",
+      email: "bruno@gmail.com",
+      password: "senha123",
+    }),
   });
   const res = await handleUsuarios(req, mock);
 
@@ -233,7 +258,11 @@ Deno.test("POST retorna 422 quando email não tem @", async () => {
   const req = new Request("http://localhost/usuarios", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: "Bruno", email: "brunoemail.com", password: "senha123" }),
+    body: JSON.stringify({
+      name: "Bruno",
+      email: "brunoemail.com",
+      password: "senha123",
+    }),
   });
   const res = await handleUsuarios(req, mock);
 
@@ -246,7 +275,11 @@ Deno.test("POST retorna 422 quando domínio do email não é permitido", async (
   const req = new Request("http://localhost/usuarios", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: "Bruno", email: "bruno@dominioqualquer.xyz", password: "senha123" }),
+    body: JSON.stringify({
+      name: "Bruno",
+      email: "bruno@dominioqualquer.xyz",
+      password: "senha123",
+    }),
   });
   const res = await handleUsuarios(req, mock);
 
@@ -254,12 +287,18 @@ Deno.test("POST retorna 422 quando domínio do email não é permitido", async (
 });
 
 Deno.test("POST retorna 400 quando auth retorna erro (email duplicado)", async () => {
-  const mock = createMockSupabase({ authError: { message: "User already registered" } });
+  const mock = createMockSupabase({
+    authError: { message: "User already registered" },
+  });
 
   const req = new Request("http://localhost/usuarios", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: "Bruno", email: "bruno@gmail.com", password: "senha123" }),
+    body: JSON.stringify({
+      name: "Bruno",
+      email: "bruno@gmail.com",
+      password: "senha123",
+    }),
   });
   const res = await handleUsuarios(req, mock);
 
@@ -269,7 +308,12 @@ Deno.test("POST retorna 400 quando auth retorna erro (email duplicado)", async (
 // PUT
 
 Deno.test("PUT atualiza dados com JWT válido", async () => {
-  const atualizado = { id: "uuid-1", nome: "Ana", email: "ana@email.com", disponibilidade: "tarde" };
+  const atualizado = {
+    id: "uuid-1",
+    nome: "Ana",
+    email: "ana@email.com",
+    disponibilidade: "tarde",
+  };
   const mock = createMockSupabase({ dbData: atualizado, authUser: MOCK_USER });
 
   const req = reqComToken("http://localhost/usuarios?email=ana@email.com", {
@@ -336,7 +380,9 @@ Deno.test("DELETE remove conta com JWT válido", async () => {
     ],
   });
 
-  const req = reqComToken("http://localhost/usuarios?email=ana@email.com", { method: "DELETE" });
+  const req = reqComToken("http://localhost/usuarios?email=ana@email.com", {
+    method: "DELETE",
+  });
   const res = await handleUsuarios(req, mock);
 
   assertEquals(res.status, 204);
@@ -345,7 +391,9 @@ Deno.test("DELETE remove conta com JWT válido", async () => {
 Deno.test("DELETE retorna 401 sem JWT", async () => {
   const mock = createMockSupabase({});
 
-  const req = new Request("http://localhost/usuarios?email=ana@email.com", { method: "DELETE" });
+  const req = new Request("http://localhost/usuarios?email=ana@email.com", {
+    method: "DELETE",
+  });
   const res = await handleUsuarios(req, mock);
 
   assertEquals(res.status, 401);
@@ -363,7 +411,10 @@ Deno.test("DELETE retorna 400 quando email não informado", async () => {
 Deno.test("DELETE retorna 404 quando usuário não encontrado", async () => {
   const mock = createMockSupabase({ dbData: null, authUser: MOCK_USER });
 
-  const req = reqComToken("http://localhost/usuarios?email=naoexiste@email.com", { method: "DELETE" });
+  const req = reqComToken(
+    "http://localhost/usuarios?email=naoexiste@email.com",
+    { method: "DELETE" },
+  );
   const res = await handleUsuarios(req, mock);
 
   assertEquals(res.status, 404);
@@ -378,7 +429,9 @@ Deno.test("DELETE retorna 400 quando banco retorna erro ao deletar", async () =>
     ],
   });
 
-  const req = reqComToken("http://localhost/usuarios?email=ana@email.com", { method: "DELETE" });
+  const req = reqComToken("http://localhost/usuarios?email=ana@email.com", {
+    method: "DELETE",
+  });
   const res = await handleUsuarios(req, mock);
 
   assertEquals(res.status, 400);
