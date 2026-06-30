@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { render, screen, fireEvent, within, act } from '@testing-library/react';
 import VoluntariosPage from './voluntarios';
 
 // ─── Mocks ────────────────────────────────────────────────────────────────────
@@ -33,28 +33,43 @@ vi.mock('../components/layout/AdminNavbar', () => ({
   ),
 }));
 
-
 import { clearAuthToken } from '../utils/authStorage';
 import { navigateTo } from '../utils/navigation';
 
-
 const renderPage = () => render(<VoluntariosPage />);
 
-/** Clica no botão "Remover" do primeiro voluntário da lista ativa. */
+/** Clica no botão "Remover" do primeiro voluntário ainda não marcado da lista. */
 const clickFirstRemover = () => {
   const [firstRemover] = screen.getAllByRole('button', { name: 'Remover' });
   fireEvent.click(firstRemover);
 };
 
-/**
- * Confirma a remoção clicando em "Remover" dentro do modal.
- * Usa o botão "Cancelar" como âncora para isolar o container do modal
- * e evitar ambiguidade com os botões "Remover" da lista.
- */
-const confirmModal = () => {
-  const cancelBtn = screen.getByRole('button', { name: 'Cancelar' });
-  const modalButtonGroup = cancelBtn.parentElement!;
-  fireEvent.click(within(modalButtonGroup).getByRole('button', { name: 'Remover' }));
+/** Abre o modal de confirmação de remoções a partir do banner. */
+const openConfirmModal = () => {
+  fireEvent.click(screen.getByRole('button', { name: 'Confirmar remoções' }));
+};
+
+/** Confirma a remoção dentro do modal e avança o timer da chamada assíncrona simulada. */
+const confirmRemoval = async () => {
+  fireEvent.click(screen.getByRole('button', { name: /^Remover \d+ voluntário/ }));
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(800);
+  });
+};
+
+/** Fluxo completo: marca o primeiro voluntário, abre o modal e confirma a remoção. */
+const removeFirstVoluntario = async () => {
+  clickFirstRemover();
+  openConfirmModal();
+  await confirmRemoval();
+};
+
+/** Clica em "Reverter" e avança o timer da chamada assíncrona simulada. */
+const clickReverter = async () => {
+  fireEvent.click(screen.getByRole('button', { name: 'Reverter' }));
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(600);
+  });
 };
 
 // ─── Testes ───────────────────────────────────────────────────────────────────
@@ -62,6 +77,11 @@ const confirmModal = () => {
 describe('VoluntariosPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   // ── Renderização inicial ──────────────────────────────────────────────────
@@ -95,12 +115,12 @@ describe('VoluntariosPage', () => {
       expect(screen.getAllByRole('button', { name: 'Remover' })).toHaveLength(3);
     });
 
-    it('não exibe o modal de confirmação inicialmente', () => {
+    it('não exibe o banner de remoções pendentes inicialmente', () => {
       renderPage();
-      expect(screen.queryByRole('heading', { name: 'Remover voluntário' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: 'Confirmar remoções' })).not.toBeInTheDocument();
     });
 
-    it('não exibe a seção "Processadas" inicialmente', () => {
+    it('não exibe a seção "Histórico" inicialmente', () => {
       renderPage();
       expect(screen.queryByText('Histórico de voluntários removidos')).not.toBeInTheDocument();
     });
@@ -111,63 +131,93 @@ describe('VoluntariosPage', () => {
     });
   });
 
+  // ── Marcar para remoção (staging) ─────────────────────────────────────────
+
+  describe('Marcar voluntário para remoção', () => {
+    beforeEach(() => {
+      renderPage();
+      clickFirstRemover();
+    });
+
+    it('troca o botão do voluntário marcado para "✗ Desmarcar"', () => {
+      expect(screen.getByRole('button', { name: '✗ Desmarcar' })).toBeInTheDocument();
+    });
+
+    it('exibe o badge "Marcado para remover" no card do voluntário', () => {
+      expect(screen.getByText('Marcado para remover')).toBeInTheDocument();
+    });
+
+    it('exibe o botão "Confirmar remoções" no banner', () => {
+      expect(screen.getByRole('button', { name: 'Confirmar remoções' })).toBeInTheDocument();
+    });
+
+    it('mantém o voluntário visível na lista (ainda não removido)', () => {
+      expect(screen.getByText('Maria Silva')).toBeInTheDocument();
+    });
+
+    it('reduz a contagem de botões "Remover" disponíveis para 2', () => {
+      expect(screen.getAllByRole('button', { name: 'Remover' })).toHaveLength(2);
+    });
+
+    it('cancela a marcação ao clicar em "Cancelar" no banner', () => {
+      // Aqui só existe um botão "Cancelar" (o do banner), pois o modal está fechado.
+      fireEvent.click(screen.getByRole('button', { name: 'Cancelar' }));
+      expect(screen.queryByRole('button', { name: 'Confirmar remoções' })).not.toBeInTheDocument();
+      expect(screen.getAllByRole('button', { name: 'Remover' })).toHaveLength(3);
+    });
+  });
+
   // ── Modal de confirmação ──────────────────────────────────────────────────
 
   describe('Modal de confirmação', () => {
     beforeEach(() => {
       renderPage();
       clickFirstRemover();
+      openConfirmModal();
     });
 
-    it('exibe o modal ao clicar em "Remover"', () => {
-      expect(screen.getByRole('heading', { name: 'Remover voluntário' })).toBeInTheDocument();
+    it('exibe o modal ao clicar em "Confirmar remoções"', () => {
+      expect(screen.getByRole('heading', { name: 'Confirmar remoções' })).toBeInTheDocument();
     });
 
-    it('exibe o nome do voluntário selecionado no texto do modal', () => {
-      // para focar no modal pra evitar nome duplicado
-      const modalCard = screen.getByRole('heading', { name: 'Remover voluntário' }).parentElement!;
+    it('lista o voluntário marcado dentro do modal', () => {
+      const modalCard = screen.getByRole('heading', { name: 'Confirmar remoções' }).parentElement!;
       expect(within(modalCard).getByText('Maria Silva')).toBeInTheDocument();
     });
 
-    it('exibe os botões "Cancelar" e "Remover" no modal', () => {
-      expect(screen.getByRole('button', { name: 'Cancelar' })).toBeInTheDocument();
-      // Modal tem seu próprio "Remover"; ao menos um deve existir
-      expect(screen.getAllByRole('button', { name: 'Remover' }).length).toBeGreaterThanOrEqual(1);
+    it('exibe os botões "Cancelar" e "Remover 1 voluntário" no modal', () => {
+      const modalCard = screen.getByRole('heading', { name: 'Confirmar remoções' }).parentElement!;
+      expect(within(modalCard).getByRole('button', { name: 'Cancelar' })).toBeInTheDocument();
+      expect(within(modalCard).getByRole('button', { name: 'Remover 1 voluntário' })).toBeInTheDocument();
     });
 
-    it('fecha o modal ao clicar em "Cancelar"', () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Cancelar' }));
-      expect(screen.queryByRole('heading', { name: 'Remover voluntário' })).not.toBeInTheDocument();
-    });
-
-    it('mantém o voluntário na lista após cancelar', () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Cancelar' }));
+    it('fecha o modal ao clicar em "Cancelar" sem remover nada', () => {
+      const modalCard = screen.getByRole('heading', { name: 'Confirmar remoções' }).parentElement!;
+      fireEvent.click(within(modalCard).getByRole('button', { name: 'Cancelar' }));
+      expect(screen.queryByRole('heading', { name: 'Confirmar remoções' })).not.toBeInTheDocument();
       expect(screen.getByText('Maria Silva')).toBeInTheDocument();
-      expect(screen.getAllByRole('button', { name: 'Remover' })).toHaveLength(3);
     });
 
-    it('não remove nenhum voluntário ao cancelar', () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Cancelar' }));
-      expect(screen.queryByText('Histórico de voluntários removidos')).not.toBeInTheDocument();
+    it('mantém o staging após cancelar o modal (banner continua visível)', () => {
+      const modalCard = screen.getByRole('heading', { name: 'Confirmar remoções' }).parentElement!;
+      fireEvent.click(within(modalCard).getByRole('button', { name: 'Cancelar' }));
+      expect(screen.getByRole('button', { name: 'Confirmar remoções' })).toBeInTheDocument();
     });
   });
 
   // ── Remoção confirmada ────────────────────────────────────────────────────
 
   describe('Confirmar remoção', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       renderPage();
-      clickFirstRemover();
-      confirmModal();
+      await removeFirstVoluntario();
     });
 
     it('fecha o modal após confirmar a remoção', () => {
-      expect(screen.queryByRole('heading', { name: 'Remover voluntário' })).not.toBeInTheDocument();
+      expect(screen.queryByRole('heading', { name: 'Confirmar remoções' })).not.toBeInTheDocument();
     });
 
     it('remove o voluntário da lista ativa', () => {
-      // A lista ativa usa <h2>; a seção processadas usa <p>.
-      // queryByRole('heading') garante que verificamos apenas o card ativo.
       expect(screen.queryByRole('heading', { name: 'Maria Silva' })).not.toBeInTheDocument();
     });
 
@@ -186,35 +236,37 @@ describe('VoluntariosPage', () => {
     it('exibe o botão "Reverter" na seção processadas', () => {
       expect(screen.getByRole('button', { name: 'Reverter' })).toBeInTheDocument();
     });
+
+    it('limpa o banner de marcação após confirmar', () => {
+      expect(screen.queryByRole('button', { name: 'Confirmar remoções' })).not.toBeInTheDocument();
+    });
   });
 
   // ── Estado vazio ──────────────────────────────────────────────────────────
 
   describe('Estado vazio', () => {
-    /** Remove todos os voluntários um a um. */
-    const removeAll = () => {
+    /** Remove todos os voluntários um a um, repetindo o fluxo completo de staging/confirmação. */
+    const removeAll = async () => {
       for (let i = 0; i < 3; i++) {
-        clickFirstRemover();
-        confirmModal();
+        await removeFirstVoluntario();
       }
     };
 
-    it('exibe mensagem de lista vazia após remover todos os voluntários', () => {
+    it('exibe mensagem de lista vazia após remover todos os voluntários', async () => {
       renderPage();
-      removeAll();
+      await removeAll();
       expect(screen.getByText('Nenhum voluntário cadastrado')).toBeInTheDocument();
     });
 
-    it('não exibe nenhum botão "Remover" na lista vazia', () => {
+    it('não exibe nenhum botão "Remover" na lista vazia', async () => {
       renderPage();
-      removeAll();
-      // Os únicos botões presentes devem ser os "Reverter" da seção processadas
+      await removeAll();
       expect(screen.queryAllByRole('button', { name: 'Remover' })).toHaveLength(0);
     });
 
-    it('exibe 3 badges "✗ Removido" após remover todos', () => {
+    it('exibe 3 badges "✗ Removido" após remover todos', async () => {
       renderPage();
-      removeAll();
+      await removeAll();
       expect(screen.getAllByText('✗ Removido')).toHaveLength(3);
     });
   });
@@ -222,30 +274,37 @@ describe('VoluntariosPage', () => {
   // ── Reverter remoção ──────────────────────────────────────────────────────
 
   describe('Reverter remoção', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       renderPage();
-      clickFirstRemover();
-      confirmModal();
+      await removeFirstVoluntario();
     });
 
-    it('restaura o voluntário para a lista ativa', () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Reverter' }));
+    it('restaura o voluntário para a lista ativa', async () => {
+      await clickReverter();
       expect(screen.getByText('Maria Silva')).toBeInTheDocument();
     });
 
-    it('volta a exibir 3 botões "Remover" após reverter', () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Reverter' }));
+    it('volta a exibir 3 botões "Remover" após reverter', async () => {
+      await clickReverter();
       expect(screen.getAllByRole('button', { name: 'Remover' })).toHaveLength(3);
     });
 
-    it('remove o item da seção "Processadas" após reverter', () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Reverter' }));
+    it('remove a seção "Histórico" após reverter o único item processado', async () => {
+      await clickReverter();
       expect(screen.queryByText('Histórico de voluntários removidos')).not.toBeInTheDocument();
     });
 
-    it('remove o badge "✗ Removido" após reverter', () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Reverter' }));
+    it('remove o badge "✗ Removido" após reverter', async () => {
+      await clickReverter();
       expect(screen.queryByText('✗ Removido')).not.toBeInTheDocument();
+    });
+
+    it('exibe "Revertendo..." enquanto a reversão está em andamento', async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Reverter' }));
+      expect(screen.getByRole('button', { name: 'Revertendo...' })).toBeInTheDocument();
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(600);
+      });
     });
   });
 
