@@ -55,6 +55,37 @@ const renderLoaded = async () => {
   await advance(500);
 };
 
+/**
+ * O banner de alterações pendentes renderiza a contagem em um <span> separado
+ * do restante do texto (ex.: <span>2</span> "alterações pendentes"), então um
+ * único matcher de texto não encontra a frase inteira. Esta função verifica o
+ * textContent combinado do elemento que contém a frase.
+ */
+const getBannerPendente = (count: number) => {
+  const sufixo = count === 1 ? 'alteração pendente' : 'alterações pendentes';
+  const esperado = `${count} ${sufixo}`;
+  return screen.getByText((_, element) => {
+    if (!element || element.tagName.toLowerCase() !== 'p') return false;
+    const texto = element.textContent?.replace(/\s+/g, ' ').trim();
+    return texto === esperado;
+  });
+};
+
+/**
+ * Executa o fluxo completo de confirmação de uma decisão staged:
+ * abre o modal pelo banner e clica no botão de confirmar do modal.
+ * O delay de 800 ms do mock NÃO é avançado — chame `advance(800)` no teste
+ * quando precisar verificar o estado final.
+ */
+const confirmarAlteracoes = (stagedCount: number) => {
+  fireEvent.click(screen.getByRole('button', { name: 'Confirmar alterações' }));
+  const label =
+    stagedCount === 1
+      ? 'Confirmar 1 alteração'
+      : `Confirmar ${stagedCount} alterações`;
+  fireEvent.click(screen.getByRole('button', { name: label }));
+};
+
 // ─── Testes ───────────────────────────────────────────────────────────────────
 
 describe('SolicitacoesVoluntariosPage', () => {
@@ -115,34 +146,70 @@ describe('SolicitacoesVoluntariosPage', () => {
     it('não exibe a seção "Histórico" inicialmente', () => {
       expect(screen.queryByText('Histórico de solicitações')).not.toBeInTheDocument();
     });
+
+    it('não exibe o banner de alterações pendentes inicialmente', () => {
+      expect(screen.queryByText(/alteraç(ão|ões) pendente/)).not.toBeInTheDocument();
+    });
   });
 
   // ── Ação: Aceitar ─────────────────────────────────────────────────────────
+  //
+  // O componente usa fluxo de dois passos:
+  //   1. Clique em "Aceitar" → marca o item como staged (badge "Marcado para aceitar",
+  //      botão passa a exibir "✓ Aceitar", banner de alterações pendentes aparece).
+  //   2. Clique em "Confirmar alterações" (banner) → modal abre.
+  //      Clique em "Confirmar 1 alteração" (modal) → delay de 800 ms → item vai
+  //      para o histórico com badge "✓ Aceito".
 
   describe('Aceitar solicitação', () => {
     beforeEach(renderLoaded);
 
-    it('exibe "Aguarde..." nos dois botões do card durante o processamento', async () => {
+    it('altera o texto do botão para "✓ Aceitar" ao clicar', () => {
       const [primeiroAceitar] = screen.getAllByRole('button', { name: 'Aceitar' });
       fireEvent.click(primeiroAceitar);
 
-      // Ambos os botões do card em loading ficam com "Aguarde..."
-      expect(screen.getAllByRole('button', { name: 'Aguarde...' })).toHaveLength(2);
+      expect(screen.getByRole('button', { name: '✓ Aceitar' })).toBeInTheDocument();
     });
 
-    it('desabilita os botões do card durante o processamento', () => {
+    it('exibe badge "Marcado para aceitar" no card', () => {
       const [primeiroAceitar] = screen.getAllByRole('button', { name: 'Aceitar' });
       fireEvent.click(primeiroAceitar);
 
+      expect(screen.getByText('Marcado para aceitar')).toBeInTheDocument();
+    });
+
+    it('exibe o banner de alterações pendentes após marcar', () => {
+      const [primeiroAceitar] = screen.getAllByRole('button', { name: 'Aceitar' });
+      fireEvent.click(primeiroAceitar);
+
+      expect(getBannerPendente(1)).toBeInTheDocument();
+    });
+
+    it('exibe "Confirmando..." no botão do modal durante o processamento', () => {
+      const [primeiroAceitar] = screen.getAllByRole('button', { name: 'Aceitar' });
+      fireEvent.click(primeiroAceitar);
+      confirmarAlteracoes(1);
+
+      expect(screen.getByRole('button', { name: 'Confirmando...' })).toBeInTheDocument();
+    });
+
+    it('desabilita os botões do modal durante o processamento', () => {
+      const [primeiroAceitar] = screen.getAllByRole('button', { name: 'Aceitar' });
+      fireEvent.click(primeiroAceitar);
+      confirmarAlteracoes(1);
+
+      // "Cancelar" e "Confirmando..." ficam desabilitados durante o processamento
       screen
-        .getAllByRole('button', { name: 'Aguarde...' })
+        .getAllByRole('button', { name: /Cancelar|Confirmando\.\.\./ })
+        .filter((btn) => btn.closest('[class*="max-w-md"]')) // apenas botões do modal
         .forEach((btn) => expect(btn).toBeDisabled());
     });
 
-    it('exibe badge "✓ Aceito" após os 600 ms de processamento', async () => {
+    it('exibe badge "✓ Aceito" após os 800 ms de processamento', async () => {
       const [primeiroAceitar] = screen.getAllByRole('button', { name: 'Aceitar' });
       fireEvent.click(primeiroAceitar);
-      await advance(600);
+      confirmarAlteracoes(1);
+      await advance(800);
 
       expect(screen.getByText('✓ Aceito')).toBeInTheDocument();
     });
@@ -150,15 +217,17 @@ describe('SolicitacoesVoluntariosPage', () => {
     it('move o card para a seção "Histórico de solicitações"', async () => {
       const [primeiroAceitar] = screen.getAllByRole('button', { name: 'Aceitar' });
       fireEvent.click(primeiroAceitar);
-      await advance(600);
+      confirmarAlteracoes(1);
+      await advance(800);
 
       expect(screen.getByText('Histórico de solicitações')).toBeInTheDocument();
     });
 
-    it('reduz a lista de pendentes de 3 para 2 após aceitar', async () => {
+    it('reduz a lista de pendentes de 3 para 2 após confirmar', async () => {
       const [primeiroAceitar] = screen.getAllByRole('button', { name: 'Aceitar' });
       fireEvent.click(primeiroAceitar);
-      await advance(600);
+      confirmarAlteracoes(1);
+      await advance(800);
 
       expect(screen.getAllByRole('button', { name: 'Aceitar' })).toHaveLength(2);
     });
@@ -169,10 +238,25 @@ describe('SolicitacoesVoluntariosPage', () => {
   describe('Recusar solicitação', () => {
     beforeEach(renderLoaded);
 
-    it('exibe badge "✗ Recusado" após os 600 ms de processamento', async () => {
+    it('altera o texto do botão para "✗ Recusar" ao clicar', () => {
       const [primeiroRecusar] = screen.getAllByRole('button', { name: 'Recusar' });
       fireEvent.click(primeiroRecusar);
-      await advance(600);
+
+      expect(screen.getByRole('button', { name: '✗ Recusar' })).toBeInTheDocument();
+    });
+
+    it('exibe badge "Marcado para recusar" no card', () => {
+      const [primeiroRecusar] = screen.getAllByRole('button', { name: 'Recusar' });
+      fireEvent.click(primeiroRecusar);
+
+      expect(screen.getByText('Marcado para recusar')).toBeInTheDocument();
+    });
+
+    it('exibe badge "✗ Recusado" após os 800 ms de processamento', async () => {
+      const [primeiroRecusar] = screen.getAllByRole('button', { name: 'Recusar' });
+      fireEvent.click(primeiroRecusar);
+      confirmarAlteracoes(1);
+      await advance(800);
 
       expect(screen.getByText('✗ Recusado')).toBeInTheDocument();
     });
@@ -180,15 +264,17 @@ describe('SolicitacoesVoluntariosPage', () => {
     it('move o card para a seção "Histórico de solicitações"', async () => {
       const [primeiroRecusar] = screen.getAllByRole('button', { name: 'Recusar' });
       fireEvent.click(primeiroRecusar);
-      await advance(600);
+      confirmarAlteracoes(1);
+      await advance(800);
 
       expect(screen.getByText('Histórico de solicitações')).toBeInTheDocument();
     });
 
-    it('reduz a lista de pendentes de 3 para 2 após recusar', async () => {
+    it('reduz a lista de pendentes de 3 para 2 após confirmar', async () => {
       const [primeiroRecusar] = screen.getAllByRole('button', { name: 'Recusar' });
       fireEvent.click(primeiroRecusar);
-      await advance(600);
+      confirmarAlteracoes(1);
+      await advance(800);
 
       expect(screen.getAllByRole('button', { name: 'Recusar' })).toHaveLength(2);
     });
@@ -197,30 +283,43 @@ describe('SolicitacoesVoluntariosPage', () => {
   // ── Ação: Reverter ────────────────────────────────────────────────────────
 
   describe('Reverter solicitação', () => {
-    /** Aceita a primeira solicitação antes de cada teste. */
+    /** Aceita a primeira solicitação pelo fluxo completo antes de cada teste. */
     beforeEach(async () => {
       await renderLoaded();
       const [primeiroAceitar] = screen.getAllByRole('button', { name: 'Aceitar' });
       fireEvent.click(primeiroAceitar);
-      await advance(600);
+      confirmarAlteracoes(1);
+      await advance(800);
     });
 
     it('exibe o botão "Reverter" na seção de histórico', () => {
       expect(screen.getByRole('button', { name: 'Reverter' })).toBeInTheDocument();
     });
 
-    it('retorna o card para a lista de pendentes ao reverter', () => {
+    it('exibe "Revertendo..." durante o processamento', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Reverter' }));
+
+      expect(screen.getByRole('button', { name: 'Revertendo...' })).toBeInTheDocument();
+    });
+
+    it('retorna o card para a lista de pendentes ao reverter', async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Reverter' }));
+      await advance(600);
+
       expect(screen.getAllByRole('button', { name: 'Aceitar' })).toHaveLength(3);
     });
 
-    it('remove a seção "Histórico" quando não há mais itens processados', () => {
+    it('remove a seção "Histórico" quando não há mais itens processados', async () => {
       fireEvent.click(screen.getByRole('button', { name: 'Reverter' }));
+      await advance(600);
+
       expect(screen.queryByText('Histórico de solicitações')).not.toBeInTheDocument();
     });
 
-    it('remove o badge "✓ Aceito" após reverter', () => {
+    it('remove o badge "✓ Aceito" após reverter', async () => {
       fireEvent.click(screen.getByRole('button', { name: 'Reverter' }));
+      await advance(600);
+
       expect(screen.queryByText('✓ Aceito')).not.toBeInTheDocument();
     });
   });
@@ -234,13 +333,33 @@ describe('SolicitacoesVoluntariosPage', () => {
       const aceitarButtons = screen.getAllByRole('button', { name: 'Aceitar' });
       const recusarButtons = screen.getAllByRole('button', { name: 'Recusar' });
 
-      fireEvent.click(aceitarButtons[0]); // Aceita Maria Silva
-      fireEvent.click(recusarButtons[1]); // Recusa João Santos
-      await advance(600);
+      fireEvent.click(aceitarButtons[0]); // Marca Maria Silva para aceitar
+      fireEvent.click(recusarButtons[1]); // Marca João Santos para recusar
+
+      // Confirma as 2 alterações staged de uma só vez
+      confirmarAlteracoes(2);
+      await advance(800);
 
       expect(screen.getByText('✓ Aceito')).toBeInTheDocument();
       expect(screen.getByText('✗ Recusado')).toBeInTheDocument();
       expect(screen.getAllByRole('button', { name: 'Aceitar' })).toHaveLength(1);
+    });
+
+    it('exibe contagem correta no banner ao marcar múltiplos cards', () => {
+      const aceitarButtons = screen.getAllByRole('button', { name: 'Aceitar' });
+      fireEvent.click(aceitarButtons[0]);
+      fireEvent.click(aceitarButtons[1]);
+
+      expect(getBannerPendente(2)).toBeInTheDocument();
+    });
+
+    it('toggle: clicar no mesmo botão duas vezes remove a decisão staged', () => {
+      const [primeiroAceitar] = screen.getAllByRole('button', { name: 'Aceitar' });
+      fireEvent.click(primeiroAceitar); // marca
+      fireEvent.click(screen.getByRole('button', { name: '✓ Aceitar' })); // desmarca
+
+      expect(screen.queryByText('Marcado para aceitar')).not.toBeInTheDocument();
+      expect(screen.queryByText(/alteração pendente/)).not.toBeInTheDocument();
     });
   });
 
