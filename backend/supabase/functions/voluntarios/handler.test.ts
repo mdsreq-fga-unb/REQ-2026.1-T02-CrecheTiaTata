@@ -65,7 +65,7 @@ Deno.test("POST cria voluntário com dados válidos", async () => {
   const req = new Request("http://localhost/voluntarios", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ nome: "Carlos", email: "carlos@email.com" }),
+    body: JSON.stringify({ nome: "Carlos", email: "carlos@ema il.com" }),
   });
   const res = await handleVoluntarios(req, mock);
 
