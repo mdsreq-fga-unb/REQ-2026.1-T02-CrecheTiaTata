@@ -10,69 +10,53 @@ No contexto do **OpenUP**, o artefato equivalente ao backlog de metodologias ág
 
 ## 10.1 Itens de Trabalho {#itens-de-trabalho}
 
-A Lista de Itens de Trabalho contém todos os itens planejados para o sistema, descritos no formato OpenUP com a descrição direta do comportamento esperado e os requisitos não funcionais relacionados.
+A Lista de Itens de Trabalho contém todos os itens planejados para o sistema, descritos no formato OpenUP com a descrição direta do comportamento esperado. Rastreabilidade com RNFs e OEs disponível no [Fluxograma de Requisitos](./g-fluxograma-requisitos) e em [Verificação dos RNFs](../evidencias/Verificacao-RNFs).
 
-| ID | Item de Trabalho | Descrição do Item de Trabalho | RNFs Relacionados | Critérios de Aceitação |
-|---|---|---|---|---|
-| **IT-01** | Autenticar Administrador | O sistema deve permitir que o administrador acesse a área restrita mediante autenticação com credenciais (e-mail e senha). | RNF-08, RNF-09, RNF-12, RNF-13 | [CA-01.1 a CA-01.5](h-requisitos/criterios-aceitacao#rf-01--autenticar-administrador) |
-| **IT-02** | Registrar Doação | O sistema deve permitir o registro de doações recebidas, incluindo tipo, quantidade e data, para controle de contribuições. | RNF-01, RNF-05, RNF-10, RNF-13 | [CA-02.1 a CA-02.6](h-requisitos/criterios-aceitacao#rf-02--registrar-doação) |
-| **IT-03** | Listar Doações | O sistema deve exibir a lista de todas as doações registradas, permitindo consulta do histórico de contribuições. | RNF-01, RNF-03, RNF-07 | [CA-03.1 a CA-03.4](h-requisitos/criterios-aceitacao#rf-03--listar-doações) |
-| **IT-04** | Editar Doação | O sistema deve permitir a edição de registros de doação para correção de informações incorretas. | RNF-05, RNF-10, RNF-13 | [CA-04.1 a CA-04.4](h-requisitos/criterios-aceitacao#rf-04--editar-doação) |
-| **IT-05** | Registrar Doador | O sistema deve permitir o cadastro de doadores para manutenção da base de apoiadores da creche. | RNF-01, RNF-05, RNF-10 | [CA-05.1 a CA-05.6](h-requisitos/criterios-aceitacao#rf-05--registrar-doador) |
-| **IT-06** | Listar Doadores | O sistema deve exibir a lista de doadores cadastrados para consulta e gerenciamento dos apoiadores. | RNF-01, RNF-07 | [CA-06.1 a CA-06.4](h-requisitos/criterios-aceitacao#rf-06--listar-doadores) |
-| **IT-07** | Registrar Entrega | O sistema deve permitir o registro de entregas realizadas para rastreamento da distribuição de doações. | RNF-05, RNF-10, RNF-13 | [CA-07.1 a CA-07.5](h-requisitos/criterios-aceitacao#rf-07--registrar-entrega) |
-| **IT-08** | Listar Entregas | O sistema deve exibir a lista de entregas realizadas para acompanhamento da distribuição de doações. | RNF-01, RNF-07 | [CA-08.1 a CA-08.4](h-requisitos/criterios-aceitacao#rf-08--listar-entregas) |
-| **IT-09** | Registrar Voluntário | O sistema deve permitir o cadastro de voluntários para gerenciamento de quem apoia as atividades da creche. | RNF-01, RNF-05, RNF-10, RNF-13 | [CA-09.1 a CA-09.4](h-requisitos/criterios-aceitacao#rf-09--registrar-voluntário) |
-| **IT-10** | Listar Voluntários | O sistema deve exibir a lista de voluntários cadastrados para visualização e gerenciamento da equipe de apoio. | RNF-01, RNF-07 | [CA-10.1 a CA-10.4](h-requisitos/criterios-aceitacao#rf-10--listar-voluntários) |
-| **IT-11** | Registrar Disponibilidade | O sistema deve permitir o registro da disponibilidade de horários dos voluntários para planejamento de escalas. | RNF-01, RNF-05, RNF-13 | [CA-11.1 a CA-11.5](h-requisitos/criterios-aceitacao#rf-11--registrar-disponibilidade) |
-| **IT-12** | Editar Disponibilidade | O sistema deve permitir a edição da disponibilidade de voluntários para manutenção de informações atualizadas. | RNF-05, RNF-13 | — |
-| **IT-13** | Gerar Escala | O sistema deve gerar escalas de voluntários com base nas disponibilidades registradas para organização das atividades. | RNF-01, RNF-07, RNF-13 | [CA-13.1 a CA-13.4](h-requisitos/criterios-aceitacao#rf-13--gerar-escala) |
-| **IT-14** | Registrar Evento | O sistema deve permitir o registro de eventos para planejamento e organização das atividades da creche. | RNF-01, RNF-05, RNF-10, RNF-13 | — |
-| **IT-15** | Listar Eventos | O sistema deve exibir a lista de eventos cadastrados para acompanhamento da agenda da creche. | RNF-01, RNF-07 | — |
-| **IT-16** | Associar Voluntário a Evento | O sistema deve permitir a associação de voluntários a eventos para garantir cobertura das atividades planejadas. | RNF-05, RNF-13 | — |
-| **IT-17** | Registrar Recursos por Evento | O sistema deve permitir o registro de recursos necessários por evento para controle do que é preciso em cada atividade. | RNF-01, RNF-05, RNF-10 | — |
-| **IT-18** | Resumo de Recursos por Evento | O sistema deve exibir um resumo consolidado de recursos por evento para visão geral das necessidades. | RNF-01, RNF-07 | — |
-| **IT-19** | Página Institucional Pública | O sistema deve disponibilizar uma página pública com informações institucionais da creche, sua missão e formas de contato, acessível sem autenticação. | RNF-02, RNF-04, RNF-11, RNF-14 | — |
-| **IT-20** | Publicar Solicitação de Apoio | O sistema deve permitir que o administrador publique solicitações de apoio para divulgar necessidades da creche ao público externo. | RNF-04, RNF-05, RNF-10, RNF-13 | [CA-20.1 a CA-20.5](h-requisitos/criterios-aceitacao#rf-20--publicar-solicitação-de-apoio) |
-| **IT-21** | Listar Solicitações de Apoio | O sistema deve exibir publicamente a lista de solicitações de apoio ativas para que visitantes visualizem as necessidades atuais da creche. | RNF-02, RNF-04, RNF-07, RNF-14 | [CA-21.1 a CA-21.4](h-requisitos/criterios-aceitacao#rf-21--listar-solicitações-de-apoio) |
-| **IT-22** | Excluir Voluntário | O sistema deve permitir a exclusão de voluntários que não atuam mais na creche, com confirmação obrigatória antes da remoção. | RNF-05, RNF-10, RNF-13 | — |
-| **IT-23** | Desalocar Voluntário de Evento | O sistema deve permitir a desalocação de voluntários de eventos para ajuste de escala conforme necessidade operacional. | RNF-05, RNF-13 | — |
-| **IT-24** | Editar Voluntário | O sistema deve permitir a edição de dados de voluntários para manutenção do cadastro atualizado. | RNF-05, RNF-10, RNF-13 | — |
-| **IT-25** | Histórico do Voluntário | O sistema deve exibir o histórico de participação do voluntário em atividades da creche para acompanhamento de seu engajamento. | RNF-01, RNF-07, RNF-10 | — |
-| **IT-26** | Relatório de Participação | O sistema deve gerar relatório consolidado de participação dos voluntários para avaliação do engajamento da equipe de apoio. | RNF-01, RNF-07, RNF-10 | — |
-| **IT-27** | Login de Usuário (RF-27) | O sistema deve permitir que doadores, voluntários e administradores realizem autenticação por e-mail e senha para acessar funcionalidades correspondentes ao seu perfil. Diferente do RF-01 (restrito a admins), este RF cobre o login geral de qualquer usuário cadastrado. | RNF-08, RNF-12, RNF-13 | — |
+| ID | Item de Trabalho | Caso de Uso | Descrição do Item de Trabalho |
+|---|---|---|---|
+| **IT-01** | Autenticar Administrador | [UC-01](./k-casos-de-uso#uc-01--autenticar-no-sistema) | O sistema deve permitir que o administrador acesse a área restrita mediante autenticação com credenciais (e-mail e senha). |
+| **IT-27** | Login de Usuário | [UC-01](./k-casos-de-uso#uc-01--autenticar-no-sistema) | O sistema deve permitir que usuários cadastrados (doadores, voluntários e administradores) realizem autenticação por e-mail e senha para acessar funcionalidades do seu perfil. |
+| **IT-02** | Registrar Doação | [UC-02](./k-casos-de-uso#uc-02--gerenciar-doações) | O sistema deve permitir o registro de doações recebidas, incluindo tipo, quantidade e data, para controle de contribuições. |
+| **IT-03** | Listar Doações | [UC-02](./k-casos-de-uso#uc-02--gerenciar-doações) | O sistema deve exibir a lista de todas as doações registradas, permitindo consulta do histórico de contribuições. |
+| **IT-04** | Editar Doação | [UC-02](./k-casos-de-uso#uc-02--gerenciar-doações) | O sistema deve permitir a edição de registros de doação para correção de informações incorretas. |
+| **IT-05** | Registrar Doador | [UC-03](./k-casos-de-uso#uc-03--gerenciar-doadores) | O sistema deve permitir o cadastro de doadores para manutenção da base de apoiadores da creche. |
+| **IT-06** | Listar Doadores | [UC-03](./k-casos-de-uso#uc-03--gerenciar-doadores) | O sistema deve exibir a lista de doadores cadastrados para consulta e gerenciamento dos apoiadores. |
+| **IT-07** | Registrar Entrega | [UC-04](./k-casos-de-uso#uc-04--gerenciar-entregas) | O sistema deve permitir o registro de entregas realizadas para rastreamento da distribuição de doações. |
+| **IT-08** | Listar Entregas | [UC-04](./k-casos-de-uso#uc-04--gerenciar-entregas) | O sistema deve exibir a lista de entregas realizadas para acompanhamento da distribuição de doações. |
+| **IT-09** | Registrar Voluntário | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve permitir o cadastro de voluntários para gerenciamento de quem apoia as atividades da creche. |
+| **IT-10** | Listar Voluntários | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve exibir a lista de voluntários cadastrados para visualização e gerenciamento da equipe de apoio. |
+| **IT-11** | Registrar Disponibilidade | [UC-06](./k-casos-de-uso#uc-06--gerenciar-disponibilidade-e-escala) | O sistema deve permitir o registro da disponibilidade de horários dos voluntários para planejamento de escalas. |
+| **IT-12** | Editar Disponibilidade | [UC-06](./k-casos-de-uso#uc-06--gerenciar-disponibilidade-e-escala) | O sistema deve permitir a edição da disponibilidade de voluntários para manutenção de informações atualizadas. |
+| **IT-13** | Gerar Escala | [UC-06](./k-casos-de-uso#uc-06--gerenciar-disponibilidade-e-escala) | O sistema deve gerar escalas de voluntários com base nas disponibilidades registradas para organização das atividades. |
+| **IT-14** | Registrar Evento | [UC-07](./k-casos-de-uso#uc-07--gerenciar-eventos) | O sistema deve permitir o registro de eventos para planejamento e organização das atividades da creche. |
+| **IT-15** | Listar Eventos | [UC-07](./k-casos-de-uso#uc-07--gerenciar-eventos) | O sistema deve exibir a lista de eventos cadastrados para acompanhamento da agenda da creche. |
+| **IT-16** | Associar Voluntário a Evento | [UC-07](./k-casos-de-uso#uc-07--gerenciar-eventos) | O sistema deve permitir a associação de voluntários a eventos para garantir cobertura das atividades planejadas. |
+| **IT-17** | Registrar Recursos por Evento | [UC-07](./k-casos-de-uso#uc-07--gerenciar-eventos) | O sistema deve permitir o registro de recursos necessários por evento para controle do que é preciso em cada atividade. |
+| **IT-18** | Resumo de Recursos por Evento | [UC-07](./k-casos-de-uso#uc-07--gerenciar-eventos) | O sistema deve exibir um resumo consolidado de recursos por evento para visão geral das necessidades. |
+| **IT-19** | Página Institucional Pública | [UC-08](./k-casos-de-uso#uc-08--acessar-página-institucional) | O sistema deve disponibilizar uma página pública com informações institucionais da creche, sua missão e formas de contato, acessível sem autenticação. |
+| **IT-20** | Publicar Solicitação de Apoio | [UC-09](./k-casos-de-uso#uc-09--publicar-solicitação-de-apoio) | O sistema deve permitir que o administrador publique solicitações de apoio para divulgar necessidades da creche ao público externo. |
+| **IT-21** | Listar Solicitações de Apoio | [UC-10](./k-casos-de-uso#uc-10--visualizar-solicitações-de-apoio) | O sistema deve exibir publicamente a lista de solicitações de apoio ativas para que visitantes visualizem as necessidades atuais da creche. |
+| **IT-22** | Excluir Voluntário | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve permitir a exclusão de voluntários que não atuam mais na creche, com confirmação obrigatória antes da remoção. |
+| **IT-23** | Desalocar Voluntário de Evento | [UC-06](./k-casos-de-uso#uc-06--gerenciar-disponibilidade-e-escala) | O sistema deve permitir a desalocação de voluntários de eventos para ajuste de escala conforme necessidade operacional. |
+| **IT-24** | Editar Voluntário | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve permitir a edição de dados de voluntários para manutenção do cadastro atualizado. |
+| **IT-25** | Histórico do Voluntário | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve exibir o histórico de participação do voluntário em atividades da creche para acompanhamento de seu engajamento. |
+| **IT-26** | Relatório de Participação | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve gerar relatório consolidado de participação dos voluntários para avaliação do engajamento da equipe de apoio. |
 
-## 10.2 Matriz-Síntese de Rastreabilidade {#matriz-rastreabilidade}
+## 10.2 Priorização da Lista de Itens de Trabalho {#priorizacao}
 
-A matriz-síntese conecta os Objetivos Específicos (OE), as Características de Produto (CP), o Valor de Negócio (VN), os Requisitos Funcionais (RF) e os Requisitos Não Funcionais (RNF), garantindo rastreabilidade completa entre a visão estratégica e os artefatos técnicos.
-
-| OE | CP | Valor de Negócio | RFs | RNFs |
-|---|---|---|---|---|
-| OE1 – Divulgar informações da creche | C1 (Vitrine Pública Digital) | Ampliar alcance e reduzir dependência do boca a boca | RF-19, RF-20, RF-21 | RNF-02, RNF-04, RNF-11, RNF-14 |
-| OE2 – Facilitar contato de doadores e voluntários | C1 (Vitrine Pública Digital), C2 (Canal de Engajamento) | Reduzir atrito na captação de apoiadores | RF-05, RF-09, RF-19, RF-20, RF-21 | RNF-03, RNF-07, RNF-13 |
-| OE3 – Apoiar registro e consulta de contribuições | C3 (Gestão de Voluntários), C4 (Gestão de Doações), C5 (Painel Admin) | Eliminar perda de informações e organizar operações internas | RF-01, RF-02, RF-03, RF-04, RF-05, RF-06, RF-07, RF-08, RF-09, RF-10, RF-11, RF-12, RF-13, RF-14, RF-15, RF-16, RF-17, RF-18, RF-22, RF-23, RF-24, RF-25, RF-26 | RNF-01, RNF-05, RNF-08, RNF-09, RNF-10, RNF-12 |
-
-## 10.3 Priorização da Lista de Itens de Trabalho {#priorizacao}
-
-A priorização foi realizada com base em dois critérios: **Importância (I)** e **Dificuldade (D)**, posicionando cada item em uma matriz de quadrantes que permite identificar visualmente a ordem de desenvolvimento.
+A priorização foi realizada com base em dois critérios: **Importância (I)** e **Dificuldade (D)**, posicionando cada Caso de Uso em uma matriz de quadrantes para identificar a ordem de desenvolvimento.
 
 **Escala de Dificuldade (D)** — dias de trabalho de 3h com base no DoD:
-- 1 = 1 a 5 dias
-- 2 = 5 a 14 dias
-- 3 = 14+ dias
+- 1 = 1 a 5 dias · 2 = 5 a 14 dias · 3 = 14+ dias
 
-**Escala de Importância (I)**:
-- 1 = Não relacionado ao problema central
-- 2 = Baixo impacto no problema
-- 3 = Impacta o problema
-- 4 = Essencial na solução
+**Escala de Importância (I):** 1 = sem relação · 2 = baixo impacto · 3 = impacta · 4 = essencial
 
-O **Índice de Prioridade (IP = I / D)** determina a ordem relativa dentro de cada quadrante: quanto maior o IP, maior a prioridade.
+O **Índice de Prioridade (IP = I / D)** ordena os itens dentro de cada quadrante.
 
-![Priorização por quadrantes](/img/priorizacao-quadrantes.jpeg)
+<iframe src="/REQ-2026.1-T02-CrecheTiaTata/unidade3/priorizacao.html" width="100%" height="740" style={{border:'none',borderRadius:'8px',display:'block'}} title="Matriz de Priorização por Quadrantes"></iframe>
 
-## 10.4 Produto Mínimo Viável (MVP)
+## 10.3 Produto Mínimo Viável (MVP) {#mvp}
 
-O MVP representa o conjunto mínimo de itens de trabalho que permite que o sistema seja utilizado pela coordenação da creche, validando as hipóteses centrais do projeto com a cliente. No OpenUP, esses itens são priorizados nas primeiras iterações da fase de Construção.
+O MVP contempla os Itens de Trabalho que permitem a operação básica da creche — autenticação, gestão de doações, doadores, entregas, voluntários e captação digital. Cada card referencia o Caso de Uso correspondente.
 
-![Board MVP do projeto](/img/mvp-board.png)
+<iframe src="/REQ-2026.1-T02-CrecheTiaTata/unidade3/mvp.html" width="100%" height="620" style={{border:'none',borderRadius:'8px',display:'block'}} title="Board MVP"></iframe>

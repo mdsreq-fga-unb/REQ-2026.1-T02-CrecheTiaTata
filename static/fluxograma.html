@@ -10,7 +10,7 @@
 
     #controls {
       position: fixed; top: 12px; left: 12px; z-index: 200;
-      display: flex; gap: 6px; flex-wrap: wrap; max-width: 520px;
+      display: flex; gap: 6px; flex-wrap: wrap; max-width: 560px;
     }
     .btn {
       padding: 5px 11px; border: 1px solid #ccc; border-radius: 5px;
@@ -28,8 +28,10 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     #legend h4 { margin-bottom: 8px; font-size: 12px; color: #333; }
+    #legend hr { border: none; border-top: 1px solid #eee; margin: 6px 0; }
     .li { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
     .lbox { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+    .lbox-border { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; border: 2px solid; }
 
     #hint {
       position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
@@ -67,8 +69,12 @@
   <div class="li"><div class="lbox" style="background:#2c3e50"></div>Objetivo Geral</div>
   <div class="li"><div class="lbox" style="background:#2980b9"></div>Objetivo Específico</div>
   <div class="li"><div class="lbox" style="background:#16a085"></div>Sub-categoria</div>
-  <div class="li"><div class="lbox" style="background:#27ae60"></div>Req. Funcional (RF)</div>
   <div class="li"><div class="lbox" style="background:#8e44ad"></div>Req. Não Funcional (RNF)</div>
+  <hr>
+  <div style="font-size:10px;color:#666;margin-bottom:4px;font-weight:600;">Status RF</div>
+  <div class="li"><div class="lbox" style="background:#27ae60"></div>Concluído ✓</div>
+  <div class="li"><div class="lbox" style="background:#e67e22"></div>Em andamento</div>
+  <div class="li"><div class="lbox" style="background:#7f8c8d"></div>Não iniciado</div>
 </div>
 
 <div id="hint">Arrastar: mover &nbsp;|&nbsp; Scroll: zoom &nbsp;|&nbsp; Clique no nó: expandir / recolher &nbsp;|&nbsp; Hover: detalhes</div>
@@ -78,7 +84,10 @@
 
 <script>
 // ──────────────────────────────────────────
-//  DATA
+//  STATUS: done | wip | todo
+//  done = feature entregue e testada
+//  wip  = em andamento (issue aberta)
+//  todo = não iniciado
 // ──────────────────────────────────────────
 const treeData = {
   id:"prob", name:"Problema", desc:"Baixo Engajamento", type:"problem",
@@ -90,18 +99,22 @@ const treeData = {
       {
         id:"oe1", name:"OE1", desc:"Controle de Doações", type:"oe",
         children:[
+          { id:"c-auth", name:"Controle de Acesso", type:"category", children:[
+            {id:"rf01",name:"RF-01",desc:"Autenticar Administrador",type:"rf",status:"wip"},
+            {id:"rf27",name:"RF-27",desc:"Login de Usuário",type:"rf",status:"todo"},
+          ]},
           { id:"c-doa", name:"Cadastro de Doações", type:"category", children:[
-            {id:"rf02",name:"RF-02",desc:"Registrar Doação",type:"rf"},
-            {id:"rf03",name:"RF-03",desc:"Listar Doações",type:"rf"},
-            {id:"rf04",name:"RF-04",desc:"Editar Doação",type:"rf"},
+            {id:"rf02",name:"RF-02",desc:"Registrar Doação",type:"rf",status:"todo"},
+            {id:"rf03",name:"RF-03",desc:"Listar Doações",type:"rf",status:"wip"},
+            {id:"rf04",name:"RF-04",desc:"Editar Doação",type:"rf",status:"wip"},
           ]},
           { id:"c-doad", name:"Registro de Doadores", type:"category", children:[
-            {id:"rf05",name:"RF-05",desc:"Registrar Doador",type:"rf"},
-            {id:"rf06",name:"RF-06",desc:"Listar Doadores",type:"rf"},
+            {id:"rf05",name:"RF-05",desc:"Registrar Doador",type:"rf",status:"todo"},
+            {id:"rf06",name:"RF-06",desc:"Listar Doadores",type:"rf",status:"wip"},
           ]},
           { id:"c-entr", name:"Registro de Entregas", type:"category", children:[
-            {id:"rf07",name:"RF-07",desc:"Registrar Entrega",type:"rf"},
-            {id:"rf08",name:"RF-08",desc:"Listar Entregas",type:"rf"},
+            {id:"rf07",name:"RF-07",desc:"Registrar Entrega",type:"rf",status:"todo"},
+            {id:"rf08",name:"RF-08",desc:"Listar Entregas",type:"rf",status:"todo"},
           ]},
         ]
       },
@@ -109,25 +122,25 @@ const treeData = {
         id:"oe2", name:"OE2", desc:"Gestão de Voluntários", type:"oe",
         children:[
           { id:"c-vol", name:"Cadastro de Voluntários", type:"category", children:[
-            {id:"rf09",name:"RF-09",desc:"Registrar Voluntário",type:"rf"},
-            {id:"rf10",name:"RF-10",desc:"Listar Voluntários",type:"rf"},
-            {id:"rf22",name:"RF-22",desc:"Excluir Voluntário",type:"rf"},
-            {id:"rf24",name:"RF-24",desc:"Editar Voluntário",type:"rf"},
-            {id:"rf25",name:"RF-25",desc:"Histórico",type:"rf"},
-            {id:"rf26",name:"RF-26",desc:"Relatório",type:"rf"},
+            {id:"rf09",name:"RF-09",desc:"Registrar Voluntário",type:"rf",status:"done"},
+            {id:"rf10",name:"RF-10",desc:"Listar Voluntários",type:"rf",status:"wip"},
+            {id:"rf22",name:"RF-22",desc:"Excluir Voluntário",type:"rf",status:"wip"},
+            {id:"rf24",name:"RF-24",desc:"Editar Voluntário",type:"rf",status:"wip"},
+            {id:"rf25",name:"RF-25",desc:"Histórico",type:"rf",status:"todo"},
+            {id:"rf26",name:"RF-26",desc:"Relatório",type:"rf",status:"todo"},
           ]},
           { id:"c-disp", name:"Disponibilidade e Escala", type:"category", children:[
-            {id:"rf11",name:"RF-11",desc:"Registrar Disponibilidade",type:"rf"},
-            {id:"rf12",name:"RF-12",desc:"Editar Disponibilidade",type:"rf"},
-            {id:"rf13",name:"RF-13",desc:"Gerar Escala",type:"rf"},
-            {id:"rf23",name:"RF-23",desc:"Desalocar",type:"rf"},
+            {id:"rf11",name:"RF-11",desc:"Registrar Disponibilidade",type:"rf",status:"wip"},
+            {id:"rf12",name:"RF-12",desc:"Editar Disponibilidade",type:"rf",status:"wip"},
+            {id:"rf13",name:"RF-13",desc:"Gerar Escala",type:"rf",status:"todo"},
+            {id:"rf23",name:"RF-23",desc:"Desalocar",type:"rf",status:"wip"},
           ]},
           { id:"c-evt", name:"Gestão de Eventos", type:"category", children:[
-            {id:"rf14",name:"RF-14",desc:"Registrar Evento",type:"rf"},
-            {id:"rf15",name:"RF-15",desc:"Listar Eventos",type:"rf"},
-            {id:"rf16",name:"RF-16",desc:"Associar Voluntário",type:"rf"},
-            {id:"rf17",name:"RF-17",desc:"Registrar Recursos",type:"rf"},
-            {id:"rf18",name:"RF-18",desc:"Resumo Recursos",type:"rf"},
+            {id:"rf14",name:"RF-14",desc:"Registrar Evento",type:"rf",status:"todo"},
+            {id:"rf15",name:"RF-15",desc:"Listar Eventos",type:"rf",status:"todo"},
+            {id:"rf16",name:"RF-16",desc:"Associar Voluntário",type:"rf",status:"todo"},
+            {id:"rf17",name:"RF-17",desc:"Registrar Recursos",type:"rf",status:"todo"},
+            {id:"rf18",name:"RF-18",desc:"Resumo Recursos",type:"rf",status:"todo"},
           ]},
         ]
       },
@@ -135,7 +148,7 @@ const treeData = {
         id:"oe3", name:"OE3", desc:"Centralização", type:"oe",
         children:[
           { id:"c-pag", name:"Página / Vídeos / Localização", type:"category", children:[
-            {id:"rf19",name:"RF-19",desc:"Página Institucional",type:"rf"},
+            {id:"rf19",name:"RF-19",desc:"Página Institucional",type:"rf",status:"done"},
           ]},
         ]
       },
@@ -143,8 +156,8 @@ const treeData = {
         id:"oe4", name:"OE4", desc:"Captação Digital", type:"oe",
         children:[
           { id:"c-sol", name:"Solicitações de Apoio", type:"category", children:[
-            {id:"rf20",name:"RF-20",desc:"Publicar Solicitação",type:"rf"},
-            {id:"rf21",name:"RF-21",desc:"Listar Solicitações",type:"rf"},
+            {id:"rf20",name:"RF-20",desc:"Publicar Solicitação",type:"rf",status:"done"},
+            {id:"rf21",name:"RF-21",desc:"Listar Solicitações",type:"rf",status:"done"},
           ]},
         ]
       },
@@ -181,9 +194,20 @@ const C = {
   oe:         { fill:"#2980b9", stroke:"#1f618d", text:"#fff" },
   category:   { fill:"#16a085", stroke:"#0e6655", text:"#fff" },
   "rnf-group":{ fill:"#6c3483", stroke:"#512e5f", text:"#fff" },
-  rf:         { fill:"#27ae60", stroke:"#1e8449", text:"#fff" },
   rnf:        { fill:"#8e44ad", stroke:"#6c3483", text:"#fff" },
+  rf_done:    { fill:"#27ae60", stroke:"#1e8449", text:"#fff" },
+  rf_wip:     { fill:"#e67e22", stroke:"#ca6f1e", text:"#fff" },
+  rf_todo:    { fill:"#7f8c8d", stroke:"#616a6b", text:"#fff" },
 };
+
+function nodeColor(d) {
+  if (d.data.type === "rf") {
+    if (d.data.status === "done") return C.rf_done;
+    if (d.data.status === "wip")  return C.rf_wip;
+    return C.rf_todo;
+  }
+  return C[d.data.type] || { fill:"#555", stroke:"#333", text:"#fff" };
+}
 
 // ──────────────────────────────────────────
 //  SVG SETUP
@@ -207,7 +231,6 @@ window.addEventListener("resize", () => {
 // ──────────────────────────────────────────
 const layout = d3.tree().nodeSize([NW + GX, NH + GY]);
 let root = d3.hierarchy(treeData);
-// stash children references
 root.each(d => { d._ch = d.children ? [...d.children] : null; });
 
 function expandAll(d) {
@@ -224,24 +247,6 @@ expandAll(root);
 // ──────────────────────────────────────────
 //  RENDER
 // ──────────────────────────────────────────
-function wrapText(el, text, lineW, lineH) {
-  const words = text.split(/\s+/);
-  let line = [], tspan = el.append("tspan").attr("x", NW / 2).attr("dy", 0);
-  const test = el.node().closest("svg");
-
-  words.forEach((w, i) => {
-    line.push(w);
-    tspan.text(line.join(" "));
-    // rough estimate: 6.5px per char at 8px font
-    if (line.join(" ").length * 6.5 > lineW && line.length > 1) {
-      line.pop();
-      tspan.text(line.join(" "));
-      line = [w];
-      tspan = el.append("tspan").attr("x", NW / 2).attr("dy", lineH);
-    }
-  });
-}
-
 function update(animate) {
   const dur = animate ? 280 : 0;
   layout(root);
@@ -253,8 +258,7 @@ function update(animate) {
   gLinks.selectAll("path.link")
     .data(links, d => d.target.data.id)
     .join(
-      enter => enter.append("path").attr("class","link")
-        .attr("d", d => linkPath(d)),
+      enter => enter.append("path").attr("class","link").attr("d", d => linkPath(d)),
       update => update,
       exit => exit.transition().duration(dur).style("opacity", 0).remove()
     )
@@ -272,9 +276,20 @@ function update(animate) {
   entered.append("rect")
     .attr("width", NW).attr("height", NH)
     .attr("rx", 5).attr("ry", 5)
-    .attr("fill",   d => C[d.data.type]?.fill || "#555")
-    .attr("stroke", d => C[d.data.type]?.stroke || "#333")
+    .attr("fill",   d => nodeColor(d).fill)
+    .attr("stroke", d => nodeColor(d).stroke)
     .attr("stroke-width", 1.5);
+
+  // Status badge for done RFs
+  entered.each(function(d) {
+    if (d.data.type === "rf" && d.data.status === "done") {
+      d3.select(this).append("text")
+        .attr("x", NW - 7).attr("y", NH - 7)
+        .attr("text-anchor","middle").attr("dominant-baseline","middle")
+        .attr("font-size","10px").attr("fill","rgba(255,255,255,0.9)")
+        .text("✓");
+    }
+  });
 
   // Name label
   entered.append("text")
@@ -282,13 +297,13 @@ function update(animate) {
     .attr("x", NW/2)
     .attr("text-anchor","middle")
     .attr("dominant-baseline","middle")
-    .attr("fill", d => C[d.data.type]?.text || "#fff")
+    .attr("fill", d => nodeColor(d).text)
     .attr("font-size","10px")
     .attr("font-weight","700")
     .attr("y", d => (d.data.desc || d.data.short) ? NH/2 - 9 : NH/2)
     .text(d => d.data.name);
 
-  // Short desc label (2 lines max)
+  // Short desc label
   entered.each(function(d) {
     const raw = d.data.short || d.data.desc;
     if (!raw) return;
@@ -297,14 +312,13 @@ function update(animate) {
       .attr("class","lbl-desc")
       .attr("x", NW/2).attr("y", NH/2 + 8)
       .attr("text-anchor","middle").attr("dominant-baseline","middle")
-      .attr("fill", C[d.data.type]?.text || "#fff")
+      .attr("fill", nodeColor(d).text)
       .attr("font-size","8px");
 
     const words = raw.split(/\s+/);
     if (raw.length <= 17 || words.length <= 2) {
       t.text(raw); return;
     }
-    // split into 2 lines
     const mid = Math.ceil(words.length / 2);
     const l1 = words.slice(0, mid).join(" ");
     const l2 = words.slice(mid).join(" ");
@@ -339,8 +353,11 @@ function update(animate) {
   const tip = document.getElementById("tooltip");
   merged.on("mousemove", (e, d) => {
     const full = d.data.desc && d.data.desc !== d.data.short ? d.data.desc : null;
-    if (!full) { tip.style.display = "none"; return; }
-    tip.innerHTML = `<strong>${d.data.name}</strong><br>${full}`;
+    const statusLabel = d.data.type === "rf"
+      ? { done:"✓ Concluído", wip:"⏳ Em andamento", todo:"○ Não iniciado" }[d.data.status] || ""
+      : "";
+    if (!full && !statusLabel) { tip.style.display = "none"; return; }
+    tip.innerHTML = `<strong>${d.data.name}</strong>${full ? "<br>" + full : ""}${statusLabel ? "<br><em>" + statusLabel + "</em>" : ""}`;
     tip.style.display = "block";
     tip.style.left = (e.clientX + 14) + "px";
     tip.style.top  = (e.clientY - 10) + "px";
@@ -361,8 +378,6 @@ function linkPath(d) {
 //  INIT
 // ──────────────────────────────────────────
 update(false);
-
-// Fit after layout settles
 setTimeout(() => fitView(false), 30);
 
 function fitView(animate) {
@@ -383,9 +398,7 @@ function fitView(animate) {
 // ──────────────────────────────────────────
 //  BUTTONS
 // ──────────────────────────────────────────
-document.getElementById("btn-expand").onclick = () => {
-  expandAll(root); update(true);
-};
+document.getElementById("btn-expand").onclick = () => { expandAll(root); update(true); };
 document.getElementById("btn-collapse").onclick = () => {
   root.children?.forEach(c => collapseAll(c));
   update(true);

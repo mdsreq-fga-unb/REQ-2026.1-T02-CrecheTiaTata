@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Priorização – Creche Tia Tata</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; padding: 20px; }
+  h1 { text-align:center; font-size:28px; font-style:italic; font-weight:900; margin-bottom:16px; color:#222; }
+
+  .outer { display:flex; align-items:stretch; max-width:1080px; margin:0 auto; }
+
+  .y-axis {
+    display:flex; flex-direction:column; align-items:center;
+    justify-content:space-between; padding:8px 6px 40px 0;
+    width:30px; flex-shrink:0;
+  }
+  .y-label { writing-mode:vertical-rl; transform:rotate(180deg); font-size:20px; font-style:italic; font-weight:900; color:#222; }
+  .y-hint  { font-size:10px; color:#888; writing-mode:vertical-rl; transform:rotate(180deg); }
+
+  .board-wrap { flex:1; }
+  .board {
+    display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
+    height:680px; border:1px solid #bbb;
+  }
+
+  .quadrant { padding:10px; position:relative; background:white; overflow:auto; }
+  .quadrant:nth-child(1) { border-right:2.5px solid #777; border-bottom:2.5px solid #777; }
+  .quadrant:nth-child(2) { border-bottom:2.5px solid #777; }
+  .quadrant:nth-child(3) { border-right:2.5px solid #777; }
+
+  .q-num   { position:absolute; top:6px; left:8px; font-size:17px; font-weight:800; color:#555; }
+  .q-label { position:absolute; top:6px; right:8px; font-size:9px; color:#999; text-align:right; line-height:1.3; }
+
+  .cards { display:flex; flex-wrap:wrap; gap:8px; padding-top:30px; align-content:flex-start; }
+
+  .card {
+    width:128px; min-height:100px; border-radius:2px; padding:8px 7px 6px;
+    box-shadow:2px 3px 7px rgba(0,0,0,0.17); display:flex; flex-direction:column; gap:4px;
+  }
+  .card .uc-id   { font-weight:800; font-size:12px; }
+  .card .uc-name { flex:1; font-size:10px; color:#222; line-height:1.3; font-weight:600; }
+  .card .its     { font-size:8.5px; color:#555; font-style:italic; }
+  .card .meta    { font-size:8.5px; color:#444; }
+
+  .yellow { background:#FFD966; }
+  .blue   { background:#9FC5E8; }
+  .pink   { background:#EA9999; }
+
+  .empty-msg { color:#aaa; font-size:11px; padding-top:30px; font-style:italic; }
+
+  .x-axis {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:6px 0 0; font-size:20px; font-style:italic; font-weight:900; color:#222;
+  }
+</style>
+</head>
+<body>
+<h1>Priorização</h1>
+<div class="outer">
+  <div class="y-axis">
+    <span class="y-hint">Alta</span>
+    <span class="y-label">Impacto</span>
+    <span class="y-hint">Baixa</span>
+  </div>
+  <div class="board-wrap">
+    <div class="board">
+
+      <!-- Q1: Alta I / Baixa D -->
+      <div class="quadrant">
+        <div class="q-num">1°</div>
+        <div class="q-label">Alta Importância<br>Baixa Dificuldade</div>
+        <div class="cards">
+          <div class="card yellow">
+            <span class="uc-id">UC-08</span>
+            <span class="uc-name">Acessar Página Institucional</span>
+            <span class="its">IT-19</span>
+            <span class="meta">D=1 · I=4</span>
+          </div>
+          <div class="card yellow">
+            <span class="uc-id">UC-09</span>
+            <span class="uc-name">Publicar Solicitação de Apoio</span>
+            <span class="its">IT-20</span>
+            <span class="meta">D=1 · I=4</span>
+          </div>
+          <div class="card yellow">
+            <span class="uc-id">UC-10</span>
+            <span class="uc-name">Visualizar Solicitações de Apoio</span>
+            <span class="its">IT-21</span>
+            <span class="meta">D=1 · I=4</span>
+          </div>
+          <div class="card yellow">
+            <span class="uc-id">UC-05</span>
+            <span class="uc-name">Gerenciar Voluntários</span>
+            <span class="its">IT-09, IT-10, IT-22, IT-24</span>
+            <span class="meta">D=1 · I=4</span>
+          </div>
+          <div class="card yellow">
+            <span class="uc-id">UC-06</span>
+            <span class="uc-name">Disponibilidade e Escala</span>
+            <span class="its">IT-11, IT-12, IT-23</span>
+            <span class="meta">D=1 · I=4</span>
+          </div>
+          <div class="card yellow">
+            <span class="uc-id">UC-03</span>
+            <span class="uc-name">Gerenciar Doadores</span>
+            <span class="its">IT-05, IT-06</span>
+            <span class="meta">D=1 · I=3</span>
+          </div>
+          <div class="card yellow">
+            <span class="uc-id">UC-02</span>
+            <span class="uc-name">Gerenciar Doações</span>
+            <span class="its">IT-02, IT-03, IT-04</span>
+            <span class="meta">D=1 · I=3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2: Alta I / Alta D -->
+      <div class="quadrant">
+        <div class="q-num">2°</div>
+        <div class="q-label">Alta Importância<br>Alta Dificuldade</div>
+        <div class="cards">
+          <div class="card blue">
+            <span class="uc-id">UC-01</span>
+            <span class="uc-name">Autenticar no Sistema</span>
+            <span class="its">IT-01, IT-27</span>
+            <span class="meta">D=2 · I=4</span>
+          </div>
+          <div class="card blue">
+            <span class="uc-id">UC-04</span>
+            <span class="uc-name">Gerenciar Entregas</span>
+            <span class="its">IT-07, IT-08</span>
+            <span class="meta">D=2 · I=3</span>
+          </div>
+          <div class="card blue">
+            <span class="uc-id">UC-06*</span>
+            <span class="uc-name">Gerar Escala Automática</span>
+            <span class="its">IT-13</span>
+            <span class="meta">D=3 · I=3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3: Baixa I / Baixa D -->
+      <div class="quadrant">
+        <div class="q-num">3°</div>
+        <div class="q-label">Baixa Importância<br>Baixa Dificuldade</div>
+        <div class="cards">
+          <div class="card yellow">
+            <span class="uc-id">UC-05*</span>
+            <span class="uc-name">Histórico do Voluntário</span>
+            <span class="its">IT-25</span>
+            <span class="meta">D=1 · I=2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4: Baixa I / Alta D -->
+      <div class="quadrant">
+        <div class="q-num">4°</div>
+        <div class="q-label">Baixa Importância<br>Alta Dificuldade</div>
+        <div class="cards">
+          <div class="card pink">
+            <span class="uc-id">UC-07</span>
+            <span class="uc-name">Gerenciar Eventos</span>
+            <span class="its">IT-14, IT-15, IT-16, IT-17, IT-18</span>
+            <span class="meta">D=2 · I=1</span>
+          </div>
+          <div class="card pink">
+            <span class="uc-id">UC-05*</span>
+            <span class="uc-name">Relatório de Participação</span>
+            <span class="its">IT-26</span>
+            <span class="meta">D=2 · I=1</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /board -->
+    <div class="x-axis">
+      <span style="font-size:10px;color:#888;font-style:normal">← Baixa</span>
+      <span>Dificuldade Técnica</span>
+      <span style="font-size:10px;color:#888;font-style:normal">Alta →</span>
+    </div>
+  </div>
+</div>
+<p style="max-width:1080px;margin:8px auto 0;font-size:10px;color:#888">* UC-06* e UC-05* indicam sub-escopos do caso de uso posicionados separadamente por diferença significativa de D ou I.</p>
+</body>
+</html>
