@@ -7,26 +7,26 @@ sidebar_position: 4
 
 ## Requisitos funcionais
 
-Até o dia 15/06 deveriamos ter todos requisitos do MVP entregues e validados pelo cliente.
+O sistema possui **27 Requisitos Funcionais** no total. O **MVP contempla 18 RFs** priorizados para as primeiras iterações da fase de Construção.
 
-De um total de 18 **Requisitos Funcionais** temos: completos 3, incompletos 9, não feitos 5.
+Situação dos 18 RFs do MVP até 15/06: completos 2, incompletos 10, não feitos 6.
 
 ---
 Concluídos
 * [X] RF-19 - Exibir Informações Institucionais
-* [X] RF-9 - Registrar Voluntário
+* [X] RF-09 - Registrar Voluntário
 ---
 Incompletos
 * [/] RF-01 - Autenticar Administrador
 * [/] RF-12 - Editar Disponibilidade
-* [/] RF-11 - Registrar disponibilidade
+* [/] RF-11 - Registrar Disponibilidade
 * [/] RF-24 - Editar Dados do Voluntário
 * [/] RF-23 - Desalocar Voluntário de Tarefa
 * [/] RF-22 - Excluir Voluntário
 * [/] RF-03 - Listar Doações
 * [/] RF-04 - Editar Doação
 * [/] RF-06 - Listar Doadores
-* [/] RF-11 - Listar Voluntários
+* [/] RF-10 - Listar Voluntários
 ---
 Não feitos
 * [ ] RF-02 - Registrar Doação
@@ -65,20 +65,20 @@ Futuramento teremos GIFs mostrando o sistema
 
 ## Cronograma (Fase de construção)
 ### Iteração 3
-* RF 19
+* RF-19
 
-Feito: 19
+Feito: RF-19
 
 ### Iteração 4
-* RF 9, 12, 11, 22, 23, 24
+* RF-09, RF-10, RF-11, RF-12, RF-22, RF-23, RF-24
 
-Feito: 9
-
-### Iteração 5
-* RF 1, 2, 3, 4, 5, 6
+Feito: RF-09
 
 ### Iteração 5
-* RF 7, 8, 11, 20, 21
+* RF-01, RF-02, RF-03, RF-04, RF-05, RF-06
+
+### Iteração 6
+* RF-07, RF-08, RF-20, RF-21
 
 ## Versões
 |Data|Versão|Descrição|Autor(es)|Revisor(es)|
