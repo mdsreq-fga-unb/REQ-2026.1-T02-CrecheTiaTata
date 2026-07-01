@@ -25,5 +25,5 @@ enabled = true
 enabled = true
 site_url = "http://localhost:3000"
 additional_redirect_urls = ["https://localhost:3000"]
-jwt_expiry = 3600
+jwt_expiry = 86400
 enable_signup = true

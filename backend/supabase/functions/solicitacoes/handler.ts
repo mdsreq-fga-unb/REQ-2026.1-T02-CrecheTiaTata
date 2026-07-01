@@ -31,6 +31,62 @@ export async function handleSolicitacoes(
     return new Response("ok", { headers: corsHeaders });
   }
 
+  if (req.method === "GET") {
+    const url = new URL(req.url);
+    const statusFiltro = url.searchParams.get("status");
+    const categoriaFiltro = url.searchParams.get("categoria");
+
+    if (statusFiltro !== null && !STATUS_SOLICITACAO.includes(statusFiltro)) {
+      return new Response(
+        JSON.stringify({ error: "Status inválido" }),
+        {
+          status: 422,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    if (
+      categoriaFiltro !== null &&
+      !CATEGORIAS_SOLICITACAO.includes(categoriaFiltro)
+    ) {
+      return new Response(
+        JSON.stringify({ error: "Categoria inválida" }),
+        {
+          status: 422,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    let query = supabase
+      .from("solicitacoes_apoio")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (statusFiltro !== null) {
+      query = query.eq("status", statusFiltro);
+    }
+
+    if (categoriaFiltro !== null) {
+      query = query.eq("categoria", categoriaFiltro);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    return new Response(JSON.stringify(data ?? []), {
+      status: 200,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
   if (req.method === "POST") {
     const user = await verificarJWT(req, supabase);
     if (!user) {
@@ -72,7 +128,9 @@ export async function handleSolicitacoes(
       );
     }
 
-    if (body.status !== undefined && !STATUS_SOLICITACAO.includes(body.status)) {
+    if (
+      body.status !== undefined && !STATUS_SOLICITACAO.includes(body.status)
+    ) {
       return new Response(
         JSON.stringify({ error: "Status inválido" }),
         {
