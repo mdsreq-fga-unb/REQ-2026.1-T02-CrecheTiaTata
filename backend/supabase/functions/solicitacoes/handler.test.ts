@@ -177,6 +177,23 @@ Deno.test("POST cria solicitação com dados válidos", async () => {
   const body = await res.json();
   assertEquals(body.publicada, true);
   assertEquals(body.solicitacao.titulo, "Precisamos de fraldas");
+  assertEquals(body.solicitacao.status, "pendente");
+});
+
+Deno.test("POST cria solicitação com status explícito", async () => {
+  const payload = { ...SOLICITACAO_VALIDA, status: "em_andamento" };
+  const criada = { id: "sol-2", ...payload };
+  const mock = createMockSupabase({ dbData: criada, authUser: MOCK_USER });
+
+  const req = reqComToken("http://localhost/solicitacoes", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  const res = await handleSolicitacoes(req, mock);
+
+  assertEquals(res.status, 201);
+  const body = await res.json();
+  assertEquals(body.publicada, true);
 });
 
 Deno.test("POST retorna 401 sem JWT", async () => {
@@ -192,12 +209,36 @@ Deno.test("POST retorna 401 sem JWT", async () => {
   assertEquals(res.status, 401);
 });
 
-Deno.test("POST retorna 422 quando campos obrigatórios faltam", async () => {
+Deno.test("POST retorna 422 quando titulo falta", async () => {
   const mock = createMockSupabase({ authUser: MOCK_USER });
 
   const req = reqComToken("http://localhost/solicitacoes", {
     method: "POST",
-    body: JSON.stringify({ titulo: "Só titulo" }),
+    body: JSON.stringify({ descricao: "Sem titulo", categoria: "material" }),
+  });
+  const res = await handleSolicitacoes(req, mock);
+
+  assertEquals(res.status, 422);
+});
+
+Deno.test("POST retorna 422 quando descricao falta", async () => {
+  const mock = createMockSupabase({ authUser: MOCK_USER });
+
+  const req = reqComToken("http://localhost/solicitacoes", {
+    method: "POST",
+    body: JSON.stringify({ titulo: "Sem descricao", categoria: "material" }),
+  });
+  const res = await handleSolicitacoes(req, mock);
+
+  assertEquals(res.status, 422);
+});
+
+Deno.test("POST retorna 422 quando categoria falta", async () => {
+  const mock = createMockSupabase({ authUser: MOCK_USER });
+
+  const req = reqComToken("http://localhost/solicitacoes", {
+    method: "POST",
+    body: JSON.stringify({ titulo: "Titulo", descricao: "Desc" }),
   });
   const res = await handleSolicitacoes(req, mock);
 
@@ -212,8 +253,20 @@ Deno.test("POST retorna 422 quando categoria é inválida", async () => {
     body: JSON.stringify({
       titulo: "Titulo",
       descricao: "Desc",
-      categoria: "invalida",
+      categoria: "categoria_invalida",
     }),
+  });
+  const res = await handleSolicitacoes(req, mock);
+
+  assertEquals(res.status, 422);
+});
+
+Deno.test("POST retorna 422 quando status é inválido", async () => {
+  const mock = createMockSupabase({ authUser: MOCK_USER });
+
+  const req = reqComToken("http://localhost/solicitacoes", {
+    method: "POST",
+    body: JSON.stringify({ ...SOLICITACAO_VALIDA, status: "status_invalido" }),
   });
   const res = await handleSolicitacoes(req, mock);
 
@@ -226,6 +279,21 @@ Deno.test("POST retorna 400 quando corpo é inválido", async () => {
   const req = reqComToken("http://localhost/solicitacoes", {
     method: "POST",
     body: "não é json",
+  });
+  const res = await handleSolicitacoes(req, mock);
+
+  assertEquals(res.status, 400);
+});
+
+Deno.test("POST retorna 400 quando banco retorna erro", async () => {
+  const mock = createMockSupabase({
+    authUser: MOCK_USER,
+    dbError: { message: "Erro ao inserir" },
+  });
+
+  const req = reqComToken("http://localhost/solicitacoes", {
+    method: "POST",
+    body: JSON.stringify(SOLICITACAO_VALIDA),
   });
   const res = await handleSolicitacoes(req, mock);
 
