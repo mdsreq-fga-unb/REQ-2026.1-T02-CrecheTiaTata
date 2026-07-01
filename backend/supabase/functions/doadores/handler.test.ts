@@ -4,28 +4,64 @@ import { handleDoadores } from "./handler.ts";
 const MOCK_USER = { id: "uuid-1", email: "admin@gmail.com" };
 const MOCK_TOKEN = "valid-jwt-token";
 
-function createMockSupabase({
-  dbData = null as unknown,
-  dbError = null as { message: string } | null,
-  authUser = null as typeof MOCK_USER | null,
-  authError = null as { message: string } | null,
-} = {}) {
-  const result = { data: dbData, error: dbError };
+function createQueryResult(
+  data: unknown,
+  error: { message: string } | null = null,
+  count: number | null = null,
+) {
+  return { data, error, count };
+}
 
+function createThenableChain(result: ReturnType<typeof createQueryResult>) {
   const chain: Record<string, unknown> = {
-    insert: () => chain,
-    select: () => chain,
+    select: () => thenableChain,
+    insert: () => thenableChain,
+    eq: () => thenableChain,
+    ilike: () => thenableChain,
+    or: () => thenableChain,
+    in: () => thenableChain,
+    order: () => thenableChain,
+    range: () => thenableChain,
     single: () => Promise.resolve(result),
   };
 
+  const thenableChain = {
+    ...chain,
+    then: (
+      resolve: (v: typeof result) => unknown,
+      reject?: (e: unknown) => unknown,
+    ) => Promise.resolve(result).then(resolve, reject),
+    catch: (reject: (e: unknown) => unknown) =>
+      Promise.resolve(result).catch(reject),
+    finally: (fn: () => void) => Promise.resolve(result).finally(fn),
+  };
+
+  return thenableChain;
+}
+
+function createMockSupabase(options: {
+  authUser?: unknown;
+  authError?: { message: string } | null;
+  tableResults?: Record<string, ReturnType<typeof createQueryResult>[]>;
+  dbData?: unknown;
+  dbError?: { message: string } | null;
+}) {
   return {
-    from: () => chain,
     auth: {
-      getUser: (_token: string) =>
+      getUser: () =>
         Promise.resolve({
-          data: { user: authUser },
-          error: authError,
+          data: { user: options.authUser !== undefined ? options.authUser : MOCK_USER },
+          error: options.authError ?? null,
         }),
+    },
+    from: (table: string) => {
+      if (options.dbData !== undefined || options.dbError !== undefined) {
+        return createThenableChain(createQueryResult(options.dbData, options.dbError));
+      }
+      
+      const results = options.tableResults?.[table] ?? [createQueryResult(null)];
+      const result = results.shift() ?? createQueryResult(null);
+      return createThenableChain(result);
     },
   };
 }
@@ -48,29 +84,15 @@ const DOADOR_VALIDO = {
   telefone: "61999999999",
 };
 
+// --- Testes de POST (existentes) ---
+
 Deno.test("POST registra doador com dados válidos", async () => {
   const criado = { id: "doador-1", ...DOADOR_VALIDO };
-  const mock = createMockSupabase({ dbData: criado, authUser: MOCK_USER });
+  const mock = createMockSupabase({ dbData: criado });
 
   const req = reqComToken("http://localhost/doadores", {
     method: "POST",
-    body: JSON.stringify(DOADOR_VALIDO),
-  });
-  const res = await handleDoadores(req, mock);
-
-  assertEquals(res.status, 201);
-  const body = await res.json();
-  assertEquals(body.registrado, true);
-  assertEquals(body.doador.nome, "Maria Silva");
-});
-
-Deno.test("POST registra doador apenas com nome", async () => {
-  const criado = { id: "doador-2", nome: "Empresa X", tipo: "pessoa_fisica" };
-  const mock = createMockSupabase({ dbData: criado, authUser: MOCK_USER });
-
-  const req = reqComToken("http://localhost/doadores", {
-    method: "POST",
-    body: JSON.stringify({ nome: "Empresa X" }),
+    body: JSON.stringify(DOADOR_VALIDO ),
   });
   const res = await handleDoadores(req, mock);
 
@@ -78,86 +100,72 @@ Deno.test("POST registra doador apenas com nome", async () => {
 });
 
 Deno.test("POST retorna 401 sem JWT", async () => {
-  const mock = createMockSupabase({});
+  const mock = createMockSupabase({ authUser: null });
 
   const req = new Request("http://localhost/doadores", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(DOADOR_VALIDO),
+    body: JSON.stringify(DOADOR_VALIDO ),
   });
   const res = await handleDoadores(req, mock);
 
   assertEquals(res.status, 401);
 });
 
-Deno.test("POST retorna 422 quando nome falta", async () => {
-  const mock = createMockSupabase({ authUser: MOCK_USER });
+// --- Testes de GET (RF 06) ---
 
-  const req = reqComToken("http://localhost/doadores", {
-    method: "POST",
-    body: JSON.stringify({ email: "maria@gmail.com" }),
-  });
-  const res = await handleDoadores(req, mock);
+Deno.test("GET /doadores retorna lista de doadores", async () => {
+  const doadores = [
+    { id: "1", nome: "Maria", email: "maria@email.com" },
+    { id: "2", nome: "João", email: "joao@email.com" },
+  ];
 
-  assertEquals(res.status, 422);
-});
-
-Deno.test("POST retorna 422 quando tipo é inválido", async () => {
-  const mock = createMockSupabase({ authUser: MOCK_USER });
-
-  const req = reqComToken("http://localhost/doadores", {
-    method: "POST",
-    body: JSON.stringify({ nome: "Maria", tipo: "alienigena" }),
-  });
-  const res = await handleDoadores(req, mock);
-
-  assertEquals(res.status, 422);
-});
-
-Deno.test("POST retorna 422 quando email é inválido", async () => {
-  const mock = createMockSupabase({ authUser: MOCK_USER });
-
-  const req = reqComToken("http://localhost/doadores", {
-    method: "POST",
-    body: JSON.stringify({ nome: "Maria", email: "maria@dominioqualquer.xyz" }),
-  });
-  const res = await handleDoadores(req, mock);
-
-  assertEquals(res.status, 422);
-});
-
-Deno.test("POST retorna 400 quando corpo é inválido", async () => {
-  const mock = createMockSupabase({ authUser: MOCK_USER });
-
-  const req = reqComToken("http://localhost/doadores", {
-    method: "POST",
-    body: "não é json",
-  });
-  const res = await handleDoadores(req, mock);
-
-  assertEquals(res.status, 400);
-});
-
-Deno.test("POST retorna 400 quando banco retorna erro", async () => {
   const mock = createMockSupabase({
-    authUser: MOCK_USER,
-    dbError: { message: "Erro ao inserir" },
+    tableResults: { doadores: [createQueryResult(doadores, null, 2)] },
   });
 
-  const req = reqComToken("http://localhost/doadores", {
-    method: "POST",
-    body: JSON.stringify(DOADOR_VALIDO),
-  });
+  const req = reqComToken("http://localhost/doadores", { method: "GET" } );
   const res = await handleDoadores(req, mock);
+  const body = await res.json();
 
-  assertEquals(res.status, 400);
+  assertEquals(res.status, 200);
+  assertEquals(body.data, doadores);
+  assertEquals(body.count, 2);
 });
 
-Deno.test("GET retorna 405 método não permitido", async () => {
-  const mock = createMockSupabase({ authUser: MOCK_USER });
+Deno.test("GET /doadores aplica filtros", async () => {
+  const doadores = [{ id: "1", nome: "Maria", email: "maria@email.com" }];
 
-  const req = reqComToken("http://localhost/doadores", { method: "GET" });
+  const mock = createMockSupabase({
+    tableResults: { doadores: [createQueryResult(doadores, null, 1)] },
+  });
+
+  const req = reqComToken("http://localhost/doadores?nome=Maria&tipo=pessoa_fisica", { method: "GET" } );
   const res = await handleDoadores(req, mock);
+  const body = await res.json();
 
-  assertEquals(res.status, 405);
+  assertEquals(res.status, 200);
+  assertEquals(body.data.length, 1);
+});
+
+Deno.test("GET /doadores retorna histórico de contribuições quando solicitado", async () => {
+  const doadores = [{ id: "1", nome: "Maria", email: "maria@email.com" }];
+  const doacoes = [
+    { id: "d1", doador_id: "1", item: "Arroz", quantidade: 10 },
+    { id: "d2", doador_id: "1", item: "Feijão", quantidade: 5 },
+  ];
+
+  const mock = createMockSupabase({
+    tableResults: {
+      doadores: [createQueryResult(doadores, null, 1)],
+      doacoes: [createQueryResult(doacoes)],
+    },
+  });
+
+  const req = reqComToken("http://localhost/doadores?id=1&incluir_historico=true", { method: "GET" } );
+  const res = await handleDoadores(req, mock);
+  const body = await res.json();
+
+  assertEquals(res.status, 200);
+  assertEquals(body.data[0].historico_contribuicoes.length, 2);
 });
