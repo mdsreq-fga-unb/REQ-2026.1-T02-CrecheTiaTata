@@ -26,11 +26,18 @@ export default function Header({ menuOpen, setMenuOpen }) {
           <span className="text-lg sm:text-xl">Creche Tia Tata</span>
         </button>
 
+        {/* MENU DESKTOP */}
         <nav className="hidden items-center gap-8 text-sm font-semibold text-slate-600 md:flex">
           <a className="hover:text-emerald-700" href="/#inicio">Início</a>
           <button type="button" onClick={() => navigateTo('/como-ajudar')} className="hover:text-emerald-700">
             Como ajudar
           </button>
+          
+          {/* NOSSO NOVO BOTÃO DE DOAÇÕES NO DESKTOP */}
+          <button type="button" onClick={() => navigateTo('/doacoes')} className="hover:text-emerald-700">
+            Doações
+          </button>
+
           <button type="button" onClick={() => navigateTo('/sobre')} className="hover:text-emerald-700">
             Sobre
           </button>
@@ -38,14 +45,20 @@ export default function Header({ menuOpen, setMenuOpen }) {
             Contato
           </button>
           {isAuthenticated ? (
-            <button type="button" onClick={handleLogout} className="hover:text-emerald-700">
-              Sair
-            </button>
+            <div className="flex items-center gap-8">
+              <button type="button" onClick={() => navigateTo('/perfil')} className="hover:text-emerald-700">
+                Meu Perfil
+              </button>
+              <button type="button" onClick={handleLogout} className="hover:text-emerald-700">
+                Sair
+              </button>
+            </div>
           ) : (
             <button type="button" onClick={() => navigateTo('/login?modo=cadastro')} className="hover:text-emerald-700">
               Entrar/Criar conta
             </button>
           )}
+          
           <a
             href="/#ajudar"
             className="rounded-full bg-emerald-600 px-5 py-2.5 text-white shadow-sm transition hover:bg-emerald-700"
@@ -65,6 +78,7 @@ export default function Header({ menuOpen, setMenuOpen }) {
         </button>
       </div>
 
+      {/* MENU MOBILE (CELULAR) */}
       {menuOpen && (
         <nav className="border-t border-slate-100 bg-white px-5 py-4 md:hidden">
           <div className="mx-auto grid max-w-7xl gap-3 text-sm font-semibold text-slate-700">
@@ -79,6 +93,19 @@ export default function Header({ menuOpen, setMenuOpen }) {
             >
               Como ajudar
             </button>
+            
+            {/* NOSSO NOVO BOTÃO DE DOAÇÕES NO MOBILE */}
+            <button
+              type="button"
+              onClick={() => {
+                closeMenu();
+                navigateTo('/doacoes');
+              }}
+              className="text-left"
+            >
+              Doações
+            </button>
+
             <button
               type="button"
               onClick={() => {
@@ -100,9 +127,17 @@ export default function Header({ menuOpen, setMenuOpen }) {
               Contato
             </button>
             {isAuthenticated ? (
-              <button type="button" onClick={handleLogout} className="text-left">
-                Sair
-              </button>
+              <>
+                <button type="button" onClick={() => {closeMenu();navigateTo('/perfil');}} 
+                  className="text-left">
+                  Meu Perfil
+                </button>
+
+                <button type="button" onClick={handleLogout} className="text-left">
+                  Sair
+                </button>
+                
+              </>
             ) : (
               <button
                 type="button"
