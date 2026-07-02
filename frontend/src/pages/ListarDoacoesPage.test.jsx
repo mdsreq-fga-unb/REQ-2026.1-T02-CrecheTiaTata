@@ -2,94 +2,94 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ListarDoacoesPage from './ListarDoacoesPage';
 
-// "mock" do fetch para não precisar de um backend real nos testes
+// Mock do fetch para não depender do backend real durante os testes
 globalThis.fetch = vi.fn();
 
 describe('Página de Listar Doações e Doadores (RF-03 e RF-06)', () => {
   
   beforeEach(() => {
-    vi.clearAllMocks(); // Limpa as imitações antes de cada teste
+    vi.clearAllMocks();
   });
 
-  it('deve renderizar as abas corretamente', async () => {
-
-    // Finge que a API retornou uma lista vazia
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => [],
-    });
-
+  it('deve renderizar as abas e o toggle de admin corretamente', async () => {
+    fetch.mockResolvedValueOnce({ ok: true, json: async () => [] });
     render(<ListarDoacoesPage />);
-
-    // Verifica se os botões das abas estão na tela
+    
     expect(screen.getByText('Itens Disponíveis')).toBeInTheDocument();
     expect(screen.getByText('Doadores')).toBeInTheDocument();
+    expect(screen.getByText('Simular visão de Admin')).toBeInTheDocument();
   });
 
   it('deve exibir as doações vindas da API', async () => {
     const mockDoacoes = [
       { id: 1, item: 'Leite em pó (Lata)', quantidade: 15, categoria: 'Alimentação', urgencia: 'Alta' }
     ];
-
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockDoacoes,
-    });
-
+    fetch.mockResolvedValueOnce({ ok: true, json: async () => mockDoacoes });
+    
     render(<ListarDoacoesPage />);
 
-    // Aguarda o loading sumir e o item aparecer na tela
     await waitFor(() => {
       expect(screen.getByText('Leite em pó (Lata)')).toBeInTheDocument();
     });
 
     expect(screen.getByText('Alimentação')).toBeInTheDocument();
-    expect(screen.getByText('Quero Doar')).toBeInTheDocument(); // Nosso botão novo!
+    expect(screen.getByText('Quero Doar')).toBeInTheDocument();
+    expect(screen.getByText('Editar')).toBeInTheDocument();
   });
 
-  it('deve mudar para a aba de doadores e carregar os dados', async () => {
-
-    // 1º Fetch: Ocorre assim que a página abre (aba doações)
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => [],
-    });
-
+  it('não deve mostrar o botão Editar na aba de doações se o Admin estiver desativado', async () => {
+    const mockDoacoes = [
+      { id: 1, item: 'Roupa de Frio', quantidade: 5, categoria: 'Vestuário', urgencia: 'Média' }
+    ];
+    fetch.mockResolvedValueOnce({ ok: true, json: async () => mockDoacoes });
+    
     render(<ListarDoacoesPage />);
 
-    // 2º Fetch: Preparamos a resposta para quando a aba de Doadores for clicada
-    const mockDoadores = [
-      { id: 1, nome: 'Ana Silva', email: 'ana@email.com' }
-    ];
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockDoadores,
+    await waitFor(() => {
+      expect(screen.getByText('Roupa de Frio')).toBeInTheDocument();
     });
 
-    // Simula o usuário clicando na aba Doadores
+    const adminCheckbox = screen.getByRole('checkbox');
+    fireEvent.click(adminCheckbox);
+
+    expect(screen.queryByText('Editar')).not.toBeInTheDocument();
+  });
+
+  it('deve exibir doadores com telefone e abrir o modal de histórico ao clicar em Ver Doações', async () => {
+    fetch.mockResolvedValueOnce({ ok: true, json: async () => [] });
+    render(<ListarDoacoesPage />);
+
+    const mockDoadores = [
+      { 
+        id: 1, nome: 'Lorena Ribeiro', email: 'lorena@email.com', telefone: '(61) 99999-2222',
+        historico: [{ id: 101, item: 'Cobertor', quantidade: 2, data: '10/06/2026' }]
+      }
+    ];
+    fetch.mockResolvedValueOnce({ ok: true, json: async () => mockDoadores });
+    
     fireEvent.click(screen.getByText('Doadores'));
 
-    // Aguarda o nome da doadora aparecer
     await waitFor(() => {
-      expect(screen.getByText('Ana Silva')).toBeInTheDocument();
+      expect(screen.getByText('Lorena Ribeiro')).toBeInTheDocument();
     });
+    
+    expect(screen.getByText('(61) 99999-2222')).toBeInTheDocument();
 
-    expect(screen.getByText('ana@email.com')).toBeInTheDocument();
-    expect(screen.getByText('Ver Doações / Editar')).toBeInTheDocument(); // Botão do doador
+    fireEvent.click(screen.getByText('Ver Doações'));
+
+    expect(screen.getByText('Histórico de Doações')).toBeInTheDocument();
+    expect(screen.getByText('Cobertor')).toBeInTheDocument();
   });
 
   it('deve lidar com falha na API graciosamente sem quebrar a interface', async () => {
-    // Força um erro de servidor (simulando API offline)
     fetch.mockRejectedValueOnce(new Error('Servidor offline'));
-
     render(<ListarDoacoesPage />);
 
-    // Verifica se o sistema passou pelo loading e sobreviveu
     await waitFor(() => {
       expect(screen.queryByText('Carregando...')).not.toBeInTheDocument();
     });
 
-    // As abas devem continuar lá e o site não pode ficar tela branca
+    expect(screen.getByText('Ops! Tivemos um problema.')).toBeInTheDocument();
     expect(screen.getByText('Itens Disponíveis')).toBeInTheDocument();
   });
 });
