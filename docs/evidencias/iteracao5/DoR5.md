@@ -172,3 +172,20 @@ Caso de Uso relacionado: [UC-03](../../visao-produto-projeto/k-casos-de-uso#uc-0
 | 2 | A *issue* possui critérios de aceitação | ✅ |
 | 3 | A *issue* não possui dependência bloqueante | ✅ |
 | 4 | A *issue* está vinculada ao requisito funcional correspondente | ✅ |
+
+---
+
+<a
+  href="/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/Planejamento-e-Organizacao/Planejamento"
+  style={{display:'inline-flex', alignItems:'center', gap:'6px',
+          padding:'2px 10px', borderRadius:'10px', fontWeight:'600',
+          background:'var(--ifm-color-primary)', color:'#fff',
+          textDecoration:'none', marginBottom:'0.2rem'}}>
+  ← Voltar ao Planejamento
+</a>
+
+## Versões
+
+| Data | Versão | Descrição | Autor(es) | Revisor(es) |
+| :--- | :--- | :--- | :--- | :--- |
+| 01/07/2026 | 1.0 | Criação da página e apresentação de informações | Enzo, Matheus e Lucas Meireles | |
