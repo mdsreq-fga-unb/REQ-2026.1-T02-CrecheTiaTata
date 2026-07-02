@@ -35,7 +35,7 @@ const getTabContent = (setActiveTab) => ({
     ],
     acoes: [
         { label: 'Ver solicitações', onClick: () =>  {navigateTo('/solicitacoes')} },
-        { label: 'Listar voluntarios', onClick: () => {} },
+        { label: 'Listar voluntarios', onClick: () => { navigateTo('/voluntarios'); } },
     ],
   },
   pedidos: {
