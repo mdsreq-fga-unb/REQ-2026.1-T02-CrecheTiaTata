@@ -10,10 +10,13 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import PasswordRecoveryPage from './pages/PasswordRecoveryPage';
 import SobrePage from './pages/SobrePage';
+import NecessidadesPage from './pages/necessidades';
+import DoarPage from './pages/DoarPage';
 import { isAuthTokenValid } from './utils/authStorage';
 import AtualizarPerfilPage from './pages/AtualizarPerfilPage';
 import VoluntariosPage from './pages/voluntarios';
 import ListarDoacoesPage from './pages/ListarDoacoesPage';
+import ListarEntregasPage from './pages/ListarEntregasPage';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,30 +38,56 @@ function App() {
   const isGerenciamentoPage = path === '/gerenciamento';
   const isSolicitacoesPage = path === '/solicitacoes';
   const isVoluntariosPage = path === '/voluntarios';
+  const isNecessidadesPage = path === '/necessidades';
+  const isDoarPage = path === '/doar';
   const isDoacoesPage = path === '/doacoes';
+  const isEntregasPage = path === '/entregas';
 
-  const isHomePage = !isSobrePage && !isComoAjudarPage && !isContatoPage && !isLoginPage && !isPasswordRecoveryPage && !isPerfilPage && !isGerenciamentoPage && !isSolicitacoesPage && !isVoluntariosPage && !isDoacoesPage;
+  const isHomePage =
+    !isSobrePage &&
+    !isComoAjudarPage &&
+    !isContatoPage &&
+    !isLoginPage &&
+    !isPasswordRecoveryPage &&
+    !isPerfilPage &&
+    !isGerenciamentoPage &&
+    !isSolicitacoesPage &&
+    !isVoluntariosPage &&
+    !isNecessidadesPage &&
+    !isDoarPage &&
+    !isDoacoesPage &&
+    !isEntregasPage;
 
   return (
     <main className="min-h-screen bg-stone-50 font-sans text-slate-900">
-      {!isLoginPage && !isPasswordRecoveryPage && !isGerenciamentoPage && !isSolicitacoesPage && !isVoluntariosPage && <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />}
+      {!isLoginPage &&
+        !isPasswordRecoveryPage &&
+        !isGerenciamentoPage &&
+        !isSolicitacoesPage &&
+        !isVoluntariosPage && (
+          <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        )}
       {isSobrePage && <SobrePage />}
       {isComoAjudarPage && <ComoAjudarPage />}
       {isContatoPage && <ContatoPage />}
       {isLoginPage && <LoginPage />}
       {isPasswordRecoveryPage && <PasswordRecoveryPage />}
-      {/* {isGerenciamentoPage && (isAuthTokenValid() ? <GerenciamentoPage /> : <LoginPage />)}   Pra qnd tiver com token no login */}
-      {isGerenciamentoPage && <GerenciamentoPage />}                                              {/* So pra teste */}
-      {/* {isSolicitacoesPage && (isAuthTokenValid() ? <SolicitacoesPage /> : <LoginPage />)}     Pra qnd tiver com token no login*/}
-      {isSolicitacoesPage && <SolicitacoesPage />}                                                {/* So pra teste */}
+      {isGerenciamentoPage && <GerenciamentoPage />}
+      {isSolicitacoesPage && <SolicitacoesPage />}
       {isVoluntariosPage && <VoluntariosPage />}
-
-      {isPerfilPage && (isAuthTokenValid() ? <AtualizarPerfilPage /> : <LoginPage />)}
+      {isNecessidadesPage && <NecessidadesPage />}
+      {isDoarPage && <DoarPage />}
       {isDoacoesPage && <ListarDoacoesPage />}
-
+      {isEntregasPage && <ListarEntregasPage />}
+      {isPerfilPage && (isAuthTokenValid() ? <AtualizarPerfilPage /> : <LoginPage />)}
       {isHomePage && <HomePage />}
       {isHomePage && <CtaSection />}
-      {!isSobrePage && !isLoginPage && !isPasswordRecoveryPage && !isGerenciamentoPage && !isSolicitacoesPage && !isVoluntariosPage && <Footer />}
+      {!isSobrePage &&
+        !isLoginPage &&
+        !isPasswordRecoveryPage &&
+        !isGerenciamentoPage &&
+        !isSolicitacoesPage &&
+        !isVoluntariosPage && <Footer />}
     </main>
   );
 }
