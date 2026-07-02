@@ -42,13 +42,13 @@ function HomepageHeader() {
       label: 'Rastreabilidade',
       description: 'Fluxograma de requisitos e vínculos entre RFs, RNFs e OEs',
       icon: '',
-      href: '/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/h-requisitos/fluxograma',
+      to: '/docs/Planejamento-e-Organizacao/fluxograma',
     },
     {
       label: 'Itens de Trabalho e MVP',
       description: 'Itens de trabalho e board do produto mínimo viável',
       icon: '',
-      href: '/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog#priorizacao',
+      to: '/docs/Planejamento-e-Organizacao/backlog',
     },
   ].map(({ label, description, icon, to, href }) => {
     const cardStyle = {
