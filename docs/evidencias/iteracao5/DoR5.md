@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Implementações
 
-### RF 01 - Autenticar Administrador
+### IT 01 - Autenticar Administrador
 
 [Issue # 65 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/65)
 
@@ -34,7 +34,7 @@ Caso de Uso relacionado: [UC-01](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-### RF 02 - Registrar Doação
+### IT 02 - Registrar Doação
 
 [Issue # 71 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/71)
 
@@ -62,7 +62,7 @@ Caso de Uso relacionado: [UC-02](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-### RF 03 - Listar Doações
+### IT 03 - Listar Doações
 
 [Issue # 73 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/73)
 
@@ -90,9 +90,9 @@ Caso de Uso relacionado: [UC-02](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-### RF 04 - Editar Doação
+### IT 04 - Editar Doação
 
-[Issue # 75 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/75)
+[Issue # 75 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/75)
 
 Caso de Uso relacionado: [UC-02](../../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
 
@@ -118,7 +118,7 @@ Caso de Uso relacionado: [UC-02](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-### RF 05 - Registrar Doador
+### IT 05 - Registrar Doador
 
 [Issue # 72 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/72)
 
@@ -147,7 +147,7 @@ Caso de Uso relacionado: [UC-03](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-### RF 06 - Listar Doador
+### IT 06 - Listar Doador
 
 [Issue # 74 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/74)
 
@@ -162,7 +162,7 @@ Caso de Uso relacionado: [UC-03](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-[Issue # 78 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/78)
+[Issue # 78 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/78)
 
 Caso de Uso relacionado: [UC-03](../../visao-produto-projeto/k-casos-de-uso#uc-03--gerenciar-doadores)
 

@@ -11,7 +11,7 @@ sidebar_position: 1
 
 ## Implementações
 
-### RF 07 - Registrar Entregas
+### IT 07 - Registrar Entregas
 
 [Issue # 124 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/124)
 
@@ -39,7 +39,7 @@ Caso de Uso relacionado: [UC-04](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ------
 
-### RF 08 - Listar Entregas
+### IT 08 - Listar Entregas
 
 [Issue # 122 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/122)
 

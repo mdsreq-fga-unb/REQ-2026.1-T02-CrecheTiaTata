@@ -18,7 +18,7 @@ sidebar_position: 1
 
 ## Implementações
 
-### RF 19 - Exibir Página Institucional Pública
+### IT 19 - Exibir Página Institucional Pública
 
 [Issue # 20 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/20)
 

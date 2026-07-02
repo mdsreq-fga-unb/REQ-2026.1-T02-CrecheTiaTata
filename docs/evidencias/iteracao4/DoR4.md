@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Implementações
 
-### RF 09 - Registrar Voluntário
+### IT 09 - Registrar Voluntário
 
 [Issue # 36 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/36)
 
@@ -34,7 +34,7 @@ Caso de Uso relacionado: [UC-05](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-### RF 10 - Listar Voluntários
+### IT 10 - Listar Voluntários
 
 [Issue # 95 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/95)
 
@@ -62,7 +62,7 @@ Caso de Uso relacionado: [UC-05](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-### RF 11 - Registrar Disponibilidade
+### IT 11 - Registrar Disponibilidade
 
 [Issue # 36 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/36)
 
@@ -90,7 +90,7 @@ Caso de Uso relacionado: [UC-06](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-### RF 12 - Editar Disponibilidade
+### IT 12 - Editar Disponibilidade
 
 [Issue # 36 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/36)
 
@@ -118,7 +118,7 @@ Caso de Uso relacionado: [UC-06](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-### RF 22 - Excluir Voluntário
+### IT 22 - Excluir Voluntário
 
 [Issue # 36 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/36)
 
@@ -146,7 +146,7 @@ Caso de Uso relacionado: [UC-05](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-### RF 23 - Desalocar Voluntário de Evento
+### IT 23 - Desalocar Voluntário de Evento
 
 [Issue # 36 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/36)
 
@@ -174,7 +174,7 @@ Caso de Uso relacionado: [UC-05](../../visao-produto-projeto/k-casos-de-uso#uc-0
 
 ---
 
-### RF 24 - Editar Dados do Voluntário
+### IT 24 - Editar Dados do Voluntário
 
 [Issue # 36 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/36)
 
