@@ -17,6 +17,17 @@ O projeto **Creche da Tia Tata** foi desenvolvido para a disciplina de **Requisi
 
 A proposta nasce da necessidade de fortalecer a gestão interna da instituição e criar uma ponte mais eficiente entre a creche e possíveis doadores. A partir do levantamento de requisitos, análise de processos e aplicação de estratégias de engajamento, buscamos construir uma solução que apoie a sustentabilidade e amplie o impacto social da creche.
 
+A solução desenvolvida até então pode ser acessada em: [Creche Tia Tata](https://req-2026-1-t02-creche-tia-tata-depl.vercel.app)
+
+Dados para login de Administrador:
+
+```text
+
+**Usuário**: professor@gmail.com
+**Senha**: professor1
+
+```
+
 ### Objetivos principais
 
 - Organizar e centralizar informações relevantes para a gestão da instituição.
