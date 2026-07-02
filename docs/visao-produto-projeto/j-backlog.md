@@ -60,3 +60,5 @@ O **Índice de Prioridade (IP = I / D)** ordena os itens dentro de cada quadrant
 O MVP contempla os Itens de Trabalho que permitem a operação básica da creche — autenticação, gestão de doações, doadores, entregas, voluntários e captação digital. Cada card referencia o Caso de Uso correspondente.
 
 <iframe src="/REQ-2026.1-T02-CrecheTiaTata/unidade3/mvp.html" width="100%" height="620" style={{border:'none',borderRadius:'8px',display:'block'}} title="Board MVP"></iframe>
+
+A expansão e definição de detalhes de implementação do MVP estão em -> [Critérios de Aceitação](./h-requisitos/criterios-aceitacao.md).

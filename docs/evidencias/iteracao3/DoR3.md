@@ -30,3 +30,11 @@ Caso de Uso relacionado: [UC-08](../visao-produto-projeto/k-casos-de-uso#uc-08--
 | 2 | A *issue* possui critérios de aceitação | ✅ |
 | 3 | A *issue* não possui dependência bloqueante | ✅ |
 | 4 | A *issue* está vinculada ao requisito funcional correspondente | ⚠️ |
+
+---
+
+## Versões
+
+| Data | Versão | Descrição | Autor(es) | Revisor(es) |
+| :--- | :--- | :--- | :--- | :--- |
+| 01/07/2026 | 1.0 | Criação da página e apresentação de informações | Enzo, Matheus e Lucas Meireles | |
