@@ -14,12 +14,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: [
-        'src/App.jsx',
-        'src/config/**/*.js',
-        'src/pages/LoginPage.jsx',
-        'src/services/**/*.js',
-        'src/utils/authStorage.js',
-        'src/utils/protectedActions.js',
+        'src/**/*.{js,jsx,ts,tsx}',
       ],
       thresholds: {
         statements: 70,
