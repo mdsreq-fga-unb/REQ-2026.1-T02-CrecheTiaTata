@@ -14,18 +14,18 @@ async function signupUser({ name, email, password }) {
 
   const data = await response.json().catch(() => ({}));
 
-  if (!response.ok) {
-    const errorMessage = data?.message || LOGIN_ERROR_MESSAGES.unexpected;
+  if (!response.ok || !data.criado) {
+    const errorMessage = data?.error || data?.message || LOGIN_ERROR_MESSAGES.unexpected;
     throw new Error(errorMessage);
   }
 
-  const token = data.token ?? data.accessToken ?? data.jwt;
+  const token = data.token;
 
   if (!token) {
     throw new Error(LOGIN_ERROR_MESSAGES.unexpected);
   }
 
-  return { token, user: data.user ?? null };
+  return { token, user: data.usuario ?? data.user ?? null };
 }
 
 export function useSignup() {
