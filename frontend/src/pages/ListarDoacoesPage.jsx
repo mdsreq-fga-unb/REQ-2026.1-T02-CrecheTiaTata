@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
+import EditarContribuicaoModal from '../components/contribuicoes/EditarContribuicaoModal';
+import HistoricoDoacoesModal from '../components/contribuicoes/HistoricoDoacoesModal';
 import RegistrarDoacaoModal from '../components/contribuicoes/RegistrarDoacaoModal';
 import RegistrarDoadorModal from '../components/contribuicoes/RegistrarDoadorModal';
 import {
@@ -24,13 +26,30 @@ function carregarAba(activeTab) {
   return activeTab === 'doacoes' ? listarDoacoes() : listarDoadores();
 }
 
+function urgencyClass(urgency) {
+  switch (urgency?.toLowerCase()) {
+    case 'alta':
+      return 'bg-red-100 text-red-700';
+    case 'média':
+    case 'media':
+      return 'bg-amber-100 text-amber-700';
+    case 'baixa':
+      return 'bg-emerald-100 text-emerald-700';
+    default:
+      return 'bg-slate-100 text-slate-600';
+  }
+}
+
 export default function ListarDoacoesPage() {
   const [activeTab, setActiveTab] = useState('doacoes');
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
-  const [modal, setModal] = useState(null);
+  const [createModal, setCreateModal] = useState(null);
+  const [editingItem, setEditingItem] = useState(null);
+  const [historyDonor, setHistoryDonor] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
+  const [isAdmin, setIsAdmin] = useState(true);
 
   const refetch = useCallback(async (tab, { preserveItems = false } = {}) => {
     try {
@@ -84,6 +103,8 @@ export default function ListarDoacoesPage() {
     setIsLoading(true);
     setLoadError('');
     setSuccessMessage('');
+    setEditingItem(null);
+    setHistoryDonor(null);
   };
 
   const handleRegistered = async (item, tab, message) => {
@@ -98,11 +119,39 @@ export default function ListarDoacoesPage() {
     await refetch(tab, { preserveItems: true });
   };
 
+  const handleUpdated = async (updatedItem) => {
+    setItems((current) =>
+      current.map((item) =>
+        item.id === updatedItem.id ? updatedItem : item,
+      ),
+    );
+    setSuccessMessage(
+      activeTab === 'doacoes'
+        ? 'Doação atualizada com sucesso.'
+        : 'Doador atualizado com sucesso.',
+    );
+    await refetch(activeTab, { preserveItems: true });
+  };
+
   const isDoacoes = activeTab === 'doacoes';
 
   return (
-    <section className="min-h-[calc(100vh-11rem)] bg-stone-50 px-5 py-12 lg:px-8">
+    <section className="relative min-h-[calc(100vh-11rem)] bg-stone-50 px-5 py-12 lg:px-8">
       <div className="mx-auto max-w-5xl">
+        <div className="mb-5 flex justify-end">
+          <label className="flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 shadow-sm">
+            <input
+              type="checkbox"
+              checked={isAdmin}
+              onChange={(event) => setIsAdmin(event.target.checked)}
+              className="h-4 w-4 accent-emerald-600"
+            />
+            <span className="text-sm font-bold text-slate-700">
+              Simular visão de Admin
+            </span>
+          </label>
+        </div>
+
         <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-bold uppercase tracking-wide text-emerald-700">
@@ -119,7 +168,7 @@ export default function ListarDoacoesPage() {
             type="button"
             onClick={() => {
               setSuccessMessage('');
-              setModal(isDoacoes ? 'doacao' : 'doador');
+              setCreateModal(isDoacoes ? 'doacao' : 'doador');
             }}
             className="shrink-0 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-700"
           >
@@ -130,6 +179,7 @@ export default function ListarDoacoesPage() {
         <div className="mb-8 flex border-b border-slate-200">
           <button
             type="button"
+            aria-label="Doações"
             onClick={() => changeTab('doacoes')}
             className={`px-6 pb-4 font-bold transition ${
               isDoacoes
@@ -137,7 +187,7 @@ export default function ListarDoacoesPage() {
                 : 'text-slate-500 hover:text-slate-700'
             }`}
           >
-            Doações
+            Itens Disponíveis
           </button>
           <button
             type="button"
@@ -166,7 +216,10 @@ export default function ListarDoacoesPage() {
             role="alert"
             className="mb-6 flex flex-col gap-3 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-red-700 sm:flex-row sm:items-center sm:justify-between"
           >
-            <span className="text-sm font-semibold">{loadError}</span>
+            <div>
+              <p className="font-black">Ops! Tivemos um problema.</p>
+              <p className="mt-1 text-sm font-semibold">{loadError}</p>
+            </div>
             <button
               type="button"
               onClick={() => {
@@ -213,12 +266,25 @@ export default function ListarDoacoesPage() {
                 {isDoacoes ? (
                   <>
                     <div className="flex flex-wrap items-start justify-between gap-3">
-                      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700">
-                        {TIPO_DOACAO_LABELS[item.tipo] ?? item.tipo}
-                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700">
+                          {TIPO_DOACAO_LABELS[item.tipo] ??
+                            item.categoria ??
+                            'Outro'}
+                        </span>
+                        {item.urgencia && (
+                          <span
+                            className={`rounded-full px-3 py-1 text-xs font-bold ${urgencyClass(item.urgencia)}`}
+                          >
+                            {item.urgencia}
+                          </span>
+                        )}
+                      </div>
                       <span className="text-sm font-black text-slate-500">
                         {item.quantidade ?? 1}{' '}
-                        {(item.quantidade ?? 1) === 1 ? 'unidade' : 'unidades'}
+                        {(item.quantidade ?? 1) === 1
+                          ? 'unidade'
+                          : 'unidades'}
                       </span>
                     </div>
                     <h2 className="mt-5 text-xl font-black text-slate-950">
@@ -241,6 +307,23 @@ export default function ListarDoacoesPage() {
                             `${item.data_doacao}T00:00:00`,
                           ).toLocaleDateString('pt-BR')}
                         </p>
+                      )}
+                    </div>
+                    <div className="mt-6 flex gap-3">
+                      <button
+                        type="button"
+                        className="flex-1 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-700"
+                      >
+                        Quero Doar
+                      </button>
+                      {isAdmin && (
+                        <button
+                          type="button"
+                          onClick={() => setEditingItem(item)}
+                          className="flex-1 rounded-xl border border-slate-300 bg-slate-100 px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-200"
+                        >
+                          Editar
+                        </button>
                       )}
                     </div>
                   </>
@@ -266,6 +349,24 @@ export default function ListarDoacoesPage() {
                         {item.telefone || 'Não informado'}
                       </p>
                     </div>
+                    <div className="mt-6 flex gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setHistoryDonor(item)}
+                        className="flex-1 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-700"
+                      >
+                        Ver Doações
+                      </button>
+                      {isAdmin && (
+                        <button
+                          type="button"
+                          onClick={() => setEditingItem(item)}
+                          className="flex-1 rounded-xl border border-slate-300 bg-slate-100 px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-200"
+                        >
+                          Editar
+                        </button>
+                      )}
+                    </div>
                   </>
                 )}
               </article>
@@ -274,9 +375,9 @@ export default function ListarDoacoesPage() {
         )}
       </div>
 
-      {modal === 'doacao' && (
+      {createModal === 'doacao' && (
         <RegistrarDoacaoModal
-          onClose={() => setModal(null)}
+          onClose={() => setCreateModal(null)}
           onRegistered={(doacao) =>
             handleRegistered(
               doacao,
@@ -287,9 +388,9 @@ export default function ListarDoacoesPage() {
         />
       )}
 
-      {modal === 'doador' && (
+      {createModal === 'doador' && (
         <RegistrarDoadorModal
-          onClose={() => setModal(null)}
+          onClose={() => setCreateModal(null)}
           onRegistered={(doador) =>
             handleRegistered(
               doador,
@@ -297,6 +398,22 @@ export default function ListarDoacoesPage() {
               'Doador registrado com sucesso.',
             )
           }
+        />
+      )}
+
+      {editingItem && (
+        <EditarContribuicaoModal
+          item={editingItem}
+          type={isDoacoes ? 'doacao' : 'doador'}
+          onClose={() => setEditingItem(null)}
+          onUpdated={handleUpdated}
+        />
+      )}
+
+      {historyDonor && (
+        <HistoricoDoacoesModal
+          donor={historyDonor}
+          onClose={() => setHistoryDonor(null)}
         />
       )}
     </section>

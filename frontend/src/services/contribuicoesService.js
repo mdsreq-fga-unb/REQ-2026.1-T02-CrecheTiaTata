@@ -73,7 +73,7 @@ export function listarDoacoes() {
 }
 
 export function listarDoadores() {
-  return listar('/doadores');
+  return listar('/doadores?incluir_historico=true');
 }
 
 export async function registrarDoacao(doacao) {
@@ -102,4 +102,36 @@ export async function registrarDoador(doador) {
   );
 
   return data.doador;
+}
+
+async function atualizar(endpoint, id, changes, fallbackMessage) {
+  const response = await fetch(
+    buildApiUrl(`${endpoint}?id=${encodeURIComponent(id)}`),
+    {
+      method: 'PUT',
+      headers: buildHeaders(),
+      body: JSON.stringify(changes),
+    },
+  );
+  const data = await parseResponse(response, fallbackMessage);
+
+  return data.doacao ?? data.doador ?? data;
+}
+
+export function atualizarDoacao(id, changes) {
+  return atualizar(
+    '/doacoes',
+    id,
+    changes,
+    'Não foi possível atualizar a doação.',
+  );
+}
+
+export function atualizarDoador(id, changes) {
+  return atualizar(
+    '/doadores',
+    id,
+    changes,
+    'Não foi possível atualizar o doador.',
+  );
 }

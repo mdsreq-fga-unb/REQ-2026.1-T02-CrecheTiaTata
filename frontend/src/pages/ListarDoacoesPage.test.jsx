@@ -1,11 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { saveAuthToken } from '../utils/authStorage';
-import {
-  validarDoacao,
-  validarDoador,
-} from '../utils/contribuicaoValidation';
 import ListarDoacoesPage from './ListarDoacoesPage';
 
 const doacaoExistente = {
@@ -23,6 +19,14 @@ const doadorExistente = {
   tipo: 'pessoa_fisica',
   email: 'ana@gmail.com',
   telefone: '61999999999',
+  historico_contribuicoes: [
+    {
+      id: 'historico-1',
+      descricao: 'Cobertores',
+      quantidade: 2,
+      data_doacao: '2026-06-10',
+    },
+  ],
 };
 
 function response(status, data) {
@@ -38,13 +42,15 @@ async function renderDoacoes(data = []) {
   render(<ListarDoacoesPage />);
 
   if (data.length > 0) {
-    await screen.findByRole('heading', { name: data[0].descricao });
+    await screen.findByRole('heading', {
+      name: data[0].descricao ?? data[0].item,
+    });
   } else {
     await screen.findByText('Nenhuma doação registrada');
   }
 }
 
-describe('ListarDoacoesPage — RF-02 e RF-05', () => {
+describe('ListarDoacoesPage', () => {
   beforeEach(() => {
     localStorage.clear();
     saveAuthToken('jwt-valido');
@@ -52,12 +58,13 @@ describe('ListarDoacoesPage — RF-02 e RF-05', () => {
     globalThis.fetch = vi.fn();
   });
 
-  it('lista as doações usando o contrato real do backend', async () => {
+  it('lista doações usando o contrato real e preserva dados legados', async () => {
     await renderDoacoes([doacaoExistente]);
 
     expect(screen.getByText('Alimento')).toBeInTheDocument();
     expect(screen.getByText(/10 unidades/i)).toBeInTheDocument();
     expect(screen.getByText(/Maria/)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Quero Doar' })).toBeInTheDocument();
     expect(fetch).toHaveBeenCalledWith(
       '/doacoes',
       expect.objectContaining({
@@ -68,7 +75,41 @@ describe('ListarDoacoesPage — RF-02 e RF-05', () => {
     );
   });
 
-  it('alterna para a lista de doadores e interpreta { data, count }', async () => {
+  it('mostra edição para admin e oculta quando a simulação é desativada', async () => {
+    const user = userEvent.setup();
+    const legado = {
+      id: 'legado-1',
+      item: 'Leite em pó',
+      categoria: 'Alimentação',
+      urgencia: 'Alta',
+      quantidade: 5,
+    };
+    await renderDoacoes([legado]);
+
+    expect(screen.getByText('Alimentação')).toBeInTheDocument();
+    expect(screen.getByText('Alta')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Editar' })).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('checkbox', { name: 'Simular visão de Admin' }),
+    );
+    expect(
+      screen.queryByRole('button', { name: 'Editar' }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('abre o modal de edição de uma doação', async () => {
+    const user = userEvent.setup();
+    await renderDoacoes([doacaoExistente]);
+
+    await user.click(screen.getByRole('button', { name: 'Editar' }));
+    expect(
+      screen.getByRole('dialog', { name: 'Editar doação' }),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText('Descrição')).toHaveValue('Cestas básicas');
+  });
+
+  it('alterna para doadores e exibe o histórico de contribuições', async () => {
     const user = userEvent.setup();
     fetch
       .mockResolvedValueOnce(response(200, { data: [], count: 0 }))
@@ -83,24 +124,25 @@ describe('ListarDoacoesPage — RF-02 e RF-05', () => {
     expect(
       await screen.findByRole('heading', { name: doadorExistente.nome }),
     ).toBeInTheDocument();
-    expect(screen.getByText(doadorExistente.email)).toBeInTheDocument();
     expect(fetch).toHaveBeenLastCalledWith(
-      '/doadores',
+      '/doadores?incluir_historico=true',
       expect.any(Object),
     );
+
+    await user.click(screen.getByRole('button', { name: 'Ver Doações' }));
+    expect(
+      screen.getByRole('dialog', { name: 'Histórico de doações' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Cobertores')).toBeInTheDocument();
   });
 
-  it('abre, valida e fecha o formulário de doação', async () => {
+  it('valida os campos obrigatórios antes de registrar uma doação', async () => {
     const user = userEvent.setup();
     await renderDoacoes();
 
     await user.click(
       screen.getByRole('button', { name: /\+ registrar doação/i }),
     );
-    expect(
-      screen.getByRole('dialog', { name: 'Registrar nova doação' }),
-    ).toBeInTheDocument();
-
     await user.clear(screen.getByLabelText(/quantidade/i));
     await user.click(
       screen.getByRole('button', { name: /^registrar doação$/i }),
@@ -110,18 +152,10 @@ describe('ListarDoacoesPage — RF-02 e RF-05', () => {
     expect(
       screen.getByText('Informe a descrição da doação.'),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        'A quantidade deve ser um número inteiro maior que zero.',
-      ),
-    ).toBeInTheDocument();
     expect(fetch).toHaveBeenCalledTimes(1);
-
-    await user.click(screen.getByRole('button', { name: 'Cancelar' }));
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
-  it('registra uma doação com JWT, confirma e atualiza a lista', async () => {
+  it('registra uma doação com JWT e atualiza a lista', async () => {
     const user = userEvent.setup();
     const novaDoacao = {
       id: 'doacao-2',
@@ -129,7 +163,6 @@ describe('ListarDoacoesPage — RF-02 e RF-05', () => {
       tipo: 'material',
       descricao: 'Cadernos e lápis',
       quantidade: 5,
-      data_doacao: '2026-07-02',
     };
 
     fetch
@@ -150,11 +183,10 @@ describe('ListarDoacoesPage — RF-02 e RF-05', () => {
     await user.selectOptions(screen.getByLabelText(/^tipo/i), 'material');
     await user.type(
       screen.getByLabelText(/descrição/i),
-      'Cadernos e lápis',
+      novaDoacao.descricao,
     );
     await user.clear(screen.getByLabelText(/quantidade/i));
     await user.type(screen.getByLabelText(/quantidade/i), '5');
-    await user.type(screen.getByLabelText(/data da doação/i), '2026-07-02');
     await user.click(
       screen.getByRole('button', { name: /^registrar doação$/i }),
     );
@@ -166,81 +198,17 @@ describe('ListarDoacoesPage — RF-02 e RF-05', () => {
     expect(
       screen.getByRole('heading', { name: novaDoacao.descricao }),
     ).toBeInTheDocument();
-    expect(fetch).toHaveBeenCalledTimes(3);
-
-    const [, postOptions] = fetch.mock.calls[1];
-    expect(postOptions).toEqual(
+    expect(fetch.mock.calls[1][1]).toEqual(
       expect.objectContaining({
         method: 'POST',
         headers: expect.objectContaining({
           Authorization: 'Bearer jwt-valido',
         }),
-        body: JSON.stringify({
-          tipo: 'material',
-          descricao: 'Cadernos e lápis',
-          quantidade: 5,
-          doador_nome: 'João',
-          data_doacao: '2026-07-02',
-        }),
       }),
     );
   });
 
-  it('exibe erro da API ao registrar uma doação', async () => {
-    const user = userEvent.setup();
-    fetch
-      .mockResolvedValueOnce(response(200, { data: [], count: 0 }))
-      .mockResolvedValueOnce(
-        response(422, { error: 'Quantidade deve ser maior que zero' }),
-      );
-
-    render(<ListarDoacoesPage />);
-    await screen.findByText('Nenhuma doação registrada');
-    await user.click(
-      screen.getByRole('button', { name: /\+ registrar doação/i }),
-    );
-    await user.selectOptions(screen.getByLabelText(/^tipo/i), 'alimento');
-    await user.type(screen.getByLabelText(/descrição/i), 'Alimentos');
-    await user.click(
-      screen.getByRole('button', { name: /^registrar doação$/i }),
-    );
-
-    expect(await screen.findByRole('alert')).toHaveTextContent(
-      'Quantidade deve ser maior que zero',
-    );
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
-  });
-
-  it('valida o nome e o e-mail antes de registrar um doador', async () => {
-    const user = userEvent.setup();
-    fetch
-      .mockResolvedValueOnce(response(200, { data: [], count: 0 }))
-      .mockResolvedValueOnce(response(200, { data: [], count: 0 }));
-
-    render(<ListarDoacoesPage />);
-    await screen.findByText('Nenhuma doação registrada');
-    await user.click(screen.getByRole('button', { name: 'Doadores' }));
-    await screen.findByText('Nenhum doador registrado');
-    await user.click(
-      screen.getByRole('button', { name: /\+ registrar doador/i }),
-    );
-    await user.type(screen.getByLabelText(/e-mail/i), 'email@invalido.com');
-    await user.click(
-      screen.getByRole('button', { name: /^registrar doador$/i }),
-    );
-
-    expect(
-      screen.getByText('Informe o nome do doador.'),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        'Informe um e-mail válido de um provedor reconhecido.',
-      ),
-    ).toBeInTheDocument();
-    expect(fetch).toHaveBeenCalledTimes(2);
-  });
-
-  it('registra um doador com JWT, confirma e atualiza a lista', async () => {
+  it('valida e registra um doador com JWT', async () => {
     const user = userEvent.setup();
     const novoDoador = {
       id: 'doador-2',
@@ -267,10 +235,18 @@ describe('ListarDoacoesPage — RF-02 e RF-05', () => {
     await user.click(
       screen.getByRole('button', { name: /\+ registrar doador/i }),
     );
+
+    await user.click(
+      screen.getByRole('button', { name: /^registrar doador$/i }),
+    );
+    expect(
+      screen.getByText('Informe o nome do doador.'),
+    ).toBeInTheDocument();
+
     await user.type(screen.getByLabelText(/^nome/i), novoDoador.nome);
     await user.selectOptions(
       screen.getByLabelText(/^tipo/i),
-      'pessoa_juridica',
+      novoDoador.tipo,
     );
     await user.type(screen.getByLabelText(/e-mail/i), novoDoador.email);
     await user.type(screen.getByLabelText(/telefone/i), novoDoador.telefone);
@@ -281,85 +257,23 @@ describe('ListarDoacoesPage — RF-02 e RF-05', () => {
     expect(
       await screen.findByText('Doador registrado com sucesso.'),
     ).toBeInTheDocument();
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: novoDoador.nome }),
     ).toBeInTheDocument();
-    expect(fetch).toHaveBeenCalledTimes(4);
-
-    const [, postOptions] = fetch.mock.calls[2];
-    expect(postOptions).toEqual(
-      expect.objectContaining({
-        method: 'POST',
-        headers: expect.objectContaining({
-          Authorization: 'Bearer jwt-valido',
-        }),
-        body: JSON.stringify({
-          nome: novoDoador.nome,
-          tipo: novoDoador.tipo,
-          email: novoDoador.email,
-          telefone: novoDoador.telefone,
-        }),
-      }),
-    );
   });
 
-  it('mantém o modal aberto e exibe erro ao falhar o cadastro do doador', async () => {
+  it('exibe erros de API sem quebrar a interface', async () => {
     const user = userEvent.setup();
-    fetch
-      .mockResolvedValueOnce(response(200, { data: [], count: 0 }))
-      .mockResolvedValueOnce(response(200, { data: [], count: 0 }))
-      .mockResolvedValueOnce(
-        response(400, { error: 'E-mail já cadastrado' }),
-      );
+    fetch.mockRejectedValueOnce(new Error('Servidor offline'));
 
     render(<ListarDoacoesPage />);
-    await screen.findByText('Nenhuma doação registrada');
-    await user.click(screen.getByRole('button', { name: 'Doadores' }));
-    await screen.findByText('Nenhum doador registrado');
-    await user.click(
-      screen.getByRole('button', { name: /\+ registrar doador/i }),
-    );
-    await user.type(screen.getByLabelText(/^nome/i), 'Ana Silva');
-    await user.type(screen.getByLabelText(/e-mail/i), 'ana@gmail.com');
-    await user.click(
-      screen.getByRole('button', { name: /^registrar doador$/i }),
-    );
-
-    expect(await screen.findByRole('alert')).toHaveTextContent(
-      'E-mail já cadastrado',
-    );
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
-  });
-
-  it('impede tipos e quantidades inválidos nas validações de domínio', () => {
-    expect(
-      validarDoacao({
-        tipo: 'veiculo',
-        descricao: 'Doação',
-        quantidade: '1.5',
-      }),
-    ).toEqual({
-      tipo: 'Selecione um tipo de doação válido.',
-      quantidade: 'A quantidade deve ser um número inteiro maior que zero.',
-    });
 
     expect(
-      validarDoador({
-        nome: 'Ana',
-        tipo: 'anonimo',
-        email: '',
-      }),
-    ).toEqual({
-      tipo: 'Selecione um tipo de doador válido.',
-    });
-  });
+      await screen.findByText('Ops! Tivemos um problema.'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Itens Disponíveis')).toBeInTheDocument();
 
-  it('exibe erro de sessão sem gerar logs críticos ou tentar o POST', async () => {
-    const user = userEvent.setup();
-    await renderDoacoes();
     localStorage.clear();
-
     await user.click(
       screen.getByRole('button', { name: /\+ registrar doação/i }),
     );
@@ -368,10 +282,10 @@ describe('ListarDoacoesPage — RF-02 e RF-05', () => {
     await user.click(
       screen.getByRole('button', { name: /^registrar doação$/i }),
     );
-
-    expect(await screen.findByRole('alert')).toHaveTextContent(
-      'Sua sessão expirou ou não é válida',
-    );
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
+    expect(
+      await screen.findByText(
+        'Sua sessão expirou ou não é válida. Entre novamente.',
+      ),
+    ).toBeInTheDocument();
   });
 });

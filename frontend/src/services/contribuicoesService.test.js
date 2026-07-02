@@ -26,7 +26,7 @@ describe('contribuicoesService', () => {
 
   it.each([
     ['/doacoes', listarDoacoes],
-    ['/doadores', listarDoadores],
+    ['/doadores?incluir_historico=true', listarDoadores],
   ])('lista %s com JWT e normaliza a resposta do backend', async (url, fn) => {
     const item = { id: '1' };
     fetch.mockResolvedValue(response(200, { data: [item], count: 1 }));
