@@ -22,7 +22,7 @@ export default function LoginPage() {
   const isSignupMode = authMode === 'signup';
   const EMAIL_REGEX =  /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
   const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{6,64}$/;
-  const NAME_REGEX = /^(?=.{2,100}$)\p{L}+(?:[ '\-]\p{L}+)*$/u;
+  const NAME_REGEX = /^(?=.{2,100}$)\p{L}+(?:[ '-]\p{L}+)*$/u;
 
   function clearFieldError(field) {
     setFieldErrors((current) => ({ ...current, [field]: '' }));
@@ -111,7 +111,7 @@ export default function LoginPage() {
             alt=""
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-950 via-emerald-950/85 to-slate-950/40" />
+          <div className="absolute inset-0 bg-linear-to-br from-emerald-950 via-emerald-950/85 to-slate-950/40" />
           <div className="absolute inset-x-0 bottom-0 p-10 text-white">
             <span className="text-sm font-bold uppercase tracking-wide text-emerald-100">Área de doadores e voluntários</span>
             <h1 className="mt-3 text-4xl font-black leading-tight">Entrar ou criar conta</h1>

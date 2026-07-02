@@ -17,6 +17,8 @@ export default function ListarEntregasPage() {
       const data = await response.json();
       setItems(data);
     } catch (err) {
+      console.error(err);
+      alert("Ops, erro ao registrar entrega!");
       setItems([]);
     } finally {
       setIsLoading(false);
@@ -24,6 +26,7 @@ export default function ListarEntregasPage() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line
     fetchEntregas();
   }, []);
 
@@ -95,6 +98,7 @@ export default function ListarEntregasPage() {
                 setIsModalOpen(false);
                 fetchEntregas(); // Atualiza a lista automaticamente
               } catch (err) {
+                console.error(err);
                 alert("Ops, erro ao registrar entrega!");
               }
             }}>
