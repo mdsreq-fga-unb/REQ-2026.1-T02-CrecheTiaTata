@@ -65,10 +65,6 @@
 
 <div id="legend">
   <h4>Legenda</h4>
-  <div class="li"><div class="lbox" style="background:#e74c3c"></div>Problema</div>
-  <div class="li"><div class="lbox" style="background:#2c3e50"></div>Objetivo Geral</div>
-  <div class="li"><div class="lbox" style="background:#2980b9"></div>Objetivo Específico</div>
-  <div class="li"><div class="lbox" style="background:#16a085"></div>Sub-categoria</div>
   <div class="li"><div class="lbox" style="background:#8e44ad"></div>Req. Não Funcional (RNF)</div>
   <hr>
   <div style="font-size:10px;color:#666;margin-bottom:4px;font-weight:600;">Status RF</div>
@@ -99,56 +95,56 @@ const treeData = {
       {
         id:"oe1", name:"OE1", desc:"Controle de Doações", type:"oe",
         children:[
-          { id:"c-auth", name:"Controle de Acesso", type:"category", children:[
-            {id:"rf01",name:"RF-01",desc:"Autenticar Administrador",type:"rf",status:"wip"},
-            {id:"rf27",name:"RF-27",desc:"Login de Usuário",type:"rf",status:"todo"},
+          { id:"c-auth", name:"CP - Controle de Acesso", type:"category", children:[
+            {id:"rf01",name:"IT-01",desc:"Autenticar Administrador",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf27",name:"IT-27",desc:"Autenticar Usuário",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
           ]},
-          { id:"c-doa", name:"Cadastro de Doações", type:"category", children:[
-            {id:"rf02",name:"RF-02",desc:"Registrar Doação",type:"rf",status:"todo"},
-            {id:"rf03",name:"RF-03",desc:"Listar Doações",type:"rf",status:"wip"},
-            {id:"rf04",name:"RF-04",desc:"Editar Doação",type:"rf",status:"wip"},
+          { id:"c-doa", name:"CP - Cadastro de Doações", type:"category", children:[
+            {id:"rf02",name:"IT-02",desc:"Registrar Doação",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf03",name:"IT-03",desc:"Listar Doações",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf04",name:"IT-04",desc:"Editar Doação",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
           ]},
-          { id:"c-doad", name:"Registro de Doadores", type:"category", children:[
-            {id:"rf05",name:"RF-05",desc:"Registrar Doador",type:"rf",status:"todo"},
-            {id:"rf06",name:"RF-06",desc:"Listar Doadores",type:"rf",status:"wip"},
+          { id:"c-doad", name:"CP - Registro de Doadores", type:"category", children:[
+            {id:"rf05",name:"IT-05",desc:"Registrar Doador",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf06",name:"IT-06",desc:"Listar Doadores",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
           ]},
-          { id:"c-entr", name:"Registro de Entregas", type:"category", children:[
-            {id:"rf07",name:"RF-07",desc:"Registrar Entrega",type:"rf",status:"todo"},
-            {id:"rf08",name:"RF-08",desc:"Listar Entregas",type:"rf",status:"todo"},
+          { id:"c-entr", name:"CP - Registro de Entregas", type:"category", children:[
+            {id:"rf07",name:"IT-07",desc:"Registrar Entrega",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf08",name:"IT-08",desc:"Listar Entregas",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
           ]},
         ]
       },
       {
         id:"oe2", name:"OE2", desc:"Gestão de Voluntários", type:"oe",
         children:[
-          { id:"c-vol", name:"Cadastro de Voluntários", type:"category", children:[
-            {id:"rf09",name:"RF-09",desc:"Registrar Voluntário",type:"rf",status:"done"},
-            {id:"rf10",name:"RF-10",desc:"Listar Voluntários",type:"rf",status:"wip"},
-            {id:"rf22",name:"RF-22",desc:"Excluir Voluntário",type:"rf",status:"wip"},
-            {id:"rf24",name:"RF-24",desc:"Editar Voluntário",type:"rf",status:"wip"},
-            {id:"rf25",name:"RF-25",desc:"Histórico",type:"rf",status:"todo"},
-            {id:"rf26",name:"RF-26",desc:"Relatório",type:"rf",status:"todo"},
+          { id:"c-vol", name:"CP - Cadastro de Voluntários", type:"category", children:[
+            {id:"rf09",name:"IT-09",desc:"Registrar Voluntário",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf10",name:"IT-10",desc:"Listar Voluntários",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf22",name:"IT-22",desc:"Excluir Voluntário",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf24",name:"IT-24",desc:"Editar Voluntário",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf25",name:"IT-25",desc:"Histórico",type:"rf",status:"todo"},
+            {id:"rf26",name:"IT-26",desc:"Relatório",type:"rf",status:"todo"},
           ]},
-          { id:"c-disp", name:"Disponibilidade e Escala", type:"category", children:[
-            {id:"rf11",name:"RF-11",desc:"Registrar Disponibilidade",type:"rf",status:"wip"},
-            {id:"rf12",name:"RF-12",desc:"Editar Disponibilidade",type:"rf",status:"wip"},
-            {id:"rf13",name:"RF-13",desc:"Gerar Escala",type:"rf",status:"todo"},
-            {id:"rf23",name:"RF-23",desc:"Desalocar",type:"rf",status:"wip"},
+          { id:"c-disp", name:"CP - Disponibilidade e Escala", type:"category", children:[
+            {id:"rf11",name:"IT-11",desc:"Registrar Disponibilidade",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf12",name:"IT-12",desc:"Editar Disponibilidade",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf13",name:"IT-13",desc:"Gerar Escala",type:"rf",status:"todo"},
+            {id:"rf23",name:"IT-23",desc:"Desalocar",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
           ]},
-          { id:"c-evt", name:"Gestão de Eventos", type:"category", children:[
-            {id:"rf14",name:"RF-14",desc:"Registrar Evento",type:"rf",status:"todo"},
-            {id:"rf15",name:"RF-15",desc:"Listar Eventos",type:"rf",status:"todo"},
-            {id:"rf16",name:"RF-16",desc:"Associar Voluntário",type:"rf",status:"todo"},
-            {id:"rf17",name:"RF-17",desc:"Registrar Recursos",type:"rf",status:"todo"},
-            {id:"rf18",name:"RF-18",desc:"Resumo Recursos",type:"rf",status:"todo"},
+          { id:"c-evt", name:"CP - Gestão de Eventos", type:"category", children:[
+            {id:"rf14",name:"IT-14",desc:"Registrar Evento",type:"rf",status:"todo"},
+            {id:"rf15",name:"IT-15",desc:"Listar Eventos",type:"rf",status:"todo"},
+            {id:"rf16",name:"IT-16",desc:"Associar Voluntário",type:"rf",status:"todo"},
+            {id:"rf17",name:"IT-17",desc:"Registrar Recursos",type:"rf",status:"todo"},
+            {id:"rf18",name:"IT-18",desc:"Resumo Recursos",type:"rf",status:"todo"},
           ]},
         ]
       },
       {
         id:"oe3", name:"OE3", desc:"Centralização", type:"oe",
         children:[
-          { id:"c-pag", name:"Página / Vídeos / Localização", type:"category", children:[
-            {id:"rf19",name:"RF-19",desc:"Página Institucional",type:"rf",status:"done"},
+          { id:"c-pag", name:"CP - Página / Vídeos / Localização", type:"category", children:[
+            {id:"rf19",name:"IT-19",desc:"Página Institucional",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
           ]},
         ]
       },
@@ -156,8 +152,8 @@ const treeData = {
         id:"oe4", name:"OE4", desc:"Captação Digital", type:"oe",
         children:[
           { id:"c-sol", name:"Solicitações de Apoio", type:"category", children:[
-            {id:"rf20",name:"RF-20",desc:"Publicar Solicitação",type:"rf",status:"done"},
-            {id:"rf21",name:"RF-21",desc:"Listar Solicitações",type:"rf",status:"done"},
+            {id:"rf20",name:"IT-20",desc:"Publicar Solicitação",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
+            {id:"rf21",name:"IT-21",desc:"Listar Solicitações",type:"rf",status:"done", url:"/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog"},
           ]},
         ]
       },
@@ -186,13 +182,13 @@ const treeData = {
 // ──────────────────────────────────────────
 //  CONFIG
 // ──────────────────────────────────────────
-const NW = 112, NH = 54, GX = 16, GY = 72;
+const NW = 140, NH = 54, GX = 16, GY = 72;
 
 const C = {
-  problem:    { fill:"#e74c3c", stroke:"#c0392b", text:"#fff" },
+  problem:    { fill:"#2c3e50", stroke:"#1a252f", text:"#fff" },
   objective:  { fill:"#2c3e50", stroke:"#1a252f", text:"#fff" },
-  oe:         { fill:"#2980b9", stroke:"#1f618d", text:"#fff" },
-  category:   { fill:"#16a085", stroke:"#0e6655", text:"#fff" },
+  oe:         { fill:"#2c3e50", stroke:"#1a252f", text:"#fff" },
+  category:   { fill:"#2c3e50", stroke:"#1a252f", text:"#fff" },
   "rnf-group":{ fill:"#6c3483", stroke:"#512e5f", text:"#fff" },
   rnf:        { fill:"#8e44ad", stroke:"#6c3483", text:"#fff" },
   rf_done:    { fill:"#27ae60", stroke:"#1e8449", text:"#fff" },
@@ -342,12 +338,19 @@ function update(animate) {
     .attr("opacity", d => (d._ch && !d.children && d.depth > 0) ? 1 : 0);
 
   merged.on("click", (e, d) => {
-    e.stopPropagation();
-    if (!d._ch) return;
-    if (d.children) { d._ch = d.children; d.children = null; }
-    else { d.children = d._ch; }
-    update(true);
-  });
+  e.stopPropagation();
+  // Se o nó tem URL e não tem filhos colapsáveis, abre o link
+  if (d.data.url && !d._ch) {
+    window.open(d.data.url, "_blank");
+    return;
+  }
+  // Comportamento original: expandir/colapsar
+  if (!d._ch) return;
+  if (d.children) { d._ch = d.children; d.children = null; }
+  else { d.children = d._ch; }
+  update(true);
+});
+
 
   // Tooltip
   const tip = document.getElementById("tooltip");
