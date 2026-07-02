@@ -10,7 +10,7 @@ No contexto do **OpenUP**, o artefato equivalente ao backlog de metodologias ág
 
 ## 10.1 Itens de Trabalho {#itens-de-trabalho}
 
-A Lista de Itens de Trabalho contém todos os itens planejados para o sistema, descritos no formato OpenUP com a descrição direta do comportamento esperado. Rastreabilidade com RNFs e OEs disponível no [Fluxograma de Requisitos](./g-fluxograma-requisitos) e em [Verificação dos RNFs](../evidencias/Verificacao-RNFs).
+A Lista de Itens de Trabalho contém todos os itens planejados para o sistema, descritos no formato OpenUP com a descrição direta do comportamento esperado. Rastreabilidade com RNFs e OEs disponível no [Fluxograma de Requisitos](./h-requisitos/fluxograma.mdx) e em [Verificação dos RNFs](../evidencias/Verificacao-RNFs).
 
 | ID | Item de Trabalho | Caso de Uso | Descrição do Item de Trabalho |
 |---|---|---|---|
