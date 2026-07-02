@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>MVP – Creche Tia Tata</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; padding: 24px 20px; }
+  h1 { text-align:center; font-size:48px; font-style:italic; font-weight:900; margin-bottom:10px; color:#222; letter-spacing:4px; }
+
+  .legend { display:flex; gap:16px; justify-content:center; margin-bottom:18px; font-size:11px; color:#555; flex-wrap:wrap; }
+  .legend-item { display:flex; align-items:center; gap:5px; }
+  .lbox { width:13px; height:13px; border-radius:2px; box-shadow:1px 1px 3px rgba(0,0,0,0.2); }
+
+  .board { display:flex; flex-wrap:wrap; gap:13px; justify-content:center; max-width:920px; margin:0 auto; }
+
+  .card {
+    width:158px; min-height:110px; border-radius:2px;
+    padding:10px 9px 8px; box-shadow:2px 4px 8px rgba(0,0,0,0.17);
+    display:flex; flex-direction:column; gap:5px;
+  }
+  .card .uc-id   { font-weight:800; font-size:13px; color:#1a1a1a; }
+  .card .uc-name { flex:1; font-size:11px; color:#222; font-weight:600; line-height:1.35; }
+  .card .its     { font-size:9px; color:#555; font-style:italic; }
+  .card .meta    { font-size:10px; color:#444; }
+
+  .yellow { background:#FFD966; }
+  .cyan   { background:#9FC5E8; }
+  .green  { background:#B6D7A8; }
+
+  .out {
+    max-width:920px; margin:18px auto 0;
+    background:#fff0f0; border-left:4px solid #EA9999;
+    padding:10px 14px; border-radius:4px; font-size:12px; color:#555; line-height:1.7;
+  }
+  .out strong { color:#c0392b; }
+</style>
+</head>
+<body>
+<h1>MVP</h1>
+<div class="legend">
+  <div class="legend-item"><div class="lbox" style="background:#FFD966"></div>I = 4 — Essencial (D baixo)</div>
+  <div class="legend-item"><div class="lbox" style="background:#9FC5E8"></div>I = 4 — Essencial (D maior)</div>
+  <div class="legend-item"><div class="lbox" style="background:#B6D7A8"></div>I = 3 — Impacta o problema</div>
+</div>
+
+<div class="board">
+
+  <div class="card yellow">
+    <span class="uc-id">UC-08</span>
+    <span class="uc-name">Acessar Página Institucional</span>
+    <span class="its">IT-19</span>
+    <span class="meta">D = 1 · I = 4</span>
+  </div>
+
+  <div class="card yellow">
+    <span class="uc-id">UC-09</span>
+    <span class="uc-name">Publicar Solicitação de Apoio</span>
+    <span class="its">IT-20</span>
+    <span class="meta">D = 1 · I = 4</span>
+  </div>
+
+  <div class="card yellow">
+    <span class="uc-id">UC-10</span>
+    <span class="uc-name">Visualizar Solicitações de Apoio</span>
+    <span class="its">IT-21</span>
+    <span class="meta">D = 1 · I = 4</span>
+  </div>
+
+  <div class="card yellow">
+    <span class="uc-id">UC-05</span>
+    <span class="uc-name">Gerenciar Voluntários</span>
+    <span class="its">IT-09, IT-10, IT-22, IT-24</span>
+    <span class="meta">D = 1 · I = 4</span>
+  </div>
+
+  <div class="card yellow">
+    <span class="uc-id">UC-06</span>
+    <span class="uc-name">Disponibilidade e Escala</span>
+    <span class="its">IT-11, IT-12, IT-23</span>
+    <span class="meta">D = 1 · I = 4</span>
+  </div>
+
+  <div class="card cyan">
+    <span class="uc-id">UC-01</span>
+    <span class="uc-name">Autenticar no Sistema</span>
+    <span class="its">IT-01, IT-27</span>
+    <span class="meta">D = 2 · I = 4</span>
+  </div>
+
+  <div class="card green">
+    <span class="uc-id">UC-02</span>
+    <span class="uc-name">Gerenciar Doações</span>
+    <span class="its">IT-02, IT-03, IT-04</span>
+    <span class="meta">D = 1 · I = 3</span>
+  </div>
+
+  <div class="card green">
+    <span class="uc-id">UC-03</span>
+    <span class="uc-name">Gerenciar Doadores</span>
+    <span class="its">IT-05, IT-06</span>
+    <span class="meta">D = 1 · I = 3</span>
+  </div>
+
+  <div class="card cyan">
+    <span class="uc-id">UC-04</span>
+    <span class="uc-name">Gerenciar Entregas</span>
+    <span class="its">IT-07, IT-08</span>
+    <span class="meta">D = 2 · I = 3</span>
+  </div>
+
+</div>
+
+<div class="out">
+  <strong>Fora do MVP:</strong><br>
+  · IT-13 — Gerar Escala Automática (UC-06, D=3)<br>
+  · IT-14 a IT-18 — Gerenciar Eventos (UC-07)<br>
+  · IT-25 — Histórico do Voluntário (UC-05)<br>
+  · IT-26 — Relatório de Participação (UC-05)
+</div>
+</body>
+</html>
