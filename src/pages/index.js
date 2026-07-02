@@ -29,6 +29,50 @@ function HomepageHeader() {
                 Documentação &rarr;
               </Link>
             </div>
+            {/* Cards de acesso rápido */}
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginTop: '0.5rem' }}>
+  {[
+    {
+      label: 'Planejamento',
+      description: 'Iterações, cronograma e organização do projeto',
+      icon: '',
+      to: '/docs/Planejamento-e-Organizacao/Planejamento',
+    },
+    {
+      label: 'Rastreabilidade',
+      description: 'Fluxograma de requisitos e vínculos entre RFs, RNFs e OEs',
+      icon: '',
+      href: '/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/h-requisitos/fluxograma',
+    },
+    {
+      label: 'Itens de Trabalho e MVP',
+      description: 'Itens de trabalho e board do produto mínimo viável',
+      icon: '',
+      href: '/REQ-2026.1-T02-CrecheTiaTata/unidade3/docs/visao-produto-projeto/j-backlog#priorizacao',
+    },
+  ].map(({ label, description, icon, to, href }) => {
+    const cardStyle = {
+      display: 'flex', flexDirection: 'column', gap: '0.4rem',
+      padding: '1.1rem 1.4rem', borderRadius: '12px',
+      border: '1.5px solid var(--ifm-color-primary)',
+      textDecoration: 'none', color: 'inherit',
+      transition: 'all 0.25s ease',
+      background: 'var(--ifm-card-background-color)',
+      flex: '1 1 180px', minWidth: '160px', maxWidth: '240px',
+    };
+    const inner = (
+      <>
+        <span style={{ fontSize: '1.5rem', lineHeight: 1 }}>{icon}</span>
+        <span style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--ifm-color-primary)' }}>{label}</span>
+        <span style={{ fontSize: '0.8rem', opacity: 0.75, lineHeight: 1.4 }}>{description}</span>
+      </>
+    );
+    return href
+      ? <a key={label} href={href} style={cardStyle}>{inner}</a>
+      : <Link key={label} to={to} style={cardStyle}>{inner}</Link>;
+  })}
+</div>
+
           </div>
 
           {/* Lado Direito: Imagem/Logo */}
