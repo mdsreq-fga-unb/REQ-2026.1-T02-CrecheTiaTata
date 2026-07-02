@@ -10,7 +10,7 @@ sidebar_position: 1
 
 [Issue # 65 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/65)
 
-Caso de Uso relacionado: [UC-01](../visao-produto-projeto/k-casos-de-uso#uc-01--autenticar-no-sistema)
+Caso de Uso relacionado: [UC-01](../../visao-produto-projeto/k-casos-de-uso#uc-01--autenticar-no-sistema)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -23,7 +23,7 @@ Caso de Uso relacionado: [UC-01](../visao-produto-projeto/k-casos-de-uso#uc-01--
 
 [Issue # 67 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/67)
 
-Caso de Uso relacionado: [UC-01](../visao-produto-projeto/k-casos-de-uso#uc-01--autenticar-no-sistema)
+Caso de Uso relacionado: [UC-01](../../visao-produto-projeto/k-casos-de-uso#uc-01--autenticar-no-sistema)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -38,7 +38,7 @@ Caso de Uso relacionado: [UC-01](../visao-produto-projeto/k-casos-de-uso#uc-01--
 
 [Issue # 71 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/71)
 
-Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
+Caso de Uso relacionado: [UC-02](../../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -51,7 +51,7 @@ Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--
 
 [Issue # 68 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/68)
 
-Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
+Caso de Uso relacionado: [UC-02](../../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -66,7 +66,7 @@ Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--
 
 [Issue # 73 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/73)
 
-Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
+Caso de Uso relacionado: [UC-02](../../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -79,7 +79,7 @@ Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--
 
 [Issue # 76 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/76)
 
-Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
+Caso de Uso relacionado: [UC-02](../../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -94,7 +94,7 @@ Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--
 
 [Issue # 75 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/75)
 
-Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
+Caso de Uso relacionado: [UC-02](../../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -107,7 +107,7 @@ Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--
 
 [Issue # 77 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/77)
 
-Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
+Caso de Uso relacionado: [UC-02](../../visao-produto-projeto/k-casos-de-uso#uc-02--gerenciar-doações)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -122,7 +122,7 @@ Caso de Uso relacionado: [UC-02](../visao-produto-projeto/k-casos-de-uso#uc-02--
 
 [Issue # 72 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/72)
 
-Caso de Uso relacionado: [UC-03](../visao-produto-projeto/k-casos-de-uso#uc-03--gerenciar-doadores)
+Caso de Uso relacionado: [UC-03](../../visao-produto-projeto/k-casos-de-uso#uc-03--gerenciar-doadores)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -136,7 +136,7 @@ Caso de Uso relacionado: [UC-03](../visao-produto-projeto/k-casos-de-uso#uc-03--
 
 [Issue # 69 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/69)
 
-Caso de Uso relacionado: [UC-03](../visao-produto-projeto/k-casos-de-uso#uc-03--gerenciar-doadores)
+Caso de Uso relacionado: [UC-03](../../visao-produto-projeto/k-casos-de-uso#uc-03--gerenciar-doadores)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -151,7 +151,7 @@ Caso de Uso relacionado: [UC-03](../visao-produto-projeto/k-casos-de-uso#uc-03--
 
 [Issue # 74 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/74)
 
-Caso de Uso relacionado: [UC-03](../visao-produto-projeto/k-casos-de-uso#uc-03--gerenciar-doadores)
+Caso de Uso relacionado: [UC-03](../../visao-produto-projeto/k-casos-de-uso#uc-03--gerenciar-doadores)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -164,7 +164,7 @@ Caso de Uso relacionado: [UC-03](../visao-produto-projeto/k-casos-de-uso#uc-03--
 
 [Issue # 78 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/78)
 
-Caso de Uso relacionado: [UC-03](../visao-produto-projeto/k-casos-de-uso#uc-03--gerenciar-doadores)
+Caso de Uso relacionado: [UC-03](../../visao-produto-projeto/k-casos-de-uso#uc-03--gerenciar-doadores)
 
 | # | Critério | Status |
 |---|---|:---:|

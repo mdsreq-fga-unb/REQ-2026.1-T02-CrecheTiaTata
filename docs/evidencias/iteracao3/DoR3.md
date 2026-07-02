@@ -22,7 +22,7 @@ sidebar_position: 1
 
 [Issue # 20 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/20)
 
-Caso de Uso relacionado: [UC-08](../visao-produto-projeto/k-casos-de-uso#uc-08--acessar-página-institucional)
+Caso de Uso relacionado: [UC-08](../../visao-produto-projeto/k-casos-de-uso#uc-08--acessar-página-institucional)
 
 | # | Critério | Status |
 |---|---|:---:|

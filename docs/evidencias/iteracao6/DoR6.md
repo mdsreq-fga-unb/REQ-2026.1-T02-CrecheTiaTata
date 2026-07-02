@@ -15,7 +15,7 @@ sidebar_position: 1
 
 [Issue # 124 - Frontend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/124)
 
-Caso de Uso relacionado: [UC-04](../visao-produto-projeto/k-casos-de-uso#uc-04--gerenciar-entregas)
+Caso de Uso relacionado: [UC-04](../../visao-produto-projeto/k-casos-de-uso#uc-04--gerenciar-entregas)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -28,7 +28,7 @@ Caso de Uso relacionado: [UC-04](../visao-produto-projeto/k-casos-de-uso#uc-04--
 
 [Issue # 97 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/97)
 
-Caso de Uso relacionado: [UC-04](../visao-produto-projeto/k-casos-de-uso#uc-04--gerenciar-entregas)
+Caso de Uso relacionado: [UC-04](../../visao-produto-projeto/k-casos-de-uso#uc-04--gerenciar-entregas)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -43,7 +43,7 @@ Caso de Uso relacionado: [UC-04](../visao-produto-projeto/k-casos-de-uso#uc-04--
 
 [Issue # 122 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/122)
 
-Caso de Uso relacionado: [UC-04](../visao-produto-projeto/k-casos-de-uso#uc-04--gerenciar-entregas)
+Caso de Uso relacionado: [UC-04](../../visao-produto-projeto/k-casos-de-uso#uc-04--gerenciar-entregas)
 
 | # | Critério | Status |
 |---|---|:---:|
@@ -54,7 +54,7 @@ Caso de Uso relacionado: [UC-04](../visao-produto-projeto/k-casos-de-uso#uc-04--
 
 [Issue #98 - Backend](https://github.com/mdsreq-fga-unb/REQ-2026.1-T02-CrecheTiaTata/issues/98)
 
-Caso de Uso relacionado: [UC-04](../visao-produto-projeto/k-casos-de-uso#uc-04--gerenciar-entregas)
+Caso de Uso relacionado: [UC-04](../../visao-produto-projeto/k-casos-de-uso#uc-04--gerenciar-entregas)
 
 | # | Critério | Status |
 |---|---|:---:|
