@@ -3,16 +3,8 @@ import { clearAuthToken } from '../utils/authStorage';
 import { navigateTo } from '../utils/navigation';
 import AdminNavbar from '../components/layout/AdminNavbar';
 
-const tabs = [
-  { key: 'inicio', label: 'Início' },
-  { key: 'voluntarios', label: 'Voluntários' },
-  { key: 'pedidos', label: 'Pedidos' },
-  { key: 'doacoes', label: 'Doações' },
-];
-
-
 // dxei com uns valores pra testa, mas vai ter a requisição
-const getTabContent = (setActiveTab) => ({
+const getTabContent = () => ({
   inicio: {
     label: 'Início',
     title: 'Painel inicial',
@@ -48,7 +40,7 @@ const getTabContent = (setActiveTab) => ({
       { label: 'Pedidos concluídos', value: '1' },
     ],
     acoes: [
-        { label: 'Acessar pedidos', onClick: () => {} },
+        { label: 'Acessar pedidos', onClick: () => navigateTo('/solicitacoes-apoio') },
 
     ],
   },
@@ -61,14 +53,14 @@ const getTabContent = (setActiveTab) => ({
       { label: 'Doações agendadas', value: '1' },
     ],
     acoes: [
-      { label: 'Acessar Doações', onClick: () => {} },
+      { label: 'Acessar Doações', onClick: () => navigateTo('/doacoes') },
     ],
   },
 });
 
 export default function GerenciamentoPage() {
   const [activeTab, setActiveTab] = useState('inicio');
-  const tabContent = getTabContent(setActiveTab);
+  const tabContent = getTabContent();
   const active = tabContent[activeTab];
 
   const handleLogout = () => {

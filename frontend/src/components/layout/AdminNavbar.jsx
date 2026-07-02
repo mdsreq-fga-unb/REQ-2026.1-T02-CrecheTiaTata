@@ -52,6 +52,14 @@ export default function AdminNavbar({ activeTab, onTabSelect, onLogout, onPublic
 
           <button
             type="button"
+            onClick={onPublicPage}
+            className="rounded-full px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-emerald-100 hover:text-emerald-700"
+          >
+            Página pública
+          </button>
+
+          <button
+            type="button"
             onClick={onLogout}
             className="rounded-full bg-emerald-600 px-5 py-2.5 text-white shadow-sm transition hover:bg-emerald-700"
           >
@@ -92,6 +100,13 @@ export default function AdminNavbar({ activeTab, onTabSelect, onLogout, onPublic
             ))}
 
             <div className="mt-2 border-t border-emerald-100 pt-3">
+              <button
+                type="button"
+                onClick={onPublicPage}
+                className="mb-1 w-full rounded px-4 py-3 text-left text-sm font-semibold text-slate-600 transition-colors hover:bg-emerald-100 hover:text-emerald-700"
+              >
+                Página pública
+              </button>
               <button
                 type="button"
                 onClick={onLogout}

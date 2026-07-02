@@ -182,6 +182,11 @@ describe('GerenciamentoPage', () => {
     it('exibe o botão "Acessar pedidos"', () => {
       expect(screen.getByRole('button', { name: 'Acessar pedidos' })).toBeInTheDocument();
     });
+
+    it('navega para a lista de solicitações de apoio', () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Acessar pedidos' }));
+      expect(navigateTo).toHaveBeenCalledWith('/solicitacoes-apoio');
+    });
   });
 
   describe('Conteúdo da aba Doações', () => {
@@ -197,6 +202,11 @@ describe('GerenciamentoPage', () => {
 
     it('exibe o botão "Acessar Doações"', () => {
       expect(screen.getByRole('button', { name: 'Acessar Doações' })).toBeInTheDocument();
+    });
+
+    it('navega para o fluxo de cadastro de doações e doadores', () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Acessar Doações' }));
+      expect(navigateTo).toHaveBeenCalledWith('/doacoes');
     });
   });
 

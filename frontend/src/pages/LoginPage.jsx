@@ -22,7 +22,7 @@ export default function LoginPage() {
   const isSignupMode = authMode === 'signup';
   const EMAIL_REGEX =  /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
   const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{6,64}$/;
-  const NAME_REGEX = /^(?=.{2,100}$)\p{L}+(?:[ '\-]\p{L}+)*$/u;
+  const NAME_REGEX = /^(?=.{2,100}$)\p{L}+(?:[ '-]\p{L}+)*$/u;
 
   function clearFieldError(field) {
     setFieldErrors((current) => ({ ...current, [field]: '' }));

@@ -12,6 +12,7 @@ import PasswordRecoveryPage from "./pages/PasswordRecoveryPage";
 import SobrePage from "./pages/SobrePage";
 import NecessidadesPage from "./pages/necessidades";
 import DoarPage from "./pages/DoarPage";
+import ListarSolicitacoesPage from "./pages/ListarSolicitacoesPage";
 
 import { isAuthTokenValid } from "./utils/authStorage";
 
@@ -43,6 +44,7 @@ function App() {
     const isNecessidadesPage = path === "/necessidades";
     const isDoarPage = path === "/doar";
     const isDoacoesPage = path === "/doacoes";
+    const isSolicitacoesApoioPage = path === "/solicitacoes-apoio";
 
     const isHomePage =
         !isSobrePage &&
@@ -56,7 +58,8 @@ function App() {
         !isVoluntariosPage &&
         !isNecessidadesPage &&
         !isDoarPage &&
-        !isDoacoesPage;
+        !isDoacoesPage &&
+        !isSolicitacoesApoioPage;
 
     return (
         <main className="min-h-screen bg-stone-50 font-sans text-slate-900">
@@ -64,7 +67,8 @@ function App() {
                 !isPasswordRecoveryPage &&
                 !isGerenciamentoPage &&
                 !isSolicitacoesPage &&
-                !isVoluntariosPage && (
+                !isVoluntariosPage &&
+                !isSolicitacoesApoioPage && (
                     <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
                 )}
             {isSobrePage && <SobrePage />}
@@ -80,6 +84,7 @@ function App() {
             {isNecessidadesPage && <NecessidadesPage />}
             {isDoarPage && <DoarPage />}
             {isDoacoesPage && <ListarDoacoesPage />}
+            {isSolicitacoesApoioPage && <ListarSolicitacoesPage />}
             {isPerfilPage &&
                 (isAuthTokenValid() ? <AtualizarPerfilPage /> : <LoginPage />)}
             {isHomePage && <HomePage />}
@@ -89,7 +94,8 @@ function App() {
                 !isPasswordRecoveryPage &&
                 !isGerenciamentoPage &&
                 !isSolicitacoesPage &&
-                !isVoluntariosPage && <Footer />}
+                !isVoluntariosPage &&
+                !isSolicitacoesApoioPage && <Footer />}
         </main>
     );
 }
