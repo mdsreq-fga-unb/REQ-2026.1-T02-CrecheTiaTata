@@ -1,107 +1,291 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { saveAuthToken } from '../utils/authStorage';
 import ListarDoacoesPage from './ListarDoacoesPage';
 
-// Mock do fetch para não depender do backend real durante os testes
-globalThis.fetch = vi.fn();
+const doacaoExistente = {
+  id: 'doacao-1',
+  doador_nome: 'Maria',
+  tipo: 'alimento',
+  descricao: 'Cestas básicas',
+  quantidade: 10,
+  data_doacao: '2026-07-01',
+};
 
-describe('Página de Listar Doações e Doadores', () => {
-  
-  beforeEach(() => {
-    vi.clearAllMocks(); // Limpa as chamadas falsas antes de cada teste
-  });
+const doadorExistente = {
+  id: 'doador-1',
+  nome: 'Ana Silva',
+  tipo: 'pessoa_fisica',
+  email: 'ana@gmail.com',
+  telefone: '61999999999',
+  historico_contribuicoes: [
+    {
+      id: 'historico-1',
+      descricao: 'Cobertores',
+      quantidade: 2,
+      data_doacao: '2026-06-10',
+    },
+  ],
+};
 
-  it('deve renderizar as abas e o toggle de admin corretamente', async () => {
-    fetch.mockResolvedValueOnce({ ok: true, json: async () => [] });
-    render(<ListarDoacoesPage />);
-    
-    expect(screen.getByText('Itens Disponíveis')).toBeInTheDocument();
-    expect(screen.getByText('Doadores')).toBeInTheDocument();
-    expect(screen.getByText('Simular visão de Admin')).toBeInTheDocument();
-  });
+function response(status, data) {
+  return {
+    ok: status >= 200 && status < 300,
+    status,
+    json: vi.fn().mockResolvedValue(data),
+  };
+}
 
-  it('deve exibir as doações vindas da API', async () => {
-    const mockDoacoes = [
-      { id: 1, item: 'Leite em pó (Lata)', quantidade: 15, categoria: 'Alimentação', urgencia: 'Alta' }
-    ];
-    fetch.mockResolvedValueOnce({ ok: true, json: async () => mockDoacoes });
-    
-    render(<ListarDoacoesPage />);
+async function renderDoacoes(data = []) {
+  fetch.mockResolvedValueOnce(response(200, { data, count: data.length }));
+  render(<ListarDoacoesPage />);
 
-    // Aguarda o loading sumir e o item aparecer na tela
-    await waitFor(() => {
-      expect(screen.getByText('Leite em pó (Lata)')).toBeInTheDocument();
+  if (data.length > 0) {
+    await screen.findByRole('heading', {
+      name: data[0].descricao ?? data[0].item,
     });
+  } else {
+    await screen.findByText('Nenhuma doação registrada');
+  }
+}
+
+describe('ListarDoacoesPage', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    saveAuthToken('jwt-valido');
+    vi.restoreAllMocks();
+    globalThis.fetch = vi.fn();
+  });
+
+  it('lista doações usando o contrato real e preserva dados legados', async () => {
+    await renderDoacoes([doacaoExistente]);
+
+    expect(screen.getByText('Alimento')).toBeInTheDocument();
+    expect(screen.getByText(/10 unidades/i)).toBeInTheDocument();
+    expect(screen.getByText(/Maria/)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Quero Doar' })).toBeInTheDocument();
+    expect(fetch).toHaveBeenCalledWith(
+      '/doacoes',
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          Authorization: 'Bearer jwt-valido',
+        }),
+      }),
+    );
+  });
+
+  it('mostra edição para admin e oculta quando a simulação é desativada', async () => {
+    const user = userEvent.setup();
+    const legado = {
+      id: 'legado-1',
+      item: 'Leite em pó',
+      categoria: 'Alimentação',
+      urgencia: 'Alta',
+      quantidade: 5,
+    };
+    await renderDoacoes([legado]);
 
     expect(screen.getByText('Alimentação')).toBeInTheDocument();
-    expect(screen.getByText('Quero Doar')).toBeInTheDocument();
-    
-    // Como o admin é true por padrão, o botão Editar deve estar lá
-    expect(screen.getByText('Editar')).toBeInTheDocument();
+    expect(screen.getByText('Alta')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Editar' })).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('checkbox', { name: 'Simular visão de Admin' }),
+    );
+    expect(
+      screen.queryByRole('button', { name: 'Editar' }),
+    ).not.toBeInTheDocument();
   });
 
-  it('não deve mostrar o botão Editar na aba de doações se o Admin estiver desativado', async () => {
-    const mockDoacoes = [
-      { id: 1, item: 'Roupa de Frio', quantidade: 5, categoria: 'Vestuário', urgencia: 'Média' }
-    ];
-    fetch.mockResolvedValueOnce({ ok: true, json: async () => mockDoacoes });
-    
+  it('abre o modal de edição de uma doação', async () => {
+    const user = userEvent.setup();
+    await renderDoacoes([doacaoExistente]);
+
+    await user.click(screen.getByRole('button', { name: 'Editar' }));
+    expect(
+      screen.getByRole('dialog', { name: 'Editar doação' }),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText('Descrição')).toHaveValue('Cestas básicas');
+  });
+
+  it('alterna para doadores e exibe o histórico de contribuições', async () => {
+    const user = userEvent.setup();
+    fetch
+      .mockResolvedValueOnce(response(200, { data: [], count: 0 }))
+      .mockResolvedValueOnce(
+        response(200, { data: [doadorExistente], count: 1 }),
+      );
+
     render(<ListarDoacoesPage />);
+    await screen.findByText('Nenhuma doação registrada');
+    await user.click(screen.getByRole('button', { name: 'Doadores' }));
 
-    await waitFor(() => {
-      expect(screen.getByText('Roupa de Frio')).toBeInTheDocument();
-    });
+    expect(
+      await screen.findByRole('heading', { name: doadorExistente.nome }),
+    ).toBeInTheDocument();
+    expect(fetch).toHaveBeenLastCalledWith(
+      '/doadores?incluir_historico=true',
+      expect.any(Object),
+    );
 
-    // Desmarca o checkbox de Admin
-    const adminCheckbox = screen.getByRole('checkbox');
-    fireEvent.click(adminCheckbox);
-
-    // O botão Editar não pode mais estar na tela
-    expect(screen.queryByText('Editar')).not.toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Ver Doações' }));
+    expect(
+      screen.getByRole('dialog', { name: 'Histórico de doações' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Cobertores')).toBeInTheDocument();
   });
 
-  it('deve exibir doadores com telefone e abrir o modal de histórico ao clicar em Ver Doações', async () => {
-    // 1º Fetch (aba default de doações)
-    fetch.mockResolvedValueOnce({ ok: true, json: async () => [] });
+  it('valida os campos obrigatórios antes de registrar uma doação', async () => {
+    const user = userEvent.setup();
+    await renderDoacoes();
+
+    await user.click(
+      screen.getByRole('button', { name: /\+ registrar doação/i }),
+    );
+    await user.clear(screen.getByLabelText(/quantidade/i));
+    await user.click(
+      screen.getByRole('button', { name: /^registrar doação$/i }),
+    );
+
+    expect(screen.getByText('Selecione o tipo da doação.')).toBeInTheDocument();
+    expect(
+      screen.getByText('Informe a descrição da doação.'),
+    ).toBeInTheDocument();
+    expect(fetch).toHaveBeenCalledTimes(1);
+  });
+
+  it('registra uma doação com JWT e atualiza a lista', async () => {
+    const user = userEvent.setup();
+    const novaDoacao = {
+      id: 'doacao-2',
+      doador_nome: 'João',
+      tipo: 'material',
+      descricao: 'Cadernos e lápis',
+      quantidade: 5,
+    };
+
+    fetch
+      .mockResolvedValueOnce(response(200, { data: [], count: 0 }))
+      .mockResolvedValueOnce(
+        response(201, { registrada: true, doacao: novaDoacao }),
+      )
+      .mockResolvedValueOnce(
+        response(200, { data: [novaDoacao], count: 1 }),
+      );
+
     render(<ListarDoacoesPage />);
+    await screen.findByText('Nenhuma doação registrada');
+    await user.click(
+      screen.getByRole('button', { name: /\+ registrar doação/i }),
+    );
+    await user.type(screen.getByLabelText(/nome do doador/i), 'João');
+    await user.selectOptions(screen.getByLabelText(/^tipo/i), 'material');
+    await user.type(
+      screen.getByLabelText(/descrição/i),
+      novaDoacao.descricao,
+    );
+    await user.clear(screen.getByLabelText(/quantidade/i));
+    await user.type(screen.getByLabelText(/quantidade/i), '5');
+    await user.click(
+      screen.getByRole('button', { name: /^registrar doação$/i }),
+    );
 
-    // 2º Fetch (aba de doadores com os novos dados)
-    const mockDoadores = [
-      { 
-        id: 1, nome: 'Lorena Ribeiro', email: 'lorena@email.com', telefone: '(61) 99999-2222',
-        historico: [{ id: 101, item: 'Cobertor', quantidade: 2, data: '10/06/2026' }]
-      }
-    ];
-    fetch.mockResolvedValueOnce({ ok: true, json: async () => mockDoadores });
-    
-    // Simula clique na aba Doadores
-    fireEvent.click(screen.getByText('Doadores'));
-
-    await waitFor(() => {
-      expect(screen.getByText('Lorena Ribeiro')).toBeInTheDocument();
-    });
-    
-    // Verifica se o novo campo de telefone renderizou
-    expect(screen.getByText('(61) 99999-2222')).toBeInTheDocument();
-
-    // Clica no botão Ver Doações do card
-    fireEvent.click(screen.getByText('Ver Doações'));
-
-    // Verifica se o modal de histórico abriu com as informações certas
-    expect(screen.getByText('Histórico de Doações')).toBeInTheDocument();
-    expect(screen.getByText('Cobertor')).toBeInTheDocument();
+    expect(
+      await screen.findByText('Doação registrada com sucesso.'),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: novaDoacao.descricao }),
+    ).toBeInTheDocument();
+    expect(fetch.mock.calls[1][1]).toEqual(
+      expect.objectContaining({
+        method: 'POST',
+        headers: expect.objectContaining({
+          Authorization: 'Bearer jwt-valido',
+        }),
+      }),
+    );
   });
 
-  it('deve lidar com falha na API graciosamente sem quebrar a interface', async () => {
-    // Força erro no fetch
+  it('valida e registra um doador com JWT', async () => {
+    const user = userEvent.setup();
+    const novoDoador = {
+      id: 'doador-2',
+      nome: 'Empresa Solidária',
+      tipo: 'pessoa_juridica',
+      email: 'contato@gmail.com',
+      telefone: '6133334444',
+    };
+
+    fetch
+      .mockResolvedValueOnce(response(200, { data: [], count: 0 }))
+      .mockResolvedValueOnce(response(200, { data: [], count: 0 }))
+      .mockResolvedValueOnce(
+        response(201, { registrado: true, doador: novoDoador }),
+      )
+      .mockResolvedValueOnce(
+        response(200, { data: [novoDoador], count: 1 }),
+      );
+
+    render(<ListarDoacoesPage />);
+    await screen.findByText('Nenhuma doação registrada');
+    await user.click(screen.getByRole('button', { name: 'Doadores' }));
+    await screen.findByText('Nenhum doador registrado');
+    await user.click(
+      screen.getByRole('button', { name: /\+ registrar doador/i }),
+    );
+
+    await user.click(
+      screen.getByRole('button', { name: /^registrar doador$/i }),
+    );
+    expect(
+      screen.getByText('Informe o nome do doador.'),
+    ).toBeInTheDocument();
+
+    await user.type(screen.getByLabelText(/^nome/i), novoDoador.nome);
+    await user.selectOptions(
+      screen.getByLabelText(/^tipo/i),
+      novoDoador.tipo,
+    );
+    await user.type(screen.getByLabelText(/e-mail/i), novoDoador.email);
+    await user.type(screen.getByLabelText(/telefone/i), novoDoador.telefone);
+    await user.click(
+      screen.getByRole('button', { name: /^registrar doador$/i }),
+    );
+
+    expect(
+      await screen.findByText('Doador registrado com sucesso.'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: novoDoador.nome }),
+    ).toBeInTheDocument();
+  });
+
+  it('exibe erros de API sem quebrar a interface', async () => {
+    const user = userEvent.setup();
     fetch.mockRejectedValueOnce(new Error('Servidor offline'));
+
     render(<ListarDoacoesPage />);
 
-    await waitFor(() => {
-      expect(screen.queryByText('Carregando...')).not.toBeInTheDocument();
-    });
+    expect(
+      await screen.findByText('Ops! Tivemos um problema.'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Itens Disponíveis')).toBeInTheDocument();
 
-    // Deve mostrar a mensagem de erro que fizemos na tela
-    expect(screen.getByText('Ops! Tivemos um problema.')).toBeInTheDocument();
+    localStorage.clear();
+    await user.click(
+      screen.getByRole('button', { name: /\+ registrar doação/i }),
+    );
+    await user.selectOptions(screen.getByLabelText(/^tipo/i), 'roupa');
+    await user.type(screen.getByLabelText(/descrição/i), 'Roupas infantis');
+    await user.click(
+      screen.getByRole('button', { name: /^registrar doação$/i }),
+    );
+    expect(
+      await screen.findByText(
+        'Sua sessão expirou ou não é válida. Entre novamente.',
+      ),
+    ).toBeInTheDocument();
   });
 });

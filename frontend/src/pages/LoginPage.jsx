@@ -22,7 +22,7 @@ export default function LoginPage() {
   const isSignupMode = authMode === 'signup';
   const EMAIL_REGEX =  /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
   const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{6,64}$/;
-  const NAME_REGEX = /^(?=.{2,100}$)\p{L}+(?:[ '\-]\p{L}+)*$/u;
+  const NAME_REGEX = /^(?=.{2,100}$)\p{L}+(?:[ '-]\p{L}+)*$/u;
 
   function clearFieldError(field) {
     setFieldErrors((current) => ({ ...current, [field]: '' }));
@@ -123,6 +123,14 @@ export default function LoginPage() {
 
         <div className="flex items-center justify-center px-5 py-10 sm:px-8 lg:px-12">
           <div className="w-full max-w-md">
+            <button
+              className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-emerald-700 transition hover:text-emerald-900"
+              onClick={() => navigateTo('/')}
+              type="button"
+            >
+              ← Voltar ao início
+            </button>
+
             <div className="lg:hidden">
               <span className="text-sm font-bold uppercase tracking-wide text-emerald-700">Área de doadores e voluntários</span>
               <h1 className="mt-3 text-3xl font-black leading-tight text-slate-950 sm:text-4xl">

@@ -3,7 +3,7 @@ import { describe, expect, it, vi, beforeEach } from 'vitest';
 import AtualizarPerfilPage from './AtualizarPerfilPage';
 import { navigateTo } from '../utils/navigation';
 import { clearAuthToken } from '../utils/authStorage';
-import { deleteAccount, updateProfile } from '../services/profileService';
+import { updateProfile } from '../services/profileService';
 
 // Criando os Mocks das funções externas
 vi.mock('../utils/navigation', () => ({
