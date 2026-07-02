@@ -24,6 +24,15 @@ describe('LoginPage', () => {
     expect(screen.getByLabelText(/senha/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /entrar/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /esqueci minha senha/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /voltar ao início/i })).toBeInTheDocument();
+  });
+
+  it('volta para a página inicial ao clicar em voltar ao início', async () => {
+    render(<LoginPage />);
+
+    await userEvent.click(screen.getByRole('button', { name: /voltar ao início/i }));
+
+    expect(window.location.pathname).toBe('/');
   });
 
   it('renderiza modo de criação de conta quando solicitado pela ação protegida', () => {
