@@ -33,14 +33,12 @@ export default function Header({ menuOpen, setMenuOpen }) {
             Como ajudar
           </button>
           
-          
           <button type="button" onClick={() => navigateTo('/doacoes')} className="hover:text-emerald-700">
             Doações
           </button>
           <button type="button" onClick={() => navigateTo('/entregas')} className="hover:text-emerald-700">
             Entregas
           </button>
-
 
           <button type="button" onClick={() => navigateTo('/sobre')} className="hover:text-emerald-700">
             Sobre
@@ -98,7 +96,6 @@ export default function Header({ menuOpen, setMenuOpen }) {
               Como ajudar
             </button>
             
-            {/* NOSSO NOVO BOTÃO DE DOAÇÕES NO MOBILE */}
             <button
               type="button"
               onClick={() => {

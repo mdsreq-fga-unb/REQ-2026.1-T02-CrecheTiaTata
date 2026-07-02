@@ -5,7 +5,7 @@ export default function ListarDoacoesPage() {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ESTADO DE ADMIN PARA TESTES DE REQUISITOS (Pode manter no frontend por enquanto)
+  // ESTADO DE ADMIN PARA TESTES DE REQUISITOS
   const [isAdmin, setIsAdmin] = useState(true);
 
   // ESTADOS DO MODAL DE EDIÇÃO
@@ -19,7 +19,6 @@ export default function ListarDoacoesPage() {
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
   const [donorHistory, setDonorHistory] = useState(null);
 
-  // Função para definir as cores da urgência
   const getCorUrgencia = (urgencia) => {
     switch (urgencia?.toLowerCase()) {
       case 'baixa': return 'bg-emerald-50 text-emerald-700 border-emerald-200';
@@ -30,7 +29,6 @@ export default function ListarDoacoesPage() {
     }
   };
 
-  // 1. USEEFFECT REAL - CONECTADO AO BACKEND
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -43,7 +41,7 @@ export default function ListarDoacoesPage() {
         setItems(data);
       } catch (err) {
         console.error("Erro na integração:", err);
-        setItems([]); // Retorna array vazio em caso de erro para não quebrar a Interface
+        setItems([]); 
       } finally {
         setIsLoading(false);
       }
@@ -51,7 +49,6 @@ export default function ListarDoacoesPage() {
     fetchData();
   }, [activeTab]);
 
-  // FUNÇÕES DO MODAL DE EDIÇÃO
   const openEditModal = (item) => {
     setEditingItem(item);
     setFormData(item);
@@ -64,7 +61,6 @@ export default function ListarDoacoesPage() {
     setEditingItem(null);
   };
 
-  // FUNÇÕES DO MODAL DE HISTÓRICO
   const openHistoryModal = (doador) => {
     setDonorHistory(doador);
     setIsHistoryModalOpen(true);
@@ -79,11 +75,9 @@ export default function ListarDoacoesPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 2. FUNÇÃO DE UPDATE REAL - CONECTADA AO BACKEND
   const handleUpdate = async (e) => {
     e.preventDefault();
     
-    // Validações de frontend
     if (activeTab === 'doacoes' && (!formData.item || !formData.quantidade || !formData.categoria)) {
       setStatusMessage({ type: 'error', text: 'Preencha todos os campos da doação!' });
       return;
@@ -101,7 +95,7 @@ export default function ListarDoacoesPage() {
       const endpoint = activeTab === 'doacoes' ? `/doacoes/${editingItem.id}` : `/doadores/${editingItem.id}`;
       
       const response = await fetch(`${apiUrl}${endpoint}`, {
-        method: 'PUT', // Método de atualização
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
@@ -110,10 +104,8 @@ export default function ListarDoacoesPage() {
 
       setStatusMessage({ type: 'success', text: 'Atualizado com sucesso!' });
       
-      // Atualiza a lista na interface sem precisar recarregar a página inteira
       setItems(items.map(item => item.id === editingItem.id ? formData : item));
       
-      // Fecha o modal após 1.5s
       setTimeout(() => closeEditModal(), 1500);
       
     } catch (err) {
@@ -171,14 +163,12 @@ export default function ListarDoacoesPage() {
                 </div>
 
                 <div className="flex gap-3">
-                  {/* BOTÃO VER DOAÇÕES */}
                   <button 
                     onClick={() => activeTab === 'doadores' ? openHistoryModal(item) : null}
                     className="flex-1 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 transition-colors">
                     {activeTab === 'doacoes' ? 'Quero Doar' : 'Ver Doações'}
                   </button>
                   
-                  {/* BOTÃO EDITAR */}
                   {isAdmin && (
                     <button onClick={() => openEditModal(item)} className="flex-1 rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 transition-colors border border-slate-300">
                       Editar
