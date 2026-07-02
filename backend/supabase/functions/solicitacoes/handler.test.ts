@@ -61,7 +61,13 @@ const SOLICITACAO_VALIDA = {
 Deno.test("GET retorna 200 com lista de solicitações", async () => {
   const lista = [
     { id: "sol-1", ...SOLICITACAO_VALIDA, status: "pendente" },
-    { id: "sol-2", titulo: "Voluntários", descricao: "Desc", categoria: "voluntario", status: "pendente" },
+    {
+      id: "sol-2",
+      titulo: "Voluntários",
+      descricao: "Desc",
+      categoria: "voluntario",
+      status: "pendente",
+    },
   ];
   const mock = createMockSupabase({ dbData: lista });
 

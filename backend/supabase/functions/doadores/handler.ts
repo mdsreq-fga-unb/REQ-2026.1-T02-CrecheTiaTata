@@ -57,7 +57,11 @@ async function listarDoadores(
   if (email) query = query.ilike("email", `%${email}%`);
   if (telefone) query = query.ilike("telefone", `%${telefone}%`);
   if (tipo) query = query.eq("tipo", tipo);
-  if (q) query = query.or(`nome.ilike.%${q}%,email.ilike.%${q}%,telefone.ilike.%${q}%`);
+  if (q) {
+    query = query.or(
+      `nome.ilike.%${q}%,email.ilike.%${q}%,telefone.ilike.%${q}%`,
+    );
+  }
 
   const { data, error, count } = await query;
 
@@ -127,7 +131,10 @@ export async function handleDoadores(
     }
 
     if (body.email !== undefined && !validarEmail(body.email)) {
-      return jsonResponse({ error: "E-mail inválido ou domínio não permitido" }, 422);
+      return jsonResponse(
+        { error: "E-mail inválido ou domínio não permitido" },
+        422,
+      );
     }
 
     const { data, error } = await supabase

@@ -27,7 +27,8 @@ function createMockSupabase(
     ) => Promise.resolve(result).then(resolve, reject),
     catch: (reject: (reason: unknown) => unknown) =>
       Promise.resolve(result).catch(reject),
-    finally: (callback: () => void) => Promise.resolve(result).finally(callback),
+    finally: (callback: () => void) =>
+      Promise.resolve(result).finally(callback),
   });
 
   return { from: () => thenableChain };
@@ -73,7 +74,7 @@ Deno.test("RF11 - GET retorna voluntários filtrados por nome", async () => {
 
   const req = new Request("http://localhost/voluntarios?nome=Ana", {
     method: "GET",
-  } );
+  });
   const res = await handleVoluntarios(req, mock);
   const body = await res.json();
 
@@ -95,9 +96,12 @@ Deno.test("RF11 - GET retorna voluntários filtrados por área de atuação", as
 
   const mock = createMockSupabase(voluntarios, null, 1);
 
-  const req = new Request("http://localhost/voluntarios?area_atuacao=logistica", {
-    method: "GET",
-  } );
+  const req = new Request(
+    "http://localhost/voluntarios?area_atuacao=logistica",
+    {
+      method: "GET",
+    },
+  );
   const res = await handleVoluntarios(req, mock);
   const body = await res.json();
 
@@ -112,7 +116,7 @@ Deno.test("RF11 - GET retorna lista vazia quando nenhum voluntário corresponde 
 
   const req = new Request("http://localhost/voluntarios?nome=Inexistente", {
     method: "GET",
-  } );
+  });
   const res = await handleVoluntarios(req, mock);
   const body = await res.json();
 
@@ -126,7 +130,7 @@ Deno.test("RF11 - GET retorna 400 quando limit é inválido", async () => {
 
   const req = new Request("http://localhost/voluntarios?limit=0", {
     method: "GET",
-  } );
+  });
   const res = await handleVoluntarios(req, mock);
 
   assertEquals(res.status, 400);

@@ -29,7 +29,8 @@ function createThenableChain(result: ReturnType<typeof createQueryResult>) {
     ) => Promise.resolve(result).then(resolve, reject),
     catch: (reject: (reason: unknown) => unknown) =>
       Promise.resolve(result).catch(reject),
-    finally: (callback: () => void) => Promise.resolve(result).finally(callback),
+    finally: (callback: () => void) =>
+      Promise.resolve(result).finally(callback),
   });
 
   return thenableChain;
@@ -49,7 +50,8 @@ function createMockSupabase(options: {
         }),
     },
     from: (table: string) => {
-      const results = options.tableResults?.[table] ?? [createQueryResult(null)];
+      const results = options.tableResults?.[table] ??
+        [createQueryResult(null)];
       const result = results.shift() ?? createQueryResult(null);
       return createThenableChain(result);
     },
@@ -76,7 +78,7 @@ Deno.test("RF07 - POST /entregas registra entrega com dados válidos", async () 
 
   const req = new Request("http://localhost/entregas", {
     method: "POST",
-    headers: { ...authHeaders( ), "Content-Type": "application/json" },
+    headers: { ...authHeaders(), "Content-Type": "application/json" },
     body: JSON.stringify({
       item: "Cesta básica",
       quantidade: 3,
@@ -97,7 +99,7 @@ Deno.test("RF07 - POST /entregas retorna 422 quando campos obrigatórios faltam"
 
   const req = new Request("http://localhost/entregas", {
     method: "POST",
-    headers: { ...authHeaders( ), "Content-Type": "application/json" },
+    headers: { ...authHeaders(), "Content-Type": "application/json" },
     body: JSON.stringify({ item: "Cesta básica" }),
   });
 
@@ -111,7 +113,7 @@ Deno.test("RF07 - POST /entregas retorna 422 quando quantidade é inválida", as
 
   const req = new Request("http://localhost/entregas", {
     method: "POST",
-    headers: { ...authHeaders( ), "Content-Type": "application/json" },
+    headers: { ...authHeaders(), "Content-Type": "application/json" },
     body: JSON.stringify({
       item: "Cesta básica",
       quantidade: 0,
@@ -136,7 +138,7 @@ Deno.test("RF07 - POST /entregas sem JWT retorna 401", async () => {
       item: "Cesta básica",
       quantidade: 3,
       data_entrega: "2026-06-15",
-    } ),
+    }),
   });
 
   const res = await handleEntregas(req, mock);
@@ -153,7 +155,7 @@ Deno.test("RF07 - POST /entregas retorna 400 quando banco retorna erro", async (
 
   const req = new Request("http://localhost/entregas", {
     method: "POST",
-    headers: { ...authHeaders( ), "Content-Type": "application/json" },
+    headers: { ...authHeaders(), "Content-Type": "application/json" },
     body: JSON.stringify({
       item: "Cesta básica",
       quantidade: 3,
@@ -172,7 +174,12 @@ Deno.test("RF07 - POST /entregas retorna 400 quando banco retorna erro", async (
 
 Deno.test("RF08 - GET /entregas retorna lista de entregas", async () => {
   const entregas = [
-    { id: "1", item: "Cesta básica", quantidade: 3, data_entrega: "2026-06-15" },
+    {
+      id: "1",
+      item: "Cesta básica",
+      quantidade: 3,
+      data_entrega: "2026-06-15",
+    },
     { id: "2", item: "Leite", quantidade: 10, data_entrega: "2026-06-16" },
   ];
 
@@ -182,7 +189,7 @@ Deno.test("RF08 - GET /entregas retorna lista de entregas", async () => {
 
   const req = new Request("http://localhost/entregas", {
     method: "GET",
-    headers: authHeaders( ),
+    headers: authHeaders(),
   });
 
   const res = await handleEntregas(req, mock);
@@ -195,7 +202,12 @@ Deno.test("RF08 - GET /entregas retorna lista de entregas", async () => {
 
 Deno.test("RF08 - GET /entregas aplica filtros", async () => {
   const entregas = [
-    { id: "1", item: "Cesta básica", quantidade: 3, data_entrega: "2026-06-15" },
+    {
+      id: "1",
+      item: "Cesta básica",
+      quantidade: 3,
+      data_entrega: "2026-06-15",
+    },
   ];
 
   const mock = createMockSupabase({
@@ -204,7 +216,7 @@ Deno.test("RF08 - GET /entregas aplica filtros", async () => {
 
   const req = new Request(
     "http://localhost/entregas?item=Cesta&data_inicio=2026-06-01&data_fim=2026-06-30",
-    { method: "GET", headers: authHeaders( ) },
+    { method: "GET", headers: authHeaders() },
   );
 
   const res = await handleEntregas(req, mock);
@@ -221,7 +233,7 @@ Deno.test("RF08 - GET /entregas retorna lista vazia", async () => {
 
   const req = new Request("http://localhost/entregas", {
     method: "GET",
-    headers: authHeaders( ),
+    headers: authHeaders(),
   });
 
   const res = await handleEntregas(req, mock);
@@ -237,7 +249,7 @@ Deno.test("RF08 - GET /entregas retorna 400 para limit inválido", async () => {
 
   const req = new Request("http://localhost/entregas?limit=0", {
     method: "GET",
-    headers: authHeaders( ),
+    headers: authHeaders(),
   });
 
   const res = await handleEntregas(req, mock);
@@ -254,7 +266,7 @@ Deno.test("RF08 - GET /entregas retorna 400 quando banco retorna erro", async ()
 
   const req = new Request("http://localhost/entregas", {
     method: "GET",
-    headers: authHeaders( ),
+    headers: authHeaders(),
   });
 
   const res = await handleEntregas(req, mock);

@@ -103,7 +103,11 @@ async function listarEntregas(
   if (destinatario) query = query.ilike("destinatario", `%${destinatario}%`);
   if (dataInicio) query = query.gte("data_entrega", dataInicio);
   if (dataFim) query = query.lte("data_entrega", dataFim);
-  if (q) query = query.or(`item.ilike.%${q}%,destinatario.ilike.%${q}%,observacoes.ilike.%${q}%`);
+  if (q) {
+    query = query.or(
+      `item.ilike.%${q}%,destinatario.ilike.%${q}%,observacoes.ilike.%${q}%`,
+    );
+  }
 
   const { data, error, count } = await query;
 

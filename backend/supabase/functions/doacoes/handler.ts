@@ -199,7 +199,10 @@ export async function handleDoacoes(
     }
 
     if (!body.tipo || !body.descricao) {
-      return jsonResponse({ error: "Campos obrigatórios: tipo, descricao" }, 422);
+      return jsonResponse(
+        { error: "Campos obrigatórios: tipo, descricao" },
+        422,
+      );
     }
 
     if (!TIPOS_DOACAO.includes(body.tipo)) {
@@ -212,7 +215,9 @@ export async function handleDoacoes(
         !Number.isInteger(body.quantidade) ||
         body.quantidade <= 0
       ) {
-        return jsonResponse({ error: "Quantidade deve ser um inteiro maior que zero" }, 422);
+        return jsonResponse({
+          error: "Quantidade deve ser um inteiro maior que zero",
+        }, 422);
       }
     }
 

@@ -55,18 +55,23 @@ function createMockSupabase(options: {
     auth: {
       getUser: () =>
         Promise.resolve({
-          data: { user: options.authUser !== undefined ? options.authUser : MOCK_USER },
+          data: {
+            user: options.authUser !== undefined ? options.authUser : MOCK_USER,
+          },
           error: options.authError ?? null,
         }),
     },
     from: (table: string) => {
       tableCalls.push(table);
-      
+
       if (options.dbData !== undefined || options.dbError !== undefined) {
-        return createThenableChain(createQueryResult(options.dbData, options.dbError));
+        return createThenableChain(
+          createQueryResult(options.dbData, options.dbError),
+        );
       }
-      
-      const results = options.tableResults?.[table] ?? [createQueryResult(null)];
+
+      const results = options.tableResults?.[table] ??
+        [createQueryResult(null)];
       const result = results.shift() ?? createQueryResult(null);
       return createThenableChain(result);
     },
@@ -99,7 +104,7 @@ Deno.test("POST registra doação com dados válidos", async () => {
 
   const req = reqComToken("http://localhost/doacoes", {
     method: "POST",
-    body: JSON.stringify(DOACAO_VALIDA ),
+    body: JSON.stringify(DOACAO_VALIDA),
   });
   const res = await handleDoacoes(req, mock);
 
@@ -115,7 +120,7 @@ Deno.test("POST retorna 401 sem JWT", async () => {
   const req = new Request("http://localhost/doacoes", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(DOACAO_VALIDA ),
+    body: JSON.stringify(DOACAO_VALIDA),
   });
   const res = await handleDoacoes(req, mock);
 
@@ -134,7 +139,7 @@ Deno.test("GET /doacoes retorna lista de doações", async () => {
     tableResults: { doacoes: [createQueryResult(doacoes, null, 2)] },
   });
 
-  const req = reqComToken("http://localhost/doacoes", { method: "GET" } );
+  const req = reqComToken("http://localhost/doacoes", { method: "GET" });
   const res = await handleDoacoes(req, mock);
   const body = await res.json();
 
@@ -148,7 +153,7 @@ Deno.test("GET /doacoes retorna lista vazia quando não há resultados", async (
     tableResults: { doacoes: [createQueryResult([], null, 0)] },
   });
 
-  const req = reqComToken("http://localhost/doacoes", { method: "GET" } );
+  const req = reqComToken("http://localhost/doacoes", { method: "GET" });
   const res = await handleDoacoes(req, mock);
   const body = await res.json();
 
@@ -175,7 +180,7 @@ Deno.test("PUT /doacoes atualiza doação e registra histórico", async () => {
 
   const req = reqComToken("http://localhost/doacoes?id=1", {
     method: "PUT",
-    body: JSON.stringify({ quantidade: 20 } ),
+    body: JSON.stringify({ quantidade: 20 }),
   });
 
   const res = await handleDoacoes(req, mock);
@@ -191,7 +196,7 @@ Deno.test("PUT /doacoes sem id retorna 400", async () => {
 
   const req = reqComToken("http://localhost/doacoes", {
     method: "PUT",
-    body: JSON.stringify({ quantidade: 20 } ),
+    body: JSON.stringify({ quantidade: 20 }),
   });
 
   const res = await handleDoacoes(req, mock);

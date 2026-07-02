@@ -50,16 +50,21 @@ function createMockSupabase(options: {
     auth: {
       getUser: () =>
         Promise.resolve({
-          data: { user: options.authUser !== undefined ? options.authUser : MOCK_USER },
+          data: {
+            user: options.authUser !== undefined ? options.authUser : MOCK_USER,
+          },
           error: options.authError ?? null,
         }),
     },
     from: (table: string) => {
       if (options.dbData !== undefined || options.dbError !== undefined) {
-        return createThenableChain(createQueryResult(options.dbData, options.dbError));
+        return createThenableChain(
+          createQueryResult(options.dbData, options.dbError),
+        );
       }
-      
-      const results = options.tableResults?.[table] ?? [createQueryResult(null)];
+
+      const results = options.tableResults?.[table] ??
+        [createQueryResult(null)];
       const result = results.shift() ?? createQueryResult(null);
       return createThenableChain(result);
     },
@@ -92,7 +97,7 @@ Deno.test("POST registra doador com dados válidos", async () => {
 
   const req = reqComToken("http://localhost/doadores", {
     method: "POST",
-    body: JSON.stringify(DOADOR_VALIDO ),
+    body: JSON.stringify(DOADOR_VALIDO),
   });
   const res = await handleDoadores(req, mock);
 
@@ -105,7 +110,7 @@ Deno.test("POST retorna 401 sem JWT", async () => {
   const req = new Request("http://localhost/doadores", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(DOADOR_VALIDO ),
+    body: JSON.stringify(DOADOR_VALIDO),
   });
   const res = await handleDoadores(req, mock);
 
@@ -124,7 +129,7 @@ Deno.test("GET /doadores retorna lista de doadores", async () => {
     tableResults: { doadores: [createQueryResult(doadores, null, 2)] },
   });
 
-  const req = reqComToken("http://localhost/doadores", { method: "GET" } );
+  const req = reqComToken("http://localhost/doadores", { method: "GET" });
   const res = await handleDoadores(req, mock);
   const body = await res.json();
 
@@ -140,7 +145,10 @@ Deno.test("GET /doadores aplica filtros", async () => {
     tableResults: { doadores: [createQueryResult(doadores, null, 1)] },
   });
 
-  const req = reqComToken("http://localhost/doadores?nome=Maria&tipo=pessoa_fisica", { method: "GET" } );
+  const req = reqComToken(
+    "http://localhost/doadores?nome=Maria&tipo=pessoa_fisica",
+    { method: "GET" },
+  );
   const res = await handleDoadores(req, mock);
   const body = await res.json();
 
@@ -162,7 +170,10 @@ Deno.test("GET /doadores retorna histórico de contribuições quando solicitado
     },
   });
 
-  const req = reqComToken("http://localhost/doadores?id=1&incluir_historico=true", { method: "GET" } );
+  const req = reqComToken(
+    "http://localhost/doadores?id=1&incluir_historico=true",
+    { method: "GET" },
+  );
   const res = await handleDoadores(req, mock);
   const body = await res.json();
 
