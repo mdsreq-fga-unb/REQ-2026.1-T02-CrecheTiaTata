@@ -18,6 +18,7 @@ import { isAuthTokenValid } from "./utils/authStorage";
 // NOVO:
 import AtualizarPerfilPage from "./pages/AtualizarPerfilPage";
 import VoluntariosPage from "./pages/voluntarios";
+import ListarDoacoesPage from "./pages/ListarDoacoesPage";
 
 function App() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -41,6 +42,7 @@ function App() {
     const isVoluntariosPage = path === "/voluntarios";
     const isNecessidadesPage = path === "/necessidades";
     const isDoarPage = path === "/doar";
+    const isDoacoesPage = path === "/doacoes";
 
     const isHomePage =
         !isSobrePage &&
@@ -53,7 +55,8 @@ function App() {
         !isSolicitacoesPage &&
         !isVoluntariosPage &&
         !isNecessidadesPage &&
-        !isDoarPage;
+        !isDoarPage &&
+        !isDoacoesPage;
 
     return (
         <main className="min-h-screen bg-stone-50 font-sans text-slate-900">
@@ -76,6 +79,7 @@ function App() {
             {isVoluntariosPage && <VoluntariosPage />}
             {isNecessidadesPage && <NecessidadesPage />}
             {isDoarPage && <DoarPage />}
+            {isDoacoesPage && <ListarDoacoesPage />}
             {isPerfilPage &&
                 (isAuthTokenValid() ? <AtualizarPerfilPage /> : <LoginPage />)}
             {isHomePage && <HomePage />}
