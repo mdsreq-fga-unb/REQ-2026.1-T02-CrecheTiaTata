@@ -1,61 +1,62 @@
 ---
-sidebar_label: "Backlog de Produto"
+sidebar_label: "Lista de Itens de Trabalho"
 sidebar_position: 10
-description: Backlog de produto com priorização e MVP do sistema da Creche da Tia Tata.
+description: Lista de Itens de Trabalho com priorização e MVP do sistema da Creche da Tia Tata.
 ---
 
-# Backlog de Produto
+# Lista de Itens de Trabalho
 
-Esta seção descreve o backlog de produto do sistema da Creche da Tia Tata, contendo a lista priorizada de todas as funcionalidades planejadas, bem como a definição do Produto Mínimo Viável (MVP).
+No contexto do **OpenUP**, o artefato equivalente ao backlog de metodologias ágeis é a **Lista de Itens de Trabalho (Work Items List)**. Ela contém todos os itens de trabalho priorizados que guiam o desenvolvimento ao longo das iterações, servindo como referência para o planejamento de cada ciclo.
 
-## 10.1 Backlog Geral
+## 10.1 Itens de Trabalho {#itens-de-trabalho}
 
-O backlog geral contém todas as funcionalidades planejadas para o sistema, organizadas com suas respectivas user stories e requisitos não funcionais relacionados.
+A Lista de Itens de Trabalho contém todos os itens planejados para o sistema, descritos no formato OpenUP com a descrição direta do comportamento esperado. Rastreabilidade com RNFs e OEs disponível no [Fluxograma de Requisitos](./g-fluxograma-requisitos) e em [Verificação dos RNFs](../evidencias/Verificacao-RNFs).
 
-| Requisito Funcional | User Story Derivada | RNFs Relacionados |
-|---|---|---|
-| **RF-01** – Autenticar Administrador | Como administrador, quero fazer login no sistema para acessar funcionalidades de gestão. | RNF-08 (Bloqueio sem login), RNF-09 (bcrypt+AES), RNF-12 (Expiração de sessão), RNF-13 (Feedback) |
-| **RF-02** – Registrar Doação | Como administrador, quero registrar doações recebidas para manter controle do que foi doado. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-03** – Listar Doações | Como administrador, quero listar todas as doações para consultar histórico de contribuições. | RNF-01 (Resposta 3s), RNF-03 (50 usuários), RNF-07 (Interface intuitiva) |
-| **RF-04** – Editar Doação | Como administrador, quero editar registros de doação para corrigir informações incorretas. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-05** – Registrar Doador | Como administrador, quero registrar doadores para manter base de apoiadores da creche. | RNF-01 (Resposta 3s), RNF-05 (Confirmação), RNF-10 (Logs) |
-| **RF-06** – Listar Doadores | Como administrador, quero listar doadores cadastrados para consultar e gerenciar apoiadores. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **RF-07** – Registrar Entrega | Como administrador, quero registrar entregas de doações para rastrear o que foi distribuído. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-08** – Listar Entregas | Como administrador, quero listar entregas realizadas para acompanhar distribuição de doações. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **RF-09** – Registrar Voluntário | Como administrador, quero registrar voluntários para gerenciar quem apoia atividades da creche. | RNF-01, RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-10** – Listar Voluntários | Como administrador, quero listar voluntários cadastrados para visualizar e gerenciar equipe de apoio. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **RF-11** – Registrar Disponibilidade | Como administrador, quero registrar disponibilidade dos voluntários para planejar escalas. | RNF-01, RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **RF-12** – Editar Disponibilidade | Como administrador, quero editar disponibilidade de voluntários para manter informações atualizadas. | RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **RF-13** – Gerar Escala | Como administrador, quero gerar escala de voluntários para organizar atividades da creche. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva), RNF-13 (Feedback) |
-| **RF-14** – Registrar Evento | Como administrador, quero registrar eventos para organizar e planejar atividades da creche. | RNF-01, RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-15** – Listar Eventos | Como administrador, quero listar eventos cadastrados para acompanhar agenda da creche. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **RF-16** – Associar Voluntário a Evento | Como administrador, quero associar voluntários a eventos para garantir cobertura das atividades. | RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **RF-17** – Registrar Recursos por Evento | Como administrador, quero registrar recursos necessários por evento para controlar o que é preciso em cada atividade. | RNF-01, RNF-05 (Confirmação), RNF-10 (Logs) |
-| **RF-18** – Resumo de Recursos por Evento | Como administrador, quero visualizar resumo de recursos por evento para ter visão consolidada das necessidades. | RNF-01 (Resposta 3s), RNF-07 (Interface intuitiva) |
-| **RF-19** – Página Institucional Pública | Como visitante, quero acessar informações institucionais da creche para conhecer projeto e missão. | RNF-02 (Carregamento 5s), RNF-04 (Disponibilidade), RNF-11 (Padrões web), RNF-14 (Contato visível) |
-| **RF-20** – Publicar Solicitação de Apoio | Como administrador, quero publicar solicitações de apoio para divulgar necessidades da creche ao público. | RNF-04 (Disponibilidade), RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-21** – Listar Solicitações | Como visitante, quero listar solicitações de apoio para visualizar necessidades atuais da creche. | RNF-02 (Carregamento 5s), RNF-04 (Disponibilidade), RNF-07 (Interface), RNF-14 (Doações visíveis) |
-| **RF-22** – Excluir Voluntário | Como administrador, quero excluir voluntário do sistema para remover quem não atua mais na creche. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-23** – Desalocar Voluntário | Como administrador, quero desalocar voluntário de evento para ajustar escala conforme necessidade. | RNF-05 (Confirmação), RNF-13 (Feedback) |
-| **RF-24** – Editar Voluntário | Como administrador, quero editar dados de voluntários para manter cadastro atualizado. | RNF-05 (Confirmação), RNF-10 (Logs), RNF-13 (Feedback) |
-| **RF-25** – Histórico do Voluntário | Como administrador, quero visualizar histórico de atividades do voluntário para acompanhar sua participação. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
-| **RF-26** – Relatório de Participação | Como administrador, quero gerar relatório de participação para avaliar engajamento da equipe de voluntários. | RNF-01 (Resposta 3s), RNF-07 (Interface), RNF-10 (Logs) |
+| ID | Item de Trabalho | Caso de Uso | Descrição do Item de Trabalho |
+|---|---|---|---|
+| **IT-01** | Autenticar Administrador | [UC-01](./k-casos-de-uso#uc-01--autenticar-no-sistema) | O sistema deve permitir que o administrador acesse a área restrita mediante autenticação com credenciais (e-mail e senha). |
+| **IT-27** | Login de Usuário | [UC-01](./k-casos-de-uso#uc-01--autenticar-no-sistema) | O sistema deve permitir que usuários cadastrados (doadores, voluntários e administradores) realizem autenticação por e-mail e senha para acessar funcionalidades do seu perfil. |
+| **IT-02** | Registrar Doação | [UC-02](./k-casos-de-uso#uc-02--gerenciar-doações) | O sistema deve permitir o registro de doações recebidas, incluindo tipo, quantidade e data, para controle de contribuições. |
+| **IT-03** | Listar Doações | [UC-02](./k-casos-de-uso#uc-02--gerenciar-doações) | O sistema deve exibir a lista de todas as doações registradas, permitindo consulta do histórico de contribuições. |
+| **IT-04** | Editar Doação | [UC-02](./k-casos-de-uso#uc-02--gerenciar-doações) | O sistema deve permitir a edição de registros de doação para correção de informações incorretas. |
+| **IT-05** | Registrar Doador | [UC-03](./k-casos-de-uso#uc-03--gerenciar-doadores) | O sistema deve permitir o cadastro de doadores para manutenção da base de apoiadores da creche. |
+| **IT-06** | Listar Doadores | [UC-03](./k-casos-de-uso#uc-03--gerenciar-doadores) | O sistema deve exibir a lista de doadores cadastrados para consulta e gerenciamento dos apoiadores. |
+| **IT-07** | Registrar Entrega | [UC-04](./k-casos-de-uso#uc-04--gerenciar-entregas) | O sistema deve permitir o registro de entregas realizadas para rastreamento da distribuição de doações. |
+| **IT-08** | Listar Entregas | [UC-04](./k-casos-de-uso#uc-04--gerenciar-entregas) | O sistema deve exibir a lista de entregas realizadas para acompanhamento da distribuição de doações. |
+| **IT-09** | Registrar Voluntário | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve permitir o cadastro de voluntários para gerenciamento de quem apoia as atividades da creche. |
+| **IT-10** | Listar Voluntários | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve exibir a lista de voluntários cadastrados para visualização e gerenciamento da equipe de apoio. |
+| **IT-11** | Registrar Disponibilidade | [UC-06](./k-casos-de-uso#uc-06--gerenciar-disponibilidade-e-escala) | O sistema deve permitir o registro da disponibilidade de horários dos voluntários para planejamento de escalas. |
+| **IT-12** | Editar Disponibilidade | [UC-06](./k-casos-de-uso#uc-06--gerenciar-disponibilidade-e-escala) | O sistema deve permitir a edição da disponibilidade de voluntários para manutenção de informações atualizadas. |
+| **IT-13** | Gerar Escala | [UC-06](./k-casos-de-uso#uc-06--gerenciar-disponibilidade-e-escala) | O sistema deve gerar escalas de voluntários com base nas disponibilidades registradas para organização das atividades. |
+| **IT-14** | Registrar Evento | [UC-07](./k-casos-de-uso#uc-07--gerenciar-eventos) | O sistema deve permitir o registro de eventos para planejamento e organização das atividades da creche. |
+| **IT-15** | Listar Eventos | [UC-07](./k-casos-de-uso#uc-07--gerenciar-eventos) | O sistema deve exibir a lista de eventos cadastrados para acompanhamento da agenda da creche. |
+| **IT-16** | Associar Voluntário a Evento | [UC-07](./k-casos-de-uso#uc-07--gerenciar-eventos) | O sistema deve permitir a associação de voluntários a eventos para garantir cobertura das atividades planejadas. |
+| **IT-17** | Registrar Recursos por Evento | [UC-07](./k-casos-de-uso#uc-07--gerenciar-eventos) | O sistema deve permitir o registro de recursos necessários por evento para controle do que é preciso em cada atividade. |
+| **IT-18** | Resumo de Recursos por Evento | [UC-07](./k-casos-de-uso#uc-07--gerenciar-eventos) | O sistema deve exibir um resumo consolidado de recursos por evento para visão geral das necessidades. |
+| **IT-19** | Página Institucional Pública | [UC-08](./k-casos-de-uso#uc-08--acessar-página-institucional) | O sistema deve disponibilizar uma página pública com informações institucionais da creche, sua missão e formas de contato, acessível sem autenticação. |
+| **IT-20** | Publicar Solicitação de Apoio | [UC-09](./k-casos-de-uso#uc-09--publicar-solicitação-de-apoio) | O sistema deve permitir que o administrador publique solicitações de apoio para divulgar necessidades da creche ao público externo. |
+| **IT-21** | Listar Solicitações de Apoio | [UC-10](./k-casos-de-uso#uc-10--visualizar-solicitações-de-apoio) | O sistema deve exibir publicamente a lista de solicitações de apoio ativas para que visitantes visualizem as necessidades atuais da creche. |
+| **IT-22** | Excluir Voluntário | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve permitir a exclusão de voluntários que não atuam mais na creche, com confirmação obrigatória antes da remoção. |
+| **IT-23** | Desalocar Voluntário de Evento | [UC-06](./k-casos-de-uso#uc-06--gerenciar-disponibilidade-e-escala) | O sistema deve permitir a desalocação de voluntários de eventos para ajuste de escala conforme necessidade operacional. |
+| **IT-24** | Editar Voluntário | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve permitir a edição de dados de voluntários para manutenção do cadastro atualizado. |
+| **IT-25** | Histórico do Voluntário | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve exibir o histórico de participação do voluntário em atividades da creche para acompanhamento de seu engajamento. |
+| **IT-26** | Relatório de Participação | [UC-05](./k-casos-de-uso#uc-05--gerenciar-voluntários) | O sistema deve gerar relatório consolidado de participação dos voluntários para avaliação do engajamento da equipe de apoio. |
 
-## 10.2 Priorização do Backlog Geral e MVP
+## 10.2 Priorização da Lista de Itens de Trabalho {#priorizacao}
 
-A priorização foi realizada com base em dois critérios: **Dificuldade (D)** e **Importância (I)**, permitindo identificar quais funcionalidades são essenciais para o lançamento do MVP e quais podem ser desenvolvidas posteriormente.
+A priorização foi realizada com base em dois critérios: **Importância (I)** e **Dificuldade (D)**, posicionando cada Caso de Uso em uma matriz de quadrantes para identificar a ordem de desenvolvimento.
 
-O MVP representa o conjunto mínimo de funcionalidades que permite que o sistema seja utilizado pela coordenação da creche, focando nos recursos essenciais para validar as principais hipóteses de valor do projeto.
+**Escala de Dificuldade (D)** — dias de trabalho de 3h com base no DoD:
+- 1 = 1 a 5 dias · 2 = 5 a 14 dias · 3 = 14+ dias
 
-![Board MVP do projeto](/img/mvp-board.png)
+**Escala de Importância (I):** 1 = sem relação · 2 = baixo impacto · 3 = impacta · 4 = essencial
 
-**DIFICULDADE** (dias de 3h de trabalho):
-- 1 = 1 a 5 dias para conclusão com base no DoD
-- 2 = 5 a 14 dias para conclusão com base no DoD
-- 3 = 14+ dias para conclusão com base no DoD
+O **Índice de Prioridade (IP = I / D)** ordena os itens dentro de cada quadrante.
 
-**IMPORTÂNCIA:**
-- 1 = Não relacionado ao problema central
-- 2 = Baixo impacto no problema
-- 3 = Impacta o problema
-- 4 = Essencial na solução
+<iframe src="/REQ-2026.1-T02-CrecheTiaTata/unidade3/priorizacao.html" width="100%" height="740" style={{border:'none',borderRadius:'8px',display:'block'}} title="Matriz de Priorização por Quadrantes"></iframe>
+
+## 10.3 Produto Mínimo Viável (MVP) {#mvp}
+
+O MVP contempla os Itens de Trabalho que permitem a operação básica da creche — autenticação, gestão de doações, doadores, entregas, voluntários e captação digital. Cada card referencia o Caso de Uso correspondente.
+
+<iframe src="/REQ-2026.1-T02-CrecheTiaTata/unidade3/mvp.html" width="100%" height="620" style={{border:'none',borderRadius:'8px',display:'block'}} title="Board MVP"></iframe>

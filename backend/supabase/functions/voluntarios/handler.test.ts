@@ -4,28 +4,31 @@ import { handleVoluntarios } from "./handler.ts";
 function createMockSupabase(
   data: unknown,
   error: { message: string } | null = null,
+  count: number | null = null,
 ) {
-  const result = { data, error };
+  const result = { data, error, count };
 
-  const chain: Record<string, unknown> = {
+  const thenableChain: Record<string, unknown> = {};
+
+  Object.assign(thenableChain, {
     select: () => thenableChain,
-    insert: () => chain,
-    update: () => chain,
+    insert: () => thenableChain,
+    update: () => thenableChain,
     delete: () => thenableChain,
     eq: () => thenableChain,
+    ilike: () => thenableChain,
+    or: () => thenableChain,
+    order: () => thenableChain,
+    range: () => thenableChain,
     single: () => Promise.resolve(result),
-  };
-
-  const thenableChain = {
-    ...chain,
     then: (
-      resolve: (v: typeof result) => unknown,
-      reject?: (e: unknown) => unknown,
+      resolve: (value: typeof result) => unknown,
+      reject?: (reason: unknown) => unknown,
     ) => Promise.resolve(result).then(resolve, reject),
-    catch: (reject: (e: unknown) => unknown) =>
+    catch: (reject: (reason: unknown) => unknown) =>
       Promise.resolve(result).catch(reject),
-    finally: (fn: () => void) => Promise.resolve(result).finally(fn),
-  };
+    finally: (callback: () => void) => Promise.resolve(result).finally(callback),
+  });
 
   return { from: () => thenableChain };
 }
@@ -37,13 +40,13 @@ Deno.test("GET retorna lista de voluntários", async () => {
     { id: "1", nome: "Ana", email: "ana@email.com", telefone: "61999999999" },
     { id: "2", nome: "Bruno", email: "bruno@email.com", telefone: null },
   ];
-  const mock = createMockSupabase(voluntarios);
+  const mock = createMockSupabase(voluntarios, null, 2);
 
   const req = new Request("http://localhost/voluntarios", { method: "GET" });
   const res = await handleVoluntarios(req, mock);
 
   assertEquals(res.status, 200);
-  assertEquals(await res.json(), voluntarios);
+  assertEquals(await res.json(), { data: voluntarios, count: 2 });
 });
 
 Deno.test("GET retorna 400 quando banco retorna erro", async () => {
@@ -56,6 +59,79 @@ Deno.test("GET retorna 400 quando banco retorna erro", async () => {
   assertEquals((await res.json()).error, "Erro de conexão");
 });
 
+Deno.test("RF11 - GET retorna voluntários filtrados por nome", async () => {
+  const voluntarios = [
+    {
+      id: "1",
+      nome: "Ana",
+      email: "ana@email.com",
+      area_atuacao: "educacao",
+    },
+  ];
+
+  const mock = createMockSupabase(voluntarios, null, 1);
+
+  const req = new Request("http://localhost/voluntarios?nome=Ana", {
+    method: "GET",
+  } );
+  const res = await handleVoluntarios(req, mock);
+  const body = await res.json();
+
+  assertEquals(res.status, 200);
+  assertEquals(body.data.length, 1);
+  assertEquals(body.data[0].nome, "Ana");
+  assertEquals(body.count, 1);
+});
+
+Deno.test("RF11 - GET retorna voluntários filtrados por área de atuação", async () => {
+  const voluntarios = [
+    {
+      id: "2",
+      nome: "Bruno",
+      email: "bruno@email.com",
+      area_atuacao: "logistica",
+    },
+  ];
+
+  const mock = createMockSupabase(voluntarios, null, 1);
+
+  const req = new Request("http://localhost/voluntarios?area_atuacao=logistica", {
+    method: "GET",
+  } );
+  const res = await handleVoluntarios(req, mock);
+  const body = await res.json();
+
+  assertEquals(res.status, 200);
+  assertEquals(body.data.length, 1);
+  assertEquals(body.data[0].area_atuacao, "logistica");
+  assertEquals(body.count, 1);
+});
+
+Deno.test("RF11 - GET retorna lista vazia quando nenhum voluntário corresponde aos filtros", async () => {
+  const mock = createMockSupabase([], null, 0);
+
+  const req = new Request("http://localhost/voluntarios?nome=Inexistente", {
+    method: "GET",
+  } );
+  const res = await handleVoluntarios(req, mock);
+  const body = await res.json();
+
+  assertEquals(res.status, 200);
+  assertEquals(body.data, []);
+  assertEquals(body.count, 0);
+});
+
+Deno.test("RF11 - GET retorna 400 quando limit é inválido", async () => {
+  const mock = createMockSupabase(null);
+
+  const req = new Request("http://localhost/voluntarios?limit=0", {
+    method: "GET",
+  } );
+  const res = await handleVoluntarios(req, mock);
+
+  assertEquals(res.status, 400);
+});
+
 // POST
 
 Deno.test("POST cria voluntário com dados válidos", async () => {
@@ -65,7 +141,7 @@ Deno.test("POST cria voluntário com dados válidos", async () => {
   const req = new Request("http://localhost/voluntarios", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ nome: "Carlos", email: "carlos@email.com" }),
+    body: JSON.stringify({ nome: "Carlos", email: "carlos@ema il.com" }),
   });
   const res = await handleVoluntarios(req, mock);
 

@@ -77,25 +77,14 @@ export async function handleUsuarios(
       .eq("id", data.user.id)
       .single();
 
-    if (!perfil || perfil.papel !== "admin") {
-      return new Response(
-        JSON.stringify({
-          autenticado: false,
-          error: "Acesso restrito a administradores",
-        }),
-        {
-          status: 403,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        },
-      );
-    }
+    const papel = perfil?.papel ?? "usuario";
 
     return new Response(
       JSON.stringify({
         autenticado: true,
         token: data.session.access_token,
-        usuario: { id: data.user.id, email: data.user.email, papel: perfil.papel },
-        user: { id: data.user.id, email: data.user.email, papel: perfil.papel },
+        usuario: { id: data.user.id, email: data.user.email, papel },
+        user: { id: data.user.id, email: data.user.email, papel },
       }),
       {
         status: 200,
@@ -167,7 +156,6 @@ export async function handleUsuarios(
       telefone?: string;
       disponibilidade?: string;
       acoes_preferencia?: string[];
-      papel?: "admin" | "usuario";
     };
     try {
       body = await req.json();
@@ -198,8 +186,8 @@ export async function handleUsuarios(
       );
     }
 
-    const { data: authData, error: authError } =
-      await supabase.auth.admin.createUser({
+    const { data: authData, error: authError } = await supabase.auth.admin
+      .createUser({
         email: body.email,
         password: body.password,
         email_confirm: true,
@@ -221,7 +209,7 @@ export async function handleUsuarios(
         telefone: body.telefone,
         disponibilidade: body.disponibilidade,
         acoes_preferencia: body.acoes_preferencia,
-        papel: body.papel ?? "admin",
+        papel: "usuario",
       })
       .select("id, nome, email, telefone, disponibilidade, papel")
       .single();
@@ -282,7 +270,9 @@ export async function handleUsuarios(
       });
     }
 
-    const { password, ...perfil } = body;
+    // papel é descartado: alteração de papel não pode vir deste endpoint
+    // (evita escalada de privilégio por auto-promoção a admin).
+    const { password, papel: _papelIgnorado, ...perfil } = body;
 
     const { data: alvo, error: alvoError } = await supabase
       .from("usuarios")
